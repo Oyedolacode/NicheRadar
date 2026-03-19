@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { scoreInfo } from '../lib/formulas'
+import { useAppStore } from '../store/useAppStore'
 import { useBookmarkStore } from '../store/useBookmarkStore'
 
 export default function Dashboard() {
