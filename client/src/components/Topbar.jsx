@@ -40,7 +40,7 @@ export default function Topbar() {
             height: 'var(--topbar-h)',
             background: 'var(--glass)',
             backdropFilter: 'blur(30px)',
-            webkitBackdropFilter: 'blur(30px)',
+            WebkitBackdropFilter: 'blur(30px)',
             borderRadius: 'var(--r3)',
             border: '1px solid var(--border)',
             display: 'flex',
@@ -63,22 +63,22 @@ export default function Topbar() {
                 <div className="h-stack" style={{ gap: 'var(--s4)' }}>
                     <div className="card" style={{ padding: '10px 20px', borderRadius: 'var(--rl)', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', boxShadow: 'none' }}>
                         <div className="h-stack" style={{ gap: 10 }}>
-                            <div style={{ 
-                                width: 8, height: 8, borderRadius: '50%', 
-                                background: 'var(--accent)', 
+                            <div style={{
+                                width: 8, height: 8, borderRadius: '50%',
+                                background: 'var(--accent)',
                                 boxShadow: '0 0 12px var(--accent)',
                                 animation: loading ? 'pulse 1.5s infinite' : 'none'
-                             }} />
+                            }} />
                             <span style={{ fontSize: 11, fontFamily: 'var(--fm)', fontWeight: 800, color: 'var(--accent)' }}>
                                 {loading ? 'SYNCHRONIZING...' : 'SYSTEM: NOMINAL'}
                             </span>
                         </div>
                     </div>
-                    
+
                     <div className="v-stack" style={{ gap: 4, minWidth: 100 }}>
                         <div style={{ fontSize: 9, color: 'var(--dim)', fontWeight: 800, textAlign: 'right' }}>QUOTA: {quotaUsed.toLocaleString()}</div>
                         <div style={{ height: 4, width: '100%', background: 'var(--border)', borderRadius: 2, overflow: 'hidden' }}>
-                            <div style={{ height: '100%', width: `${Math.min(100, (quotaUsed/10000)*100)}%`, background: 'var(--accent-grad)', transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)' }} />
+                            <div style={{ height: '100%', width: `${Math.min(100, (quotaUsed / 10000) * 100)}%`, background: 'var(--accent-grad)', transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)' }} />
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@ export default function Topbar() {
                     </button>
                 </div>
             </div>
-            
+
             <style>{`
                 @keyframes pulse {
                     0% { transform: scale(1); opacity: 1; }

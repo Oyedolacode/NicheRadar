@@ -11,14 +11,14 @@
   --elevated: #101e2e;
   --hover: #162638;
   --border: #1a2e45;
-  
+
   /* ── Accents & State ────────────────────── */
   --accent: #00e5cc;
   --adim: rgba(0, 229, 204, .1);
   --aglow: rgba(0, 229, 204, .2);
   --hot: #ff5c35;
   --hdim: rgba(255, 92, 53, .1);
-  
+
   /* ── Semantic Colors ────────────────────── */
   --text: #c8e4ff;
   --muted: #4d7d9e;
@@ -29,24 +29,40 @@
   --purple: #b57aff;
   --blue: #4d9fff;
   --orange: #ff9f43;
-  
+
   /* ── Typography (v5 System) ───────────────── */
   --fd: 'Syne', sans-serif;
   --fm: 'JetBrains Mono', monospace;
   --fb: 'Epilogue', sans-serif;
-  
+
   /* ── Geometry ─────────────────────────────── */
   --r: 7px;
   --rl: 12px;
-  
+
   /* ── Layout Constants ─────────────────────── */
   --sidebar-w: 228px;
   --topbar-h: 64px;
+
+  --glass: rgba(10, 18, 28, 0.85);
+  --r2: 10px;
+  --r3: 14px;
+  --s4: 16px;
+  --s6: 24px;
+  --shadow-l: 0 8px 32px rgba(0, 0, 0, .4);
+  --accent-grad: linear-gradient(90deg, #00e5cc, #00b8a9);
 }
 
 /* ── Global Reset & Body Styles ── */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -60,7 +76,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: 
+  background-image:
     radial-gradient(ellipse 80% 50% at 50% -5%, rgba(0, 229, 204, .04) 0%, transparent 65%),
     linear-gradient(rgba(0, 229, 204, .014) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 229, 204, .014) 1px, transparent 1px);
@@ -70,13 +86,68 @@ body::before {
 }
 
 /* ── Global Animations ── */
-@keyframes blink { 0%, 100% { opacity: 1 } 50% { opacity: .35 } }
-@keyframes fi { from { opacity: 0; transform: translateY(5px) } to { opacity: 1; transform: none } }
-@keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: .5 } }
-@keyframes spin { to { transform: rotate(360deg) } }
-@keyframes shim { 0% { background-position: -200% 0 } 100% { background-position: 200% 0 } }
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: .35
+  }
+}
+
+@keyframes fi {
+  from {
+    opacity: 0;
+    transform: translateY(5px)
+  }
+
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: .5
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes shim {
+  0% {
+    background-position: -200% 0
+  }
+
+  100% {
+    background-position: 200% 0
+  }
+}
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}

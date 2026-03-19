@@ -66,16 +66,31 @@ export const fmtP = n => (n * 100).toFixed(2) + '%';
 export const esc = s => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 // ── API Core ──
+const PROXY_BASE = import.meta.env.VITE_API_BASE; // e.g. https://server.railway.app
+
 export async function ytGet(ep, params, ck) {
   if (ck) {
     const h = cGet(ck);
     if (h) return h;
   }
-  const url = BASE + '/' + ep + '?' + new URLSearchParams({ ...params, key: YT_KEY });
+
+  let url;
+  if (PROXY_BASE) {
+    // Call via Server Proxy (Secure)
+    url = PROXY_BASE + '/api/youtube/' + ep + '?' + new URLSearchParams(params);
+  } else {
+    // Call Direct (Requires VITE_YT_API_KEY)
+    if (!YT_KEY) {
+      console.warn('VITE_YT_API_KEY missing. Set it in .env or Vercel dashboard.');
+      throw new Error('API Key Missing. Please set VITE_YT_API_KEY or VITE_API_BASE.');
+    }
+    url = BASE + '/' + ep + '?' + new URLSearchParams({ ...params, key: YT_KEY });
+  }
+
   try {
     const r = await fetch(url);
     const d = await r.json();
-    if (d.error) throw new Error(d.error.message);
+    if (d.error) throw new Error(d.error);
     if (ck) cSet(ck, d);
     return d;
   } catch (ex) {
