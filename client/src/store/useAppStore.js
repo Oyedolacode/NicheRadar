@@ -49,4 +49,18 @@ export const useAppStore = create((set, get) => ({
   // Other pages (Factory, Simulator) read from this
   lastExplorerResult: null,
   setLastExplorerResult: (result) => set({ lastExplorerResult: result }),
+
+  // ── Cache Utilities ────────────────────
+  cacheCount: 0,
+  setCacheCount: (n) => set({ cacheCount: n }),
+  clearCache: () => {
+    try {
+      const keys = Object.keys(localStorage).filter(k => k.startsWith('nr6_'))
+      keys.forEach(k => localStorage.removeItem(k))
+      set({ cacheCount: 0, quotaUsed: 0 }) // Reset quota too if clearing cache
+      get().toast(`Cleared ${keys.length} items`, 'ok')
+    } catch (e) {
+      console.error('Cache clear failed', e)
+    }
+  },
 }))

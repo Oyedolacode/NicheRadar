@@ -67,9 +67,9 @@ export const useBookmarkStore = create(
       })),
 
       // ── Counts ─────────────────────────
-      totalCount: () => {
+      getTotalCount: () => {
         const s = get()
-        return s.ideas.length + s.niches.length + s.videos.length + s.competitors.length
+        return (s.ideas?.length || 0) + (s.niches?.length || 0) + (s.videos?.length || 0) + (s.competitors?.length || 0)
       },
 
       // ── Clear All ──────────────────────

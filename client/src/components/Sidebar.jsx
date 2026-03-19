@@ -58,8 +58,8 @@ const BADGE_STYLES = {
 
 export default function Sidebar() {
     const { quotaUsed, apiStatus } = useAppStore()
-    const { totalCount } = useBookmarkStore()
-    const totalBookmarks = totalCount()
+    const { getTotalCount } = useBookmarkStore()
+    const totalBookmarks = typeof getTotalCount === 'function' ? getTotalCount() : 0
 
     return (
         <aside style={{
