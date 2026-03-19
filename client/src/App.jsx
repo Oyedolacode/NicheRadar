@@ -5,9 +5,9 @@ import Topbar from './components/Topbar'
 import Toast from './components/Toast'
 
 const Dashboard = lazy(() => import('./pages/Dashboard'))
-const Explorer = lazy(() => import('./pages/Explorer'))
+const Explorer = lazy(() => import('./pages/NicheExplorer'))
 const AlgoSimulator = lazy(() => import('./pages/AlgSim'))
-const TopicMap = lazy(() => import('./pages/TopicMap'))
+const TopicMap = lazy(() => import('./pages/TopicMapEngine'))
 const ViralPredictor = lazy(() => import('./pages/ViralAI'))
 const BatchPipeline = lazy(() => import('./pages/Batch'))
 const ViralGaps = lazy(() => import('./pages/Viral'))
@@ -19,15 +19,16 @@ const ProductionQueue = lazy(() => import('./pages/Queue'))
 const Scheduler = lazy(() => import('./pages/Scheduler'))
 
 // ── New Features ──
-const OutlierEngine = lazy(() => import('./pages/Outliers'))
+const OutlierEngine = lazy(() => import('./pages/OutlierEngine'))
 const CompetitorStudio = lazy(() => import('./pages/Competitors'))
-const KeywordResearch = lazy(() => import('./pages/Keywords'))
-const Bookmarks = lazy(() => import('./pages/Bookmarks'))
-const VideoAnalyzer = lazy(() => import('./pages/Analyzer'))
-const DoThisNext = lazy(() => import('./pages/DoThisNext'))
+const KeywordResearch = lazy(() => import('./pages/KeywordEngine'))
+const Bookmarks = lazy(() => import('./pages/BookmarkLab'))
+const VideoAnalyzer = lazy(() => import('./pages/VideoAnalyzer'))
+const DoThisNext = lazy(() => import('./pages/NextAction'))
 
 // ── Discovery ──
 const Trending = lazy(() => import('./pages/Trending'))
+
 const ContentGaps = lazy(() => import('./pages/Gaps'))
 
 // ── System ──
