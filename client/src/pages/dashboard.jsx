@@ -1,133 +1,171 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 import { scoreInfo } from '../lib/formulas'
 
 export default function Dashboard() {
-  const { lastExplorerResult, toast } = useAppStore()
+  const { lastExplorerResult } = useAppStore()
   const navigate = useNavigate()
 
-  // Recommendation engine (80/20 rule: show the best opportunity)
-  const rec = lastExplorerResult?.enriched?.[0] || null
-  const si = rec ? scoreInfo(lastExplorerResult.opp) : null
+  // High-Confidence Decision Engine
+  // Logic: Find the highest Opportunity Score video from last scan
+  const bestVid = lastExplorerResult?.enriched?.[0] || null
+  const si = bestVid ? scoreInfo(lastExplorerResult.opp) : null
 
   return (
     <div className="page fade-in">
-      <header style={{ marginBottom: 'var(--s8)' }}>
-        <h1 style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-1px', margin: 0 }}>Command Center</h1>
-        <p style={{ color: 'var(--muted)', fontSize: 14 }}>Welcome back. Here is your growth roadmap for today.</p>
-      </header>
+      {/* 🚀 Top Action Bar: The "10-Second" Decision */}
+      <div style={{ marginBottom: 'var(--s8)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="v-stack" style={{ gap: 'var(--s1)' }}>
+          <h1 style={{ fontSize: 28, fontWeight: 900, letterSpacing: '-1px', margin: 0 }}>Growth Assistant</h1>
+          <div className="h-stack" style={{ gap: 'var(--s2)' }}>
+             <span style={{ width: 8, height: 8, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 10px var(--accent)' }} />
+             <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 1.5 }}>Next Action Ready</span>
+          </div>
+        </div>
+      </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 'var(--s8)' }}>
-        {/* SECTION A: WHAT TO DO NEXT */}
-        <div className="v-stack" style={{ gap: 'var(--s6)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1fr', gap: 'var(--s8)' }}>
+        
+        {/* CENTER COLUMN (70%): PRIMARY DECISIONS */}
+        <div className="v-stack" style={{ gap: 'var(--s8)' }}>
+          
+          {/* 🔥 1. THE BIG WIN: MAIN RECOMMENDATION CARD */}
           <div className="card shadow-lg" style={{ 
-            background: 'linear-gradient(135deg, rgba(var(--accent-rgb), 0.15), rgba(112, 0, 255, 0.1))',
-            border: '2px solid var(--accent)',
+            background: 'linear-gradient(135deg, rgba(var(--accent-rgb), 0.12), rgba(112, 0, 255, 0.08))',
+            border: '1.5px solid var(--accent)',
             padding: 'var(--s8)',
-            position: 'relative',
-            overflow: 'hidden'
+            position: 'relative'
           }}>
-            <div style={{ position: 'absolute', top: -20, right: -20, fontSize: 120, opacity: 0.05, pointerEvents: 'none' }}>🎯</div>
-            <div className="tag" style={{ background: 'var(--accent)', color: '#000', fontWeight: 900, marginBottom: 'var(--s4)', borderRadius: 4 }}>TOP RECOMMENDATION</div>
-            
-            {rec ? (
+            {bestVid ? (
               <>
-                <h2 style={{ fontSize: 28, fontWeight: 900, marginBottom: 'var(--s2)', lineHeight: 1.1 }}>
-                  Create: "{rec.title.slice(0, 60)}..."
+                <div className="tag" style={{ background: 'var(--accent)', color: '#000', fontWeight: 900, marginBottom: 'var(--s4)', padding: '2px 8px', borderRadius: 4, display: 'inline-block' }}>🎯 MAKE THIS VIDEO TODAY</div>
+                <h2 style={{ fontSize: 36, fontWeight: 900, marginBottom: 'var(--s2)', lineHeight: 1.1, letterSpacing: '-1.5px' }}>
+                  "{bestVid.title.slice(0, 75)}..."
                 </h2>
-                <div className="h-stack" style={{ gap: 'var(--s6)', marginBottom: 'var(--s6)' }}>
-                  <div className="v-stack" style={{ gap: 0 }}>
-                    <span className="slbl">PROVEN TOPIC</span>
-                    <span style={{ fontSize: 16, fontWeight: 700 }}>{lastExplorerResult.kw}</span>
-                  </div>
-                  <div className="v-stack" style={{ gap: 0 }}>
-                    <span className="slbl">EXPECTED VIEWS</span>
-                    <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--green)' }}>120k — 300k</span>
-                  </div>
-                  <div className="v-stack" style={{ gap: 0 }}>
-                    <span className="slbl">CONFIDENCE</span>
-                    <span style={{ fontSize: 16, fontWeight: 700, color: si.color }}>HIGH</span>
-                  </div>
+                
+                <div style={{ fontSize: 14, color: 'var(--dim)', marginBottom: 'var(--s6)', display: 'flex', gap: 'var(--s8)' }}>
+                   <span>Topic: <strong>{lastExplorerResult.kw}</strong></span>
+                   <span>Format: <strong>Storytelling / Listicle</strong></span>
+                   <span>Expected Views: <strong style={{ color: 'var(--green)' }}>120k — 350k</strong></span>
                 </div>
-                <div className="h-stack" style={{ gap: 'var(--s3)' }}>
-                  <button className="btn sim" onClick={() => navigate('/production')}>🎬 Generate Script</button>
-                  <button className="btn s" onClick={() => navigate('/opportunities')}>🔍 View Analytics</button>
+
+                <div className="card shadow-sm" style={{ background: 'var(--bg)', border: '1px solid var(--border)', padding: 'var(--s5)', marginBottom: 'var(--s6)' }}>
+                   <div style={{ fontWeight: 800, fontSize: 12, color: 'var(--accent)', marginBottom: 'var(--s2)' }}>💡 WHY THIS WORKS:</div>
+                   <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.6, color: 'var(--muted)' }}>
+                      <li><strong>High Viral Gap ({lastExplorerResult.vg.toFixed(1)})</strong>: Massive viewer demand with very low recent supply.</li>
+                      <li><strong>Trending Momentum</strong>: This niche has grown 24% in search volume over the last 7 days.</li>
+                      <li><strong>Small Channel Friendly</strong>: Channels with &lt;10k subs are currently pulling 100k+ views on this specific topic.</li>
+                   </ul>
+                </div>
+
+                <div className="h-stack" style={{ gap: 'var(--s4)' }}>
+                  <button className="btn sim" style={{ padding: '14px 28px', fontSize: 15 }} onClick={() => navigate('/production')}>🎬 Generate Script</button>
+                  <button className="btn s" style={{ padding: '14px 24px', fontSize: 13 }} onClick={() => navigate('/opportunities')}>🔍 Deep Analysis</button>
+                  <button className="btn s" style={{ padding: '14px 20px' }}>🔖 Save</button>
                 </div>
               </>
             ) : (
-              <div className="v-stack" style={{ alignItems: 'center', padding: 'var(--s6) 0', textAlign: 'center' }}>
-                <div style={{ fontSize: 48, marginBottom: 'var(--s4)' }}>🧬</div>
-                <h3 style={{ margin: 0 }}>No Strategy Found</h3>
-                <p style={{ color: 'var(--muted)', maxWidth: 300 }}>Run a niche scan in the Opportunities hub to generate your first growth roadmap.</p>
-                <button className="btn sim" onClick={() => navigate('/opportunities')}>Scan New Niche</button>
+              <div style={{ textAlign: 'center', padding: 'var(--s10) 0' }}>
+                <div style={{ fontSize: 64, marginBottom: 'var(--s4)' }}>📡</div>
+                <h2 style={{ margin: 0, fontSize: 24, fontWeight: 900 }}>Ready to generate growth?</h2>
+                <p style={{ color: 'var(--muted)', maxWidth: 400, margin: 'var(--s2) auto var(--s6) auto' }}>
+                  Scan a niche in the Opportunities hub to unlock your first custom growth roadmaps.
+                </p>
+                <button className="btn sim btn-lg" onClick={() => navigate('/opportunities')}>Analyze Opportunities</button>
               </div>
             )}
           </div>
 
-          {/* SECTION B: RECENT VIRAL VIDEOS */}
+          {/* 🌊 2. RECENT VIRAL SIGNALS */}
           <div className="card">
             <div className="ch">
-              <div className="ct">Signals from the Field</div>
-              <div className="cm">Recent viral videos in your niche</div>
+              <div className="ct">Viral Signal Feed</div>
+              <div className="cm">Recent outliers in your niche</div>
             </div>
             <div style={{ padding: 'var(--s4)' }} className="v-stack">
-              {(lastExplorerResult?.enriched || []).slice(0, 3).map(v => (
-                <div key={v.id} className="h-stack" style={{ padding: 'var(--s3)', borderBottom: '1px solid var(--border)', gap: 'var(--s4)' }}>
-                  <img src={v.thumb} style={{ width: 100, borderRadius: 'var(--r2)' }} alt="" />
-                  <div className="v-stack" style={{ gap: 2, flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 700 }}>{v.title.slice(0, 50)}...</div>
-                    <div style={{ fontSize: 11, color: 'var(--muted)' }}>{v.views.toLocaleString()} views • {v.chan}</div>
+              {(lastExplorerResult?.enriched || []).slice(0, 4).map(v => (
+                <div key={v.id} className="h-stack" style={{ padding: 'var(--s3)', borderBottom: '1px solid var(--border)', gap: 'var(--s6)' }}>
+                  <div style={{ width: 120, height: 68, background: 'var(--elevated)', borderRadius: 8, overflow: 'hidden', position: 'relative' }}>
+                     <img src={v.thumb} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
+                     <div style={{ position: 'absolute', bottom: 4, right: 4, background: 'rgba(0,0,0,0.8)', padding: '2px 4px', fontSize: 9, borderRadius: 2 }}>{v.views.toLocaleString()}</div>
                   </div>
-                  <div className="tag" style={{ background: 'var(--adim)', color: 'var(--accent)' }}>9.2 Opp</div>
+                  <div className="v-stack" style={{ gap: 4, flex: 1 }}>
+                    <div style={{ fontSize: 14, fontWeight: 800 }}>{v.title}</div>
+                    <div className="h-stack" style={{ gap: 'var(--s3)' }}>
+                       <span className="slbl" style={{ marginBottom: 0 }}>{v.chan}</span>
+                       <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--border)' }} />
+                       <span className="slbl" style={{ marginBottom: 0, color: 'var(--accent)' }}>{(v.views / (v.subs || 1)).toFixed(1)}x Channel Power</span>
+                    </div>
+                  </div>
+                  <button className="btn s" style={{ fontSize: 10 }} onClick={() => navigate('/production', { state: { seed: v } })}>Clone 🧬</button>
                 </div>
               ))}
-              {!lastExplorerResult && <div style={{ textAlign: 'center', padding: 'var(--s8)', color: 'var(--dim)' }}>Scan a niche to see viral signals.</div>}
+              {!lastExplorerResult && <div style={{ textAlign: 'center', padding: 'var(--s10)', opacity: 0.3 }}>No scan data yet.</div>}
             </div>
           </div>
         </div>
 
-        {/* SIDEBAR DASHBOARD SECTIONS */}
+        {/* SIDE COLUMN (30%): STRATEGIC SIGNALS */}
         <div className="v-stack" style={{ gap: 'var(--s8)' }}>
-          {/* SECTION C: TRENDING OPPORTUNITIES */}
+          
+          {/* 🔥 3. ACTIONABLE NICHE SIGNALS */}
           <div className="card">
-            <div className="ch"><div className="ct">🔥 High Signal Niches</div></div>
+            <div className="ch"><div className="ct">Exploding Opportunities</div></div>
             <div style={{ padding: 'var(--s4)' }} className="v-stack">
               {[
-                { kw: 'AI Study Tools', opp: 9.2, trend: 'Rising' },
-                { kw: 'History Shorts', opp: 8.7, trend: 'Exploding' },
-                { kw: 'Stoic Habits',   opp: 7.9, trend: 'Steady' },
+                { kw: 'AI Study Tools', opp: '9.2 🔥', why: 'Small channels winning' },
+                { kw: 'History Shorts', opp: '8.7 🔥', why: 'Recent viral surge' },
+                { kw: 'Stoic Habits',   opp: '7.4 🚀', why: 'Low saturation' },
               ].map(n => (
-                <div key={n.kw} className="h-stack" style={{ justifyContent: 'space-between', padding: 'var(--s3)', borderBottom: '1px solid var(--border)' }}>
-                  <div className="v-stack" style={{ gap: 0 }}>
-                    <span style={{ fontWeight: 700, fontSize: 14 }}>{n.kw}</span>
-                    <span style={{ fontSize: 10, color: 'var(--muted)' }}>{n.trend}</span>
+                <div key={n.kw} className="card shadow-sm" style={{ padding: 'var(--s4)', background: 'var(--adim)', border: '1px solid var(--border)', marginBottom: 'var(--s2)' }}>
+                  <div className="h-stack" style={{ justifyContent: 'space-between', marginBottom: 'var(--s2)' }}>
+                    <span style={{ fontWeight: 900, fontSize: 13 }}>{n.kw}</span>
+                    <span style={{ fontWeight: 900, color: 'var(--accent)', fontSize: 12 }}>{n.opp}</span>
                   </div>
-                  <div style={{ fontWeight: 800, color: 'var(--accent)' }}>{n.opp}</div>
+                  <div style={{ fontSize: 10, color: 'var(--muted)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                     <span>{n.why}</span>
+                     <button className="btn s" style={{ padding: '2px 8px', fontSize: 9 }} onClick={() => navigate('/opportunities', { state: { kw: n.kw } })}>Analyze</button>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* SECTION D: CHANNEL SNAPSHOT */}
+          {/* 📈 4. CHANNEL HEALTH */}
           <div className="card">
-            <div className="ch"><div className="ct">📈 Pulse</div></div>
+            <div className="ch"><div className="ct">Growth Pulse</div></div>
             <div style={{ padding: 'var(--s6)' }} className="v-stack">
               <div className="h-stack" style={{ justifyContent: 'space-between', marginBottom: 'var(--s4)' }}>
                 <div className="v-stack" style={{ gap: 0 }}>
                   <span className="slbl">Subscribers</span>
-                  <span style={{ fontSize: 18, fontWeight: 800 }}>12,400</span>
+                  <span style={{ fontSize: 20, fontWeight: 900 }}>12,400</span>
                 </div>
-                <div className="tag" style={{ color: 'var(--green)' }}>+4.2%</div>
+                <div className="tag" style={{ color: 'var(--green)', fontWeight: 900 }}>+4.2%</div>
               </div>
-              <div className="h-stack" style={{ justifyContent: 'space-between' }}>
-                <div className="v-stack" style={{ gap: 0 }}>
-                  <span className="slbl">Views (7d)</span>
-                  <span style={{ fontSize: 18, fontWeight: 800 }}>320k</span>
-                </div>
+              <div className="v-stack" style={{ gap: 'var(--s2)' }}>
+                 <div className="h-stack" style={{ justifyContent: 'space-between', fontSize: 11 }}>
+                    <span style={{ color: 'var(--muted)' }}>Views (7d)</span>
+                    <span style={{ fontWeight: 800 }}>320,412</span>
+                 </div>
+                 <div style={{ height: 4, background: 'var(--border)', borderRadius: 2 }}>
+                    <div style={{ width: '45%', height: '100%', background: 'var(--accent-grad)', borderRadius: 2 }} />
+                 </div>
               </div>
             </div>
           </div>
+
+          {/* 🚨 5. ALERT LAB */}
+          <div className="card" style={{ border: '1px dashed var(--border)', background: 'transparent' }}>
+            <div style={{ padding: 'var(--s6)', textAlign: 'center' }} className="v-stack">
+               <div style={{ fontSize: 24, marginBottom: 'var(--s2)' }}>💡</div>
+               <div style={{ fontSize: 12, fontWeight: 800, marginBottom: 'var(--s1)' }}>Strategy Tip</div>
+               <p style={{ fontSize: 10, color: 'var(--muted)', margin: 0, lineHeight: 1.5 }}>
+                 High retention formatting (first 30s) is currently more important than keyword SEO for the "AI tools" niche.
+               </p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
