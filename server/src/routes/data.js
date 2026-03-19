@@ -14,7 +14,7 @@ import { Router }     from 'express'
 import { readJSON, writeJSON } from '../services/storage.js'
 
 const router = Router()
-const ALLOWED_COLLECTIONS = new Set(['bookmarks', 'queue', 'schedule', 'competitors'])
+const ALLOWED_COLLECTIONS = new Set(['bookmarks', 'queue', 'schedule', 'competitors', 'clones'])
 
 // ── Read collection ───────────────────────
 router.get('/:collection', async (req, res, next) => {

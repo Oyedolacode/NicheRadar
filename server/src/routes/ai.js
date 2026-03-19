@@ -16,6 +16,7 @@ import rateLimit     from 'express-rate-limit'
 
 const router = Router()
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+const MODEL  = 'claude-3-5-sonnet-20240620'
 
 // ── Rate limit: 30 AI calls / minute / IP ─
 const limiter = rateLimit({
@@ -32,8 +33,12 @@ router.post('/', limiter, async (req, res, next) => {
       return res.status(400).json({ error: 'prompt is required' })
     }
 
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return res.status(500).json({ error: 'AI key not configured on server' })
+    }
+
     const message = await client.messages.create({
-      model:      'claude-sonnet-4-20250514',
+      model:      MODEL,
       max_tokens:  maxTokens,
       messages:   [{ role: 'user', content: prompt }],
     })

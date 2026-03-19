@@ -20,6 +20,7 @@ const NAV = [
         label: 'Production',
         items: [
             { to: '/factory', icon: '🏭', label: 'Content Factory', badge: 'NEW', badgeCls: 'fac' },
+            { to: '/clone-factory', icon: '🧬', label: 'Clone Factory', badge: 'HOT', badgeCls: 'hot' },
             { to: '/queue', icon: '📋', label: 'Production Queue' },
             { to: '/scheduler', icon: '📅', label: 'Pub. Scheduler' },
         ],
@@ -37,6 +38,7 @@ const NAV = [
     {
         label: 'Discovery',
         items: [
+            { to: '/winning-channels', icon: '🏆', label: 'Winning Channels', badge: 'HOT', badgeCls: 'hot' },
             { to: '/trending', icon: '📈', label: 'Trending Feed' },
             { to: '/content-gaps', icon: '💡', label: 'Content Gaps' },
         ],
@@ -74,23 +76,23 @@ export default function Sidebar() {
             overflowY: 'auto',
         }}>
             {/* Logo */}
-            <div style={{ padding: 'var(--s5) var(--s4) var(--s4)', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s3)' }}>
-                    <div style={{ width: 38, height: 38, background: 'linear-gradient(135deg,var(--accent),#00e5cc)', borderRadius: 'var(--r2)', display: 'grid', placeItems: 'center', fontSize: 18, flexShrink: 0, boxShadow: '0 0 15px rgba(0,229,204,.2)' }}>
+            <div style={{ padding: 'var(--s8) var(--s5) var(--s5)', borderBottom: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s4)' }}>
+                    <div style={{ width: 44, height: 44, background: 'linear-gradient(135deg,var(--accent),#00e5cc)', borderRadius: 'var(--r2)', display: 'grid', placeItems: 'center', fontSize: 22, flexShrink: 0, boxShadow: '0 0 20px rgba(0,229,204,.25)' }}>
                         📡
                     </div>
                     <div>
-                        <div style={{ fontFamily: 'var(--fd)', fontWeight: 900, fontSize: 18, letterSpacing: '-0.5px', color: 'var(--text)' }}>NicheRadar</div>
-                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 700 }}>v6.0 · RDR</div>
+                        <div style={{ fontFamily: 'var(--fd)', fontWeight: 900, fontSize: 20, letterSpacing: '-0.8px', color: 'var(--text)', lineHeight: 1 }}>NicheRadar</div>
+                        <div style={{ fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--muted)', letterSpacing: '2.5px', textTransform: 'uppercase', fontWeight: 800, marginTop: 'var(--s1)' }}>v6.0 · PREM</div>
                     </div>
                 </div>
             </div>
 
             {/* Nav */}
-            <nav style={{ flex: 1, padding: 'var(--s3) var(--s2)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <nav style={{ flex: 1, padding: 'var(--s5) var(--s3)', display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {NAV.map(section => (
-                    <div key={section.label} style={{ marginBottom: 'var(--s4)' }}>
-                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9.5, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--dim)', padding: 'var(--s2) var(--s3)', fontWeight: 800 }}>
+                    <div key={section.label} style={{ marginBottom: 'var(--s6)' }}>
+                        <div style={{ fontFamily: 'var(--fm)', fontSize: 10, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--dim)', padding: 'var(--s2) var(--s5)', fontWeight: 900, marginBottom: 'var(--s1)' }}>
                             {section.label}
                         </div>
                         {section.items.map(item => (
@@ -100,19 +102,19 @@ export default function Sidebar() {
                                 style={({ isActive }) => ({
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: 10,
-                                    padding: 'var(--s2) var(--s3)',
-                                    borderRadius: 'var(--r1)',
+                                    gap: 12,
+                                    padding: 'var(--s3) var(--s5)',
+                                    borderRadius: 'var(--r2)',
                                     cursor: 'pointer',
                                     color: isActive ? 'var(--accent)' : 'var(--muted)',
                                     background: isActive ? 'var(--adim)' : 'transparent',
-                                    border: isActive ? '1px solid rgba(0,229,204,.25)' : '1px solid transparent',
-                                    boxShadow: isActive ? '0 0 15px rgba(0,229,204,.08)' : 'none',
-                                    fontSize: '13px',
-                                    fontWeight: isActive ? 700 : 500,
+                                    border: isActive ? '1px solid rgba(0,229,204,.3)' : '1px solid transparent',
+                                    boxShadow: isActive ? '0 4px 20px rgba(0,229,204,.12)' : 'none',
+                                    fontSize: '14px',
+                                    fontWeight: isActive ? 800 : 600,
                                     textDecoration: 'none',
-                                    transition: 'all .24s cubic-bezier(.4,0,.2,1)',
-                                    marginBottom: 1,
+                                    transition: 'all .3s cubic-bezier(.4,0,.2,1)',
+                                    marginBottom: 4,
                                 })}
                                 onMouseEnter={e => {
                                     if (!e.currentTarget.classList.contains('active')) {

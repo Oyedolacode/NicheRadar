@@ -42,9 +42,12 @@ export function useYouTube() {
       const data = await res.json()
 
       if (data.error) throw new Error(data.error.message)
-
-      const units = endpoint === 'search' ? 100 : 1
-      addQuota(units)
+      
+      const isCacheHit = res.headers.get('X-Cache') === 'HIT'
+      if (!isCacheHit) {
+        const units = endpoint === 'search' ? 100 : 1
+        addQuota(units)
+      }
 
       if (cacheKey) cSet(cacheKey, data)
       return data
@@ -155,5 +158,120 @@ export function useYouTube() {
     return { kw: keyword, enriched, sat, trend, avgVel, avgEng, avgCs, opp, vg }
   }, [search, vidStats, chanStats])
 
-  return { search, vidStats, chanStats, fetchAndEnrich }
+  // ── channel analysis (Winning Channel Finder helper) ──
+  const getChannelAnalysis = useCallback(async (chanId) => {
+    // 1. Get channel metadata
+    const cData = await ytGet('channels', {
+      part: 'snippet,statistics',
+      id: chanId
+    }, `chan_meta_${chanId}`)
+
+    if (!cData.items?.[0]) throw new Error('Channel not found')
+    const channel = cData.items[0]
+    const subs = +channel.statistics?.subscriberCount || 0
+    const created = channel.snippet?.publishedAt
+    const ageDays = Math.floor((Date.now() - new Date(created).getTime()) / 86_400_000)
+
+    // 2. Get last 20 videos
+    const searchData = await ytGet('search', {
+      part: 'snippet',
+      channelId: chanId,
+      order: 'date',
+      type: 'video',
+      maxResults: 20
+    }, `chan_videos_search_${chanId}`)
+
+    const videoIds = (searchData.items || []).map(i => i.id?.videoId).filter(Boolean)
+    if (!videoIds.length) return { channel, subs, ageDays, avgViews: 0, consistency: 0, ratio: 0, videos: [] }
+
+    const vData = await vidStats(videoIds)
+    const videos = (vData.items || []).map(v => ({
+      id: v.id,
+      title: v.snippet?.title,
+      views: +v.statistics?.viewCount || 0,
+      pub: v.snippet?.publishedAt,
+      vel: velocity(+v.statistics?.viewCount || 0, v.snippet?.publishedAt)
+    }))
+
+    const avgViews = videos.reduce((sum, v) => sum + v.views, 0) / videos.length
+    const viralCount = videos.filter(v => v.views > 500000).length
+    const consistency = viralCount / videos.length
+    const ratio = subs > 0 ? avgViews / subs : 0
+
+    return {
+      channel,
+      subs,
+      ageDays,
+      avgViews,
+      consistency,
+      ratio,
+      videos
+    }
+  }, [ytGet, vidStats])
+
+  // ── channel blueprint (Clone Factory helper) ──
+  const getChannelBlueprint = useCallback(async (chanId) => {
+    // 1. Get channel meta + 30 videos
+    const searchData = await ytGet('search', {
+      part: 'snippet',
+      channelId: chanId,
+      order: 'date',
+      type: 'video',
+      maxResults: 30
+    }, `chan_blueprint_search_${chanId}`)
+
+    const items = searchData.items || []
+    if (!items.length) throw new Error('No videos found for blueprint')
+
+    const titles = items.map(i => i.snippet?.title)
+    const dates = items.map(i => new Date(i.snippet?.publishedAt).getTime())
+    
+    // 2. Extract Topics (Keyword counts)
+    const stopWords = new Set(['the', 'and', 'how', 'you', 'with', 'for', 'this', 'that', 'your', 'from', 'what'])
+    const words = titles.join(' ').toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/)
+    const counts = {}
+    words.forEach(w => {
+      if (w.length > 2 && !stopWords.has(w)) counts[w] = (counts[w] || 0) + 1
+    })
+    const topTopics = Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0, 5).map(e => e[0])
+
+    // 3. Extract Formats & Hooks
+    const hooks = []
+    let listCount = 0, howToCount = 0, storyCount = 0
+    titles.forEach(t => {
+      const low = t.toLowerCase()
+      if (/^\d+/.test(low)) listCount++
+      if (low.startsWith('how to')) howToCount++
+      if (low.includes('the story of') || low.includes('how i') || low.includes('why i')) storyCount++
+      
+      const first3 = t.split(' ').slice(0, 3).join(' ')
+      if (first3) hooks.push(first3)
+    })
+
+    const topHooks = [...new Set(hooks)].slice(0, 5)
+    const primaryFormat = listCount > 5 ? 'Listicles' : howToCount > 5 ? 'Educational' : storyCount > 3 ? 'Storytelling' : 'Explainer'
+
+    // 4. Frequency (avg per week)
+    const spanDays = (dates[0] - dates[dates.length-1]) / 86400000
+    const freq = ((items.length / Math.max(spanDays, 1)) * 7).toFixed(1)
+
+    // 5. Clone Strategy Generation (AI-lite)
+    const mainTopic = topTopics[0] || 'Topic'
+    const suggestions = [
+      { type: 'Audience Split', idea: `${mainTopic} for entrepreneurs`, desc: `Shift the focus from students to professionals.` },
+      { type: 'Topic Expansion', idea: `Automation systems for ${mainTopic}`, desc: `Focus on the 'how-it-works' rather than just the tools.` },
+      { type: 'Format Variation', idea: `The $10k ${mainTopic} Case Study`, desc: `Transform a listicle into a results-driven story.` },
+      { type: 'Platform Style', idea: `5 ${mainTopic} hacks in 60s`, desc: `Fast-paced vertical shorts targeting Gen Z.` }
+    ]
+
+    return {
+      topics: topTopics,
+      hooks: topHooks,
+      format: primaryFormat,
+      frequency: freq,
+      suggestions
+    }
+  }, [ytGet])
+
+  return { search, vidStats, chanStats, fetchAndEnrich, getChannelAnalysis, getChannelBlueprint }
 }

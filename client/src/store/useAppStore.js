@@ -27,7 +27,11 @@ export const useAppStore = create((set, get) => ({
   // ── API Status ─────────────────────────
   apiStatus: 'ready', // 'ready' | 'loading' | 'quota_exceeded' | 'error'
   setApiStatus: (status) => set({ apiStatus: status }),
-  setApiError: () => set({ apiStatus: 'quota_exceeded' }),
+  setApiError: (msg = '') => {
+    const isQuota = msg.toLowerCase().includes('quota') || msg.toLowerCase().includes('403')
+    set({ apiStatus: isQuota ? 'quota_exceeded' : 'error' })
+    if (msg) get().toast(msg, 'e')
+  },
 
   // ── Toast Notifications ────────────────
   toasts: [],

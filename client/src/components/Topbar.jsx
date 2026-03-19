@@ -18,6 +18,8 @@ const PAGE_META = {
     '/bookmarks': ['Bookmarks', 'Saved ideas, niches, videos, and competitors'],
     '/analyzer': ['Video Analyzer', 'Paste any YouTube URL → instant breakdown of why it worked'],
     '/do-this-next': ['Do This Next', 'AI-powered recommendation engine — your next best video'],
+    '/winning-channels': ['Winning Channels', 'Find small channels winning big with high ratio/low subs'],
+    '/clone-factory': ['Clone Factory', 'Scale proven formulas across niches and audiences'],
     '/trending': ['Trending Feed', 'Pre-loaded trending niches — click to analyse'],
     '/content-gaps': ['Content Gap Detector', 'Find popular topics missing entire content formats'],
     '/cache': ['Cache & Storage', 'Persistent cache reduces API quota by 70–90%'],

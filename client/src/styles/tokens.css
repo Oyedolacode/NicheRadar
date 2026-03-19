@@ -36,16 +36,16 @@
   --fm: 'JetBrains Mono', monospace;
   --fb: 'Epilogue', sans-serif;
 
-  /* Spacing Scale (8px base) */
+  /* Spacing Scale (Exponential) */
   --s1:  4px;
   --s2:  8px;
-  --s3:  12px;
-  --s4:  16px;
-  --s5:  20px;
-  --s6:  24px;
-  --s8:  32px;
-  --s10: 40px;
-  --s12: 48px;
+  --s3:  16px;
+  --s4:  24px;
+  --s5:  32px;
+  --s6:  40px;
+  --s8:  56px;
+  --s10: 72px;
+  --s12: 96px;
 
   /* Strokes & Radii */
   --bw: 1px;
@@ -55,7 +55,7 @@
   --rl: 16px; /* Legacy alias */
 
   /* Sidebar */
-  --sidebar-w: 240px;
+  --sidebar-w: 280px;
 }
 
 /* ── Reset ── */
@@ -67,6 +67,7 @@ body {
   font-family: var(--fb);
   min-height: 100vh;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 /* ── Grid background ── */

@@ -24,6 +24,8 @@ const KeywordResearch = lazy(() => import('./pages/keywordresearch'))
 const Bookmarks = lazy(() => import('./pages/bookmarks'))
 const VideoAnalyzer = lazy(() => import('./pages/videoanalyzer'))
 const DoThisNext = lazy(() => import('./pages/dothisnext'))
+const WinningChannelFinder = lazy(() => import('./pages/winningchannelfinder'))
+const CloneFactory = lazy(() => import('./pages/clonefactory'))
 
 // ── Loading fallback ──
 const PageLoader = () => (
@@ -52,6 +54,7 @@ export default function App() {
             <Route path="/small-wins" element={<SmallWins />} />
             {/* Production */}
             <Route path="/factory" element={<ContentFactory />} />
+            <Route path="/clone-factory" element={<CloneFactory />} />
             <Route path="/queue" element={<ProductionQueue />} />
             <Route path="/scheduler" element={<Scheduler />} />
             {/* New features */}
@@ -60,6 +63,7 @@ export default function App() {
             <Route path="/bookmarks" element={<Bookmarks />} />
             <Route path="/analyzer" element={<VideoAnalyzer />} />
             <Route path="/do-this-next" element={<DoThisNext />} />
+            <Route path="/winning-channels" element={<WinningChannelFinder />} />
             {/* Discovery */}
             <Route path="/trending" element={<Trending />} />
             <Route path="/content-gaps" element={<ContentGaps />} />
