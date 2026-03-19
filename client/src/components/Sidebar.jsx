@@ -74,23 +74,23 @@ export default function Sidebar() {
             overflowY: 'auto',
         }}>
             {/* Logo */}
-            <div style={{ padding: '18px 15px 15px', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 34, height: 34, background: 'var(--accent)', borderRadius: 8, display: 'grid', placeItems: 'center', fontSize: 16, flexShrink: 0 }}>
+            <div style={{ padding: 'var(--s5) var(--s4) var(--s4)', borderBottom: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s3)' }}>
+                    <div style={{ width: 38, height: 38, background: 'linear-gradient(135deg,var(--accent),#00e5cc)', borderRadius: 'var(--r2)', display: 'grid', placeItems: 'center', fontSize: 18, flexShrink: 0, boxShadow: '0 0 15px rgba(0,229,204,.2)' }}>
                         📡
                     </div>
                     <div>
-                        <div style={{ fontFamily: 'var(--fd)', fontWeight: 800, fontSize: 16, letterSpacing: '-.4px' }}>NicheRadar</div>
-                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>v6 · React</div>
+                        <div style={{ fontFamily: 'var(--fd)', fontWeight: 900, fontSize: 18, letterSpacing: '-0.5px', color: 'var(--text)' }}>NicheRadar</div>
+                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 700 }}>v6.0 · RDR</div>
                     </div>
                 </div>
             </div>
 
             {/* Nav */}
-            <nav style={{ flex: 1, padding: '11px 7px', display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <nav style={{ flex: 1, padding: 'var(--s3) var(--s2)', display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {NAV.map(section => (
-                    <div key={section.label}>
-                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--dim)', padding: '8px 9px 3px' }}>
+                    <div key={section.label} style={{ marginBottom: 'var(--s4)' }}>
+                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9.5, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--dim)', padding: 'var(--s2) var(--s3)', fontWeight: 800 }}>
                             {section.label}
                         </div>
                         {section.items.map(item => (
@@ -100,18 +100,19 @@ export default function Sidebar() {
                                 style={({ isActive }) => ({
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: 8,
-                                    padding: '9px 12px',
-                                    borderRadius: 'var(--r)',
+                                    gap: 10,
+                                    padding: 'var(--s2) var(--s3)',
+                                    borderRadius: 'var(--r1)',
                                     cursor: 'pointer',
                                     color: isActive ? 'var(--accent)' : 'var(--muted)',
                                     background: isActive ? 'var(--adim)' : 'transparent',
                                     border: isActive ? '1px solid rgba(0,229,204,.25)' : '1px solid transparent',
                                     boxShadow: isActive ? '0 0 15px rgba(0,229,204,.08)' : 'none',
-                                    fontSize: '12.5px',
+                                    fontSize: '13px',
                                     fontWeight: isActive ? 700 : 500,
                                     textDecoration: 'none',
                                     transition: 'all .24s cubic-bezier(.4,0,.2,1)',
+                                    marginBottom: 1,
                                 })}
                                 onMouseEnter={e => {
                                     if (!e.currentTarget.classList.contains('active')) {
@@ -154,8 +155,8 @@ export default function Sidebar() {
             </nav>
 
             {/* Footer */}
-            <div style={{ padding: 11, borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 10, color: 'var(--muted)', fontFamily: 'var(--fm)' }}>
+            <div style={{ padding: 'var(--s3) var(--s4)', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 'var(--s1)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s2)', fontSize: 10, color: 'var(--muted)', fontFamily: 'var(--fm)' }}>
                     <div style={{
                         width: 6, height: 6, borderRadius: '50%',
                         background: apiStatus === 'quota_exceeded' ? 'var(--red)' : 'var(--green)',
@@ -163,10 +164,10 @@ export default function Sidebar() {
                         animation: 'blink 2.2s infinite',
                         flexShrink: 0,
                     }} />
-                    <span>{apiStatus === 'quota_exceeded' ? 'Quota exceeded' : 'API Ready'}</span>
+                    <span style={{ fontWeight: 700, letterSpacing: 0.5 }}>{apiStatus === 'quota_exceeded' ? 'QUOTA EXCEEDED' : 'API READY'}</span>
                 </div>
-                <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--dim)' }}>
-                    Quota: {quotaUsed.toLocaleString()} / 10,000 units
+                <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--dim)', fontWeight: 600 }}>
+                    Usage: {quotaUsed.toLocaleString()} / 10,000 units
                 </div>
             </div>
         </aside>

@@ -50,15 +50,17 @@ export default function CompetitorStudio() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
-            <div style={{ background: 'linear-gradient(135deg,rgba(255,159,67,.06),rgba(0,229,204,.03))', border: '1px solid rgba(255,159,67,.18)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>🎯 Competitor Studio</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 620 }}>
-                    Enter any topic to see which channels dominate it — their winning topics, failing topics, and average performance. Find their gaps before they do.
+        <div className="page fade-in">
+            <div style={{ background: 'linear-gradient(135deg,rgba(0,184,212,.08),rgba(0,229,204,.05))', border: '1px solid rgba(0,184,212,.25)', borderRadius: 'var(--r3)', padding: 'var(--s6)', marginBottom: 'var(--s6)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--s2)', background: 'rgba(0,184,212,.12)', border: '1px solid rgba(0,184,212,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--blue)', marginBottom: 'var(--s3)', fontWeight: 700 }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--blue)', borderRadius: '50%', boxShadow: '0 0 6px var(--blue)', animation: 'blink 1.5s infinite' }} />
+                    👥 COMPETITOR STUDIO
                 </div>
+                <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800, marginBottom: 'var(--s2)' }}>Spy on the Best</div>
+                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Deep-dive into any channel's strategy. Analyze their most successful videos, posting frequency, and audience retention hooks.</div>
             </div>
 
-            <div style={{ display: 'flex', gap: 7, maxWidth: 700, marginBottom: 20 }}>
+            <div style={{ display: 'flex', gap: 'var(--s2)', maxWidth: 700, marginBottom: 'var(--s6)' }}>
                 <input className="inp" value={input} onChange={e => setInput(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && analyze()}
                     placeholder="Topic or niche… AI tools, dark history, stoicism" />

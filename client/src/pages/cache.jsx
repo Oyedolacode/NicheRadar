@@ -69,7 +69,7 @@ export default function Cache() {
                                 const label = k.replace('nr6_s_', '').split('_40')[0]
                                 const ttlLeft = Math.round((86400000 - (Date.now() - d.t)) / 3600000)
                                 return (
-                                    <div key={k} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 10px', borderRadius: 'var(--r)', background: 'var(--elevated)', marginBottom: 5, fontSize: 11.5, fontFamily: 'var(--fm)' }}>
+                                    <div key={k} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--s2) var(--s3)', borderRadius: 'var(--r)', background: 'var(--elevated)', marginBottom: 'var(--s1)', fontSize: 11.5, fontFamily: 'var(--fm)' }}>
                                         <span>{label}</span>
                                         <span style={{ fontSize: 9.5, color: 'var(--muted)' }}>{age < 60 ? age + 'm' : Math.floor(age / 60) + 'h'} ago · {ttlLeft}h left</span>
                                     </div>

@@ -62,15 +62,17 @@ export default function KeywordResearch() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
-            <div style={{ background: 'linear-gradient(135deg,rgba(77,159,255,.07),rgba(0,229,204,.03))', border: '1px solid rgba(77,159,255,.2)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>🔑 Keyword Research</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 620 }}>
-                    Search volume estimation, difficulty score, and a related keyword tree — built from live YouTube data.
+        <div className="page fade-in">
+            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.25)', borderRadius: 'var(--r3)', padding: 'var(--s6)', marginBottom: 'var(--s6)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--s2)', background: 'rgba(0,229,204,.12)', border: '1px solid rgba(0,229,204,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--accent)', marginBottom: 'var(--s3)', fontWeight: 700 }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 6px var(--accent)', animation: 'blink 1.5s infinite' }} />
+                    🔍 KEYWORD RESEARCH
                 </div>
+                <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800, marginBottom: 'var(--s2)' }}>Niche Discovery Engine</div>
+                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Find high-traffic, low-competition keywords across any niche. Analyze search volume trends and advertiser interest (CPM).</div>
             </div>
 
-            <div style={{ display: 'flex', gap: 7, maxWidth: 700, marginBottom: 20 }}>
+            <div style={{ display: 'flex', gap: 'var(--s2)', maxWidth: 700, marginBottom: 'var(--s6)' }}>
                 <input className="inp" value={keyword} onChange={e => setKeyword(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && research()}
                     placeholder="Seed keyword… AI tools, stoicism, dark history" />

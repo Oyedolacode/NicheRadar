@@ -27,9 +27,10 @@ const DoThisNext = lazy(() => import('./pages/dothisnext'))
 
 // ── Loading fallback ──
 const PageLoader = () => (
-  <div style={{ padding: '60px', textAlign: 'center', color: 'var(--muted)', fontFamily: 'var(--fm)', fontSize: '12px' }}>
-    Loading…
-  </div>
+    <div className="v-stack" style={{ padding: 'var(--s12)', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--muted)', fontFamily: 'var(--fm)', fontSize: '13px' }}>
+        <div className="spin" style={{ fontSize: 32, marginBottom: 'var(--s4)' }}>📡</div>
+        <div style={{ fontWeight: 700, letterSpacing: 2 }}>RADAR SCANNING…</div>
+    </div>
 )
 
 export default function App() {

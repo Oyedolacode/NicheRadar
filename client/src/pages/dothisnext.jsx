@@ -69,30 +69,32 @@ export default function DoThisNext() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
-            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.2)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>🚀 Do This Next</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 580 }}>
-                    AI-powered recommendation engine. Analyzes your niche data and outputs your <strong style={{ color: 'var(--text)' }}>highest-probability next video</strong> — topic, format, title, and confidence score.
+        <div className="page fade-in">
+            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.25)', borderRadius: 'var(--r3)', padding: 'var(--s6)', marginBottom: 'var(--s6)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--s2)', background: 'rgba(0,229,204,.12)', border: '1px solid rgba(0,229,204,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--accent)', marginBottom: 'var(--s3)', fontWeight: 700 }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 6px var(--accent)', animation: 'blink 1.5s infinite' }} />
+                    🚀 DO THIS NEXT
                 </div>
+                <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800, marginBottom: 'var(--s2)' }}>Intelligence-First Strategy</div>
+                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>AI-powered recommendation engine. Analyzes your niche signals to prioritize your <strong style={{ color: 'var(--text)' }}>highest-probability next moves</strong>.</div>
             </div>
 
-            <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
-                <button className="btn" onClick={autoScan} disabled={busy}>{busy ? '⏳ Scanning…' : '🔄 Rescan Niches'}</button>
+            <div className="h-stack" style={{ gap: 'var(--s3)', marginBottom: 'var(--s6)' }}>
+                <button className="btn hot" onClick={autoScan} disabled={busy}>{busy ? '⏳ Scanning…' : '🔄 Refresh Strategy'}</button>
                 {lastExplorerResult && (
                     <button className="btn s" onClick={() => analyze([lastExplorerResult])}>
-                        📡 Use Last Explorer Result
+                        📡 Use Last Analysis
                     </button>
                 )}
             </div>
 
             {recs.length === 0 && !busy && (
-                <div className="empty"><div className="ei">🚀</div><h3>Scanning niches…</h3>
-                    <p>Analyzing top niches to find your best next video opportunity.</p></div>
+                <div className="empty fade-in"><div className="ei">🚀</div><h3>Awaiting Signal Intelligence</h3>
+                    <p>Scan your niches to generate prioritized content opportunities.</p></div>
             )}
 
             {recs.length > 0 && (
-                <>
+                <div className="fade-in">
                     {/* #1 Recommendation — hero */}
                     {(() => {
                         const top = recs[0]
@@ -103,39 +105,46 @@ export default function DoThisNext() {
                             `Why ${top.kw} Is More Important Than You Think`,
                         ]
                         return (
-                            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.06),rgba(0,229,204,.02))', border: '1px solid rgba(0,229,204,.25)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                                <div style={{ fontFamily: 'var(--fm)', fontSize: 9, textTransform: 'uppercase', letterSpacing: 2, color: 'var(--accent)', marginBottom: 10 }}>🎯 #1 RECOMMENDATION</div>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-                                    <div>
-                                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 3 }}>TOPIC</div>
-                                        <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 700, marginBottom: 12, color: 'var(--accent)' }}>{top.kw}</div>
-                                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 3 }}>FORMAT</div>
-                                        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>{fm.format}</div>
-                                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 6 }}>SUGGESTED TITLES</div>
-                                        {titles.map((t, i) => (
-                                            <div key={i} style={{ padding: '7px 10px', background: 'var(--elevated)', borderRadius: 'var(--r)', marginBottom: 5, fontSize: 12.5, lineHeight: 1.4, cursor: 'pointer', transition: 'all .15s', borderLeft: '2px solid var(--accent)' }}
-                                                onClick={() => navigate('/factory', { state: { topic: top.kw } })}>
-                                                {t}
+                            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.06),rgba(0,229,204,.02))', border: '1px solid rgba(0,229,204,.25)', borderRadius: 'var(--r3)', padding: 'var(--s6)', marginBottom: 'var(--s8)' }}>
+                                <div style={{ fontFamily: 'var(--fm)', fontSize: 10, textTransform: 'uppercase', letterSpacing: 2, color: 'var(--accent)', marginBottom: 'var(--s4)', fontWeight: 800 }}>🎯 PRIMARY RECOMMENDATION</div>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--s8)' }}>
+                                    <div className="v-stack" style={{ gap: 'var(--s4)' }}>
+                                        <div>
+                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 'var(--s1)' }}>PRIORITY TOPIC</div>
+                                            <div style={{ fontFamily: 'var(--fd)', fontSize: 28, fontWeight: 800, color: 'var(--accent)', lineHeight: 1 }}>{top.kw}</div>
+                                        </div>
+                                        <div>
+                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 'var(--s1)' }}>RECOMMENDED FORMAT</div>
+                                            <div style={{ fontSize: 15, fontWeight: 700 }}>{fm.format}</div>
+                                        </div>
+                                        <div>
+                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 'var(--s2)' }}>SUGGESTED TITLES</div>
+                                            <div className="v-stack" style={{ gap: 'var(--s2)' }}>
+                                                {titles.map((t, i) => (
+                                                    <div key={i} className="card hoverable" style={{ padding: 'var(--s2) var(--s4)', borderRadius: 'var(--r1)', fontSize: 13, lineHeight: 1.4, cursor: 'pointer', borderLeft: '3px solid var(--accent)' }}
+                                                        onClick={() => navigate('/factory', { state: { topic: top.kw } })}>
+                                                        {t}
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
+                                        </div>
                                     </div>
-                                    <div>
-                                        <div style={{ marginBottom: 12 }}>
-                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 4 }}>OPPORTUNITY SCORE</div>
-                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 42, fontWeight: 700, color: top.si.color, lineHeight: 1 }}>{top.opp.toFixed(1)}</div>
-                                            <span className={`pill ${top.si.cls}`} style={{ marginTop: 6, display: 'inline-flex' }}>{top.si.label}</span>
+                                    <div className="v-stack" style={{ gap: 'var(--s5)' }}>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--s4)' }}>
+                                            <div className="card" style={{ padding: 'var(--s4)', borderRadius: 'var(--r2)' }}>
+                                                <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 'var(--s1)' }}>OPPORTUNITY</div>
+                                                <div style={{ fontFamily: 'var(--fm)', fontSize: 32, fontWeight: 800, color: top.si.color, lineHeight: 1 }}>{top.opp.toFixed(1)}</div>
+                                                <div className={`pill ${top.si.cls}`} style={{ marginTop: 'var(--s2)' }}>{top.si.label}</div>
+                                            </div>
+                                            <div className="card" style={{ padding: 'var(--s4)', borderRadius: 'var(--r2)' }}>
+                                                <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 'var(--s1)' }}>VIRAL PROB.</div>
+                                                <div style={{ fontFamily: 'var(--fm)', fontSize: 32, fontWeight: 800, color: top.viralProb >= .7 ? 'var(--green)' : top.viralProb >= .4 ? 'var(--yellow)' : 'var(--muted)', lineHeight: 1 }}>{Math.round(top.viralProb * 100)}%</div>
+                                                <div style={{ color: 'var(--muted)', fontSize: 9.5, marginTop: 'var(--s2)', textTransform: 'uppercase' }}>{fm.confidence} Reliability</div>
+                                            </div>
                                         </div>
-                                        <div style={{ marginBottom: 12 }}>
-                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 4 }}>VIRAL PROBABILITY</div>
-                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 28, fontWeight: 700, color: top.viralProb >= .7 ? 'var(--green)' : top.viralProb >= .4 ? 'var(--yellow)' : 'var(--muted)' }}>{Math.round(top.viralProb * 100)}%</div>
-                                        </div>
-                                        <div style={{ marginBottom: 16 }}>
-                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 4 }}>CONFIDENCE</div>
-                                            <span style={{ fontFamily: 'var(--fm)', fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20, background: fm.confidence === 'HIGH' ? 'rgba(0,230,118,.1)' : fm.confidence === 'MEDIUM' ? 'rgba(255,215,64,.1)' : 'rgba(255,92,53,.1)', color: fm.confidence === 'HIGH' ? 'var(--green)' : fm.confidence === 'MEDIUM' ? 'var(--yellow)' : 'var(--hot)' }}>{fm.confidence}</span>
-                                        </div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-                                            <button className="btn fac" onClick={() => navigate('/factory', { state: { topic: top.kw } })} style={{ justifyContent: 'center' }}>🏭 Open in Factory</button>
-                                            <button className="btn sim" onClick={() => navigate('/simulator', { state: { topic: top.kw } })} style={{ justifyContent: 'center' }}>🎮 Simulate It</button>
+                                        <div className="h-stack" style={{ gap: 'var(--s3)' }}>
+                                            <button className="btn fac" onClick={() => navigate('/factory', { state: { topic: top.kw } })} style={{ flex: 1, justifyContent: 'center' }}>🏭 Factory</button>
+                                            <button className="btn sim" onClick={() => navigate('/simulator', { state: { topic: top.kw } })} style={{ flex: 1, justifyContent: 'center' }}>🎮 Simulator</button>
                                         </div>
                                     </div>
                                 </div>
@@ -144,33 +153,36 @@ export default function DoThisNext() {
                     })()}
 
                     {/* Other recommendations */}
-                    <div style={{ marginBottom: 10 }}>
-                        <div className="slbl">Also Strong</div>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 10 }}>
+                    <div>
+                        <div style={{ fontFamily: 'var(--fm)', fontSize: 11, fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 'var(--s4)' }}>Secondary High-Potential Niches</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 'var(--s4)' }}>
                             {recs.slice(1).map((r, i) => {
                                 const fm = FORMAT_MAP[r.si.cls] || FORMAT_MAP.moderate
                                 return (
-                                    <div key={r.kw} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--rl)', padding: 15, cursor: 'pointer', transition: 'all .2s' }}
-                                        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = '' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: 1 }}>#{i + 2}</div>
+                                    <div key={r.kw} className="card hoverable" style={{ padding: 'var(--s4)', borderRadius: 'var(--r2)', cursor: 'pointer' }}
+                                        onClick={() => navigate('/factory', { state: { topic: r.kw } })}>
+                                        <div className="h-stack" style={{ justifyContent: 'space-between', marginBottom: 'var(--s3)' }}>
+                                            <div style={{ fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--dim)', fontWeight: 800 }}>RANK #{i + 2}</div>
                                             <span className={`pill ${r.si.cls}`}>{r.si.label}</span>
                                         </div>
-                                        <div style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 14, marginBottom: 4, color: 'var(--text)' }}>{r.kw}</div>
-                                        <div style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 10 }}>{fm.format}</div>
-                                        <div style={{ display: 'flex', gap: 10, fontFamily: 'var(--fm)', fontSize: 10.5 }}>
-                                            <span style={{ color: 'var(--accent)' }}>Score: {r.opp.toFixed(1)}</span>
-                                            <span style={{ color: 'var(--muted)' }}>VP: {Math.round(r.viralProb * 100)}%</span>
+                                        <div style={{ fontFamily: 'var(--fd)', fontWeight: 800, fontSize: 16, marginBottom: 'var(--s1)', color: 'var(--text)' }}>{r.kw}</div>
+                                        <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 'var(--s4)' }}>{fm.format}</div>
+                                        <div className="h-stack" style={{ gap: 'var(--s4)', borderTop: '1px solid var(--border)', paddingTop: 'var(--s3)' }}>
+                                            <div>
+                                                <div style={{ fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase' }}>Opposition</div>
+                                                <div style={{ fontFamily: 'var(--fm)', fontSize: 14, fontWeight: 800, color: 'var(--accent)' }}>{r.opp.toFixed(1)}</div>
+                                            </div>
+                                            <div>
+                                                <div style={{ fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase' }}>Viral Prob</div>
+                                                <div style={{ fontFamily: 'var(--fm)', fontSize: 14, fontWeight: 800, color: 'var(--hot)' }}>{Math.round(r.viralProb * 100)}%</div>
+                                            </div>
                                         </div>
-                                        <button className="btn fac" style={{ width: '100%', justifyContent: 'center', marginTop: 10, fontSize: '10.5px', padding: '6px' }}
-                                            onClick={() => navigate('/factory', { state: { topic: r.kw } })}>🏭 Factory</button>
                                     </div>
                                 )
                             })}
                         </div>
                     </div>
-                </>
+                </div>
             )}
         </div>
     )

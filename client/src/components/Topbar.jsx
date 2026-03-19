@@ -46,40 +46,39 @@ export default function TopBar() {
             <div style={{
                 background: 'var(--surface)',
                 borderBottom: '1px solid var(--border)',
-                padding: '11px 22px',
+                padding: 'var(--s3) var(--s6)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 position: 'sticky',
                 top: 0,
                 zIndex: 50,
-                gap: 16,
+                gap: 'var(--s4)',
+                backdropFilter: 'blur(10px)',
             }}>
                 <div>
-                    <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 17 }}>{title}</h1>
-                    <p style={{ fontSize: 10, color: 'var(--muted)', fontFamily: 'var(--fm)', marginTop: 1 }}>{subtitle}</p>
+                    <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 800, fontSize: 18, color: 'var(--text)', letterSpacing: '-0.3px' }}>{title}</h1>
+                    <p style={{ fontSize: 10, color: 'var(--muted)', fontFamily: 'var(--fm)', marginTop: 'var(--s1)', letterSpacing: '0.2px', textTransform: 'uppercase', fontWeight: 600 }}>{subtitle}</p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 9, flexShrink: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s3)', flexShrink: 0 }}>
                     <div style={{
-                        display: 'flex', alignItems: 'center', gap: 6,
-                        fontFamily: 'var(--fm)', fontSize: 10,
-                        background: 'var(--elevated)', padding: '5px 10px',
-                        borderRadius: 'var(--r)', border: '1px solid var(--border)',
+                        display: 'flex', alignItems: 'center', gap: 'var(--s3)',
+                        fontFamily: 'var(--fm)', fontSize: 11,
+                        background: 'var(--elevated)', padding: 'var(--s2) var(--s4)',
+                        borderRadius: 'var(--r1)', border: '1px solid var(--border)',
+                        fontWeight: 700,
                     }}>
-                        ⚡ {quotaUsed.toLocaleString()} units
-                        <div style={{ width: 72, height: 3, background: 'var(--border)', borderRadius: 2, overflow: 'hidden' }}>
-                            <div style={{ height: '100%', width: `${quotaPct}%`, background: 'var(--accent)', transition: 'width .5s', borderRadius: 2 }} />
+                        <span style={{ color: 'var(--accent)' }}>⚡</span> {quotaUsed.toLocaleString()}
+                        <div style={{ width: 60, height: 4, background: 'var(--border)', borderRadius: 2, overflow: 'hidden' }}>
+                            <div style={{ height: '100%', width: `${quotaPct}%`, background: 'var(--accent)', transition: 'width .5s ease-out' }} />
                         </div>
                     </div>
                     <button
+                        className="btn s"
                         onClick={clearCache}
-                        style={{
-                            background: 'var(--elevated)', color: 'var(--text)', border: '1px solid var(--border)',
-                            borderRadius: 'var(--r)', padding: '5px 10px', fontSize: 10,
-                            fontFamily: 'var(--fd)', fontWeight: 700, cursor: 'pointer',
-                        }}
+                        style={{ fontSize: 10, fontWeight: 800 }}
                     >
-                        🗑 Cache
+                        🗑 CLEAR CACHE
                     </button>
                 </div>
             </div>

@@ -22,18 +22,20 @@ const TRENDING = [
 export default function Trending() {
     const navigate = useNavigate()
     return (
-        <div className="fade-in" style={{ padding: 22 }}>
-            <p style={{ fontSize: 12.5, color: '#7aadc8', marginBottom: 16 }}>Click any niche for a full analysis.</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(210px,1fr))', gap: 11 }}>
+        <div className="page fade-in">
+            <p style={{ fontSize: 13, color: '#7aadc8', marginBottom: 'var(--s4)', maxWidth: 560, lineHeight: 1.6 }}>
+                Click any niche for a full analysis and historical signals breakdown.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 'var(--s4)' }}>
                 {TRENDING.map((n, i) => (
                     <div key={n.kw} onClick={() => navigate('/explorer', { state: { keyword: n.kw } })}
                         className="card hoverable"
-                        style={{ padding: 15, cursor: 'pointer' }}>
-                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--dim)', marginBottom: 3 }}>— {String(i + 1).padStart(2, '0')}</div>
-                        <div style={{ fontFamily: 'var(--fd)', fontSize: 15, fontWeight: 700, marginBottom: 8 }}>{n.kw}</div>
-                        <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+                        style={{ padding: 'var(--s4)', cursor: 'pointer', borderRadius: 'var(--r2)' }}>
+                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', marginBottom: 'var(--s1)' }}>— {String(i + 1).padStart(2, '0')}</div>
+                        <div style={{ fontFamily: 'var(--fd)', fontSize: 16, fontWeight: 800, marginBottom: 'var(--s3)', color: 'var(--text)' }}>{n.kw}</div>
+                        <div className="h-stack" style={{ gap: 'var(--s1)', flexWrap: 'wrap' }}>
                             {n.tags.map(t => (
-                                <span key={t} style={{ background: 'var(--elevated)', border: '1px solid var(--border)', borderRadius: 4, padding: '2px 7px', fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)' }}>{t}</span>
+                                <span key={t} className="chip">{t}</span>
                             ))}
                         </div>
                     </div>

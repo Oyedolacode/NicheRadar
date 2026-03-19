@@ -15,12 +15,11 @@ export default function Bookmarks() {
     const REMOVE = { niches: removeNiche, ideas: removeIdea, videos: removeVideo, competitors: removeCompetitor }
 
     return (
-        <div style={{ padding: 22 }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18, flexWrap: 'wrap', gap: 10 }}>
+        <div className="page fade-in">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--s6)' }}>
                 <div>
-                    <p style={{ fontSize: 12.5, color: '#7aadc8', lineHeight: 1.6 }}>
-                        Your saved niches, ideas, videos, and competitors. <strong style={{ color: 'var(--text)' }}>{total} saved</strong>
-                    </p>
+                    <h2 style={{ fontFamily: 'var(--fd)', fontSize: 24, fontWeight: 800, color: 'var(--text)' }}>Bookmarks</h2>
+                    <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 'var(--s1)' }}>Your curated collection of niche signals and videos</p>
                 </div>
                 {total > 0 && (
                     <button className="btn s" style={{ fontSize: '10.5px' }}
