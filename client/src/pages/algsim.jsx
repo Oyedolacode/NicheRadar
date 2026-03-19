@@ -35,7 +35,7 @@ export default function AlgSim() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', grid_template_columns: '1fr 1.5fr', gap: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '24px' }}>
         <div className="card" style={{ padding: '20px' }}>
           <div className="slbl">Simulator Inputs</div>
           <div className="v-stack" style={{ gap: '16px' }}>

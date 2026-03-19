@@ -152,3 +152,10 @@ export function trendDir(trend) {
   if (trend >= 4) return { label: 'Stable', dir: 'st' };
   return { label: 'Falling', dir: 'dn' };
 }
+ 
+export function bdg(s) {
+  if (s >= 8) return 's8';
+  if (s >= 6) return 's6';
+  if (s >= 3) return 's3';
+  return 's0';
+}
