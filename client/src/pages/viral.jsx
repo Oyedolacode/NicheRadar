@@ -10,7 +10,7 @@ const GAPS = [
 
 export default function Viral() {
   return (
-    <div className="pg on">
+    <div style={{ padding: 22 }}>
       <div className="tb" style={{ position: 'relative', background: 'transparent', border: 'none', padding: '0 0 20px 0' }}>
         <div className="tb-l">
           <h1>Viral Gaps</h1>

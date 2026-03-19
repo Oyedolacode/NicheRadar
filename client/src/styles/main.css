@@ -361,9 +361,20 @@
    color: var(--dim);
 }
 
-.inp.sm {
-   font-size: 12.5px;
-   padding: 8px 12px;
+.inp-group { 
+   display: flex; 
+   flex-direction: column; 
+   gap: 5px; 
+}
+ 
+.v-stack { 
+   display: flex; 
+   flex-direction: column; 
+}
+ 
+.w-100 { 
+  width: 100%; 
+  justify-content: center; 
 }
 
 .btn {

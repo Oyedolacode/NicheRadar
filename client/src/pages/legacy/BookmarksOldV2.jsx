@@ -2,8 +2,8 @@ import React from 'react'
 import { useBookmarkStore } from '../store/useBookmarkStore'
 import { useNavigate } from 'react-router-dom'
 
-export default function Ideas() {
-  const { bookmarks, removeNiche } = useBookmarkStore()
+export default function Bookmarks() {
+  const { niches, removeNiche } = useBookmarkStore()
   const navigate = useNavigate()
 
   return (
@@ -13,18 +13,18 @@ export default function Ideas() {
         <p style={{ color: 'var(--muted)', fontSize: 14 }}>Your high-signal niches and content blueprints.</p>
       </header>
 
-      {!bookmarks.length ? (
+      {!niches.length ? (
         <div className="empty">
           <div className="ei">💡</div>
           <h3 style={{ fontSize: 20, fontWeight: 900 }}>Your strategy lab is empty</h3>
           <p style={{ color: 'var(--muted)', maxWidth: 350, margin: 'var(--s2) 0 var(--s6) 0' }}>
             When you find a winning niche in the Opportunities hub, save it here to build your production roadmap.
           </p>
-          <button className="btn sim" onClick={() => navigate('/opportunities')}>Find Opportunities</button>
+          <button className="btn sim" onClick={() => navigate('/explorer')}>Find Opportunities</button>
         </div>
       ) : (
         <div className="v-stack" style={{ gap: 'var(--s6)' }}>
-          {bookmarks.map(b => (
+          {niches.map(b => (
             <div key={b.kw} className="card shadow-md" style={{ padding: 'var(--s6)', border: '1.5px solid var(--border)' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr', gap: 'var(--s8)', alignItems: 'center' }}>
                 

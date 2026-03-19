@@ -71,6 +71,7 @@ export const useBookmarkStore = create(
         const s = get()
         return (s.ideas?.length || 0) + (s.niches?.length || 0) + (s.videos?.length || 0) + (s.competitors?.length || 0)
       },
+      totalCount: () => get().getTotalCount(),
 
       // ── Clear All ──────────────────────
       clearAll: () => set({ ideas: [], niches: [], videos: [], competitors: [] }),

@@ -14,6 +14,8 @@
 
   /* ── Accents & State ────────────────────── */
   --accent: #00e5cc;
+  --accent-rgb: 0, 229, 204;
+  --accent-grad: linear-gradient(90deg, #00e5cc, #00b8a9);
   --adim: rgba(0, 229, 204, .1);
   --aglow: rgba(0, 229, 204, .2);
   --hot: #ff5c35;
@@ -30,27 +32,7 @@
   --blue: #4d9fff;
   --orange: #ff9f43;
 
-  /* ── Typography (v5 System) ───────────────── */
-  --fd: 'Syne', sans-serif;
-  --fm: 'JetBrains Mono', monospace;
-  --fb: 'Epilogue', sans-serif;
-
-  /* ── Geometry ─────────────────────────────── */
-  --r: 7px;
-  --rl: 12px;
-
-  /* ── Layout Constants ─────────────────────── */
-  --sidebar-w: 228px;
-  --topbar-h: 64px;
-
-  --glass: rgba(10, 18, 28, 0.85);
-  --r2: 10px;
-  --r3: 14px;
-  --s4: 16px;
-  --s6: 24px;
-  --shadow-l: 0 8px 32px rgba(0, 0, 0, .4);
-  --accent-grad: linear-gradient(90deg, #00e5cc, #00b8a9);
-  /* Add to tokens.css */
+  /* ── Spacing Tokens ─────────────────────── */
   --s1: 4px;
   --s2: 8px;
   --s3: 10px;
@@ -61,13 +43,24 @@
   --s8: 32px;
   --s9: 40px;
   --s10: 48px;
-  --glass: rgba(10, 18, 28, 0.88);
+
+  /* ── Typography (v5 System) ───────────────── */
+  --fd: 'Syne', sans-serif;
+  --fm: 'JetBrains Mono', monospace;
+  --fb: 'Epilogue', sans-serif;
+
+  /* ── Geometry ─────────────────────────────── */
+  --r: 7px;
   --r2: 10px;
   --r3: 14px;
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, .3);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, .4);
-  --accent-rgb: 0, 229, 204;
-  --accent-grad: linear-gradient(90deg, #00e5cc, #00b8a9);
+  --rl: 12px;
+
+  /* ── Layout & Effects ─────────────────────── */
+  --sidebar-w: 228px;
+  --topbar-h: 64px;
+  --glass: rgba(10, 18, 28, 0.88);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.4);
 }
 
 

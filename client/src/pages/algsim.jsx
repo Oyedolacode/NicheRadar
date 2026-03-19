@@ -27,12 +27,10 @@ export default function AlgSim() {
   const { score, dist } = sim()
 
   return (
-    <div className="pg on">
-      <div className="tb" style={{ position: 'relative', background: 'transparent', border: 'none', padding: '0 0 20px 0' }}>
-        <div className="tb-l">
-          <h1>Algorithm Simulator</h1>
-          <p>Predict how the YouTube algorithm will treat your video metrics.</p>
-        </div>
+    <div style={{ padding: 22 }}>
+      <div style={{ marginBottom: 20 }}>
+        <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 17 }}>Algorithm Simulator</h1>
+        <p style={{ fontSize: 10, color: 'var(--muted)', fontFamily: 'var(--fm)' }}>Predict how YouTube will treat your video metrics.</p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '24px' }}>

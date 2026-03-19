@@ -10,7 +10,7 @@ export const TTL = 86400000;
 // ── Cache System ──
 export const cSet = (k, v) => {
   try {
-    localStorage.setItem('nr5_' + k, JSON.stringify({ v, t: Date.now() }));
+    localStorage.setItem('nr6_' + k, JSON.stringify({ v, t: Date.now() }));
   } catch (e) {
     console.error('Cache set error:', e);
   }
@@ -18,11 +18,11 @@ export const cSet = (k, v) => {
 
 export const cGet = (k) => {
   try {
-    const d = localStorage.getItem('nr5_' + k);
+    const d = localStorage.getItem('nr6_' + k);
     if (!d) return null;
     const p = JSON.parse(d);
     if (Date.now() - p.t > TTL) {
-      localStorage.removeItem('nr5_' + k);
+      localStorage.removeItem('nr6_' + k);
       return null;
     }
     return p.v;
@@ -33,7 +33,7 @@ export const cGet = (k) => {
 
 export const cKeys = () => {
   try {
-    return Object.keys(localStorage).filter(k => k.startsWith('nr5_'));
+    return Object.keys(localStorage).filter(k => k.startsWith('nr6_'));
   } catch (e) {
     return [];
   }

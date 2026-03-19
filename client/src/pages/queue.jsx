@@ -12,13 +12,13 @@ export default function Queue() {
   const [data, setData] = useState({ ideas: [], script: [], recording: [], editing: [], scheduled: [] })
 
   useEffect(() => {
-    const saved = localStorage.getItem('nr5_kanban')
+    const saved = localStorage.getItem('nr6_kanban')
     if (saved) setData(JSON.parse(saved))
   }, [])
 
   const save = (newData) => {
     setData(newData)
-    localStorage.setItem('nr5_kanban', JSON.stringify(newData))
+    localStorage.setItem('nr6_kanban', JSON.stringify(newData))
   }
 
   const move = (id, from, to) => {
@@ -37,15 +37,13 @@ export default function Queue() {
   }
 
   return (
-    <div className="pg on">
-      <div className="tb" style={{ position: 'relative', background: 'transparent', border: 'none', padding: '0 0 20px 0' }}>
-        <div className="tb-l">
-          <h1>Production Queue</h1>
-          <p>Drag and drop items through the workflow.</p>
+    <div style={{ padding: 22 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 17 }}>Production Queue</h1>
+          <p style={{ fontSize: 10, color: 'var(--muted)' }}>Move cards through the workflow.</p>
         </div>
-        <div className="tb-r">
-          <button className="btn s" onClick={() => { if(confirm('Clear all?')) save({ ideas: [], script: [], recording: [], editing: [], scheduled: [] }) }}>🗑️ Clear Board</button>
-        </div>
+        <button className="btn s" onClick={() => { if(confirm('Clear all?')) save({ ideas: [], script: [], recording: [], editing: [], scheduled: [] }) }}>🗑️ Clear Board</button>
       </div>
 
       <div className="kanban">

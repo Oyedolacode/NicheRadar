@@ -5,33 +5,31 @@ export default function Scheduler() {
   const today = new Date()
   
   useEffect(() => {
-    const saved = localStorage.getItem('nr5_sched')
+    const saved = localStorage.getItem('nr6_sched')
     if (saved) setItems(JSON.parse(saved))
   }, [])
 
   const save = (newItems) => {
     setItems(newItems)
-    localStorage.setItem('nr5_sched', JSON.stringify(newItems))
+    localStorage.setItem('nr6_sched', JSON.stringify(newItems))
   }
 
-  const getDays = () => {
-    const days = []
+  const days = React.useMemo(() => {
+    const dts = []
     for (let i = 0; i < 14; i++) {
       const d = new Date()
       d.setDate(today.getDate() + i)
-      days.push(d)
+      dts.push(d)
     }
-    return days
-  }
-
-  const days = getDays()
+    return dts
+  }, [])
 
   return (
-    <div className="pg on">
-      <div className="tb" style={{ position: 'relative', background: 'transparent', border: 'none', padding: '0 0 20px 0' }}>
-        <div className="tb-l">
-          <h1>Publishing Scheduler</h1>
-          <p>2-week content calendar and automation.</p>
+    <div style={{ padding: 22 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 17 }}>Publishing Scheduler</h1>
+          <p style={{ fontSize: 10, color: 'var(--muted)' }}>2-week content calendar.</p>
         </div>
       </div>
 
@@ -52,7 +50,17 @@ export default function Scheduler() {
                     {it.title.slice(0, 15)}...
                   </div>
                 ))}
-                {dayItems.length === 0 && <div style={{ height: '30px' }}></div>}
+                <div
+                  onClick={() => {
+                    const title = prompt('Video title:')
+                    if (!title) return
+                    const newItems = [...items, { date: d.toDateString(), title, platform: 'YouTube', status: 'Pending' }]
+                    save(newItems)
+                  }}
+                  style={{ fontSize: 9, color: 'var(--dim)', cursor: 'pointer', textAlign: 'center', padding: '4px', border: '1px dashed var(--border)', borderRadius: 3, marginTop: 4 }}
+                >
+                  + Add
+                </div>
               </div>
             </div>
           )
@@ -78,7 +86,7 @@ export default function Scheduler() {
                   <td className="tm">{it.date}</td>
                   <td>{it.title}</td>
                   <td className="tm">YouTube</td>
-                  <td><span className="pill v-mod">Pending</span></td>
+                  <td><span className="pill moderate">Pending</span></td>
                 </tr>
               ))}
             </tbody>

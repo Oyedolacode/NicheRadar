@@ -1,10 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppStore } from '../store/useAppStore'
 import { scoreInfo } from '../lib/formulas'
+import { useBookmarkStore } from '../store/useBookmarkStore'
 
 export default function Dashboard() {
   const { lastExplorerResult } = useAppStore()
+  const { niches } = useBookmarkStore()
   const navigate = useNavigate()
 
   // High-Confidence Decision Engine
@@ -32,7 +33,7 @@ export default function Dashboard() {
           
           {/* 🔥 1. THE BIG WIN: MAIN RECOMMENDATION CARD */}
           <div className="card shadow-lg" style={{ 
-            background: 'linear-gradient(135deg, rgba(var(--accent-rgb), 0.12), rgba(112, 0, 255, 0.08))',
+            background: 'linear-gradient(135deg, rgba(0,229,204,.12), rgba(112,0,255,.08))',
             border: '1.5px solid var(--accent)',
             padding: 'var(--s8)',
             position: 'relative'
@@ -60,8 +61,8 @@ export default function Dashboard() {
                 </div>
 
                 <div className="h-stack" style={{ gap: 'var(--s4)' }}>
-                  <button className="btn sim" style={{ padding: '14px 28px', fontSize: 15 }} onClick={() => navigate('/production')}>🎬 Generate Script</button>
-                  <button className="btn s" style={{ padding: '14px 24px', fontSize: 13 }} onClick={() => navigate('/opportunities')}>🔍 Deep Analysis</button>
+                  <button className="btn sim" style={{ padding: '14px 28px', fontSize: 15 }} onClick={() => navigate('/queue')}>🎬 Generate Script</button>
+                  <button className="btn s" style={{ padding: '14px 24px', fontSize: 13 }} onClick={() => navigate('/explorer')}>🔍 Deep Analysis</button>
                   <button className="btn s" style={{ padding: '14px 20px' }}>🔖 Save</button>
                 </div>
               </>
@@ -72,7 +73,7 @@ export default function Dashboard() {
                 <p style={{ color: 'var(--muted)', maxWidth: 400, margin: 'var(--s2) auto var(--s6) auto' }}>
                   Scan a niche in the Opportunities hub to unlock your first custom growth roadmaps.
                 </p>
-                <button className="btn sim btn-lg" onClick={() => navigate('/opportunities')}>Analyze Opportunities</button>
+                <button className="btn sim btn-lg" onClick={() => navigate('/explorer')}>Analyze Opportunities</button>
               </div>
             )}
           </div>
@@ -98,7 +99,7 @@ export default function Dashboard() {
                        <span className="slbl" style={{ marginBottom: 0, color: 'var(--accent)' }}>{(v.views / (v.subs || 1)).toFixed(1)}x Channel Power</span>
                     </div>
                   </div>
-                  <button className="btn s" style={{ fontSize: 10 }} onClick={() => navigate('/production', { state: { seed: v } })}>Clone 🧬</button>
+                  <button className="btn s" style={{ fontSize: 10 }} onClick={() => navigate('/queue', { state: { seed: v } })}>Clone 🧬</button>
                 </div>
               ))}
               {!lastExplorerResult && <div style={{ textAlign: 'center', padding: 'var(--s10)', opacity: 0.3 }}>No scan data yet.</div>}
@@ -113,43 +114,45 @@ export default function Dashboard() {
           <div className="card">
             <div className="ch"><div className="ct">Exploding Opportunities</div></div>
             <div style={{ padding: 'var(--s4)' }} className="v-stack">
-              {[
-                { kw: 'AI Study Tools', opp: '9.2 🔥', why: 'Small channels winning' },
-                { kw: 'History Shorts', opp: '8.7 🔥', why: 'Recent viral surge' },
-                { kw: 'Stoic Habits',   opp: '7.4 🚀', why: 'Low saturation' },
-              ].map(n => (
-                <div key={n.kw} className="card shadow-sm" style={{ padding: 'var(--s4)', background: 'var(--adim)', border: '1px solid var(--border)', marginBottom: 'var(--s2)' }}>
-                  <div className="h-stack" style={{ justifyContent: 'space-between', marginBottom: 'var(--s2)' }}>
-                    <span style={{ fontWeight: 900, fontSize: 13 }}>{n.kw}</span>
-                    <span style={{ fontWeight: 900, color: 'var(--accent)', fontSize: 12 }}>{n.opp}</span>
+              {niches.length > 0 ? (
+                niches.slice(0, 3).map(n => (
+                  <div key={n.kw} className="card shadow-sm" style={{ padding: 'var(--s4)', background: 'var(--adim)', border: '1px solid var(--border)', marginBottom: 'var(--s2)' }}>
+                    <div className="h-stack" style={{ justifyContent: 'space-between', marginBottom: 'var(--s2)' }}>
+                      <span style={{ fontWeight: 900, fontSize: 13 }}>{n.kw}</span>
+                      <span style={{ fontWeight: 900, color: 'var(--accent)', fontSize: 12 }}>{n.opp.toFixed(1)} 🔥</span>
+                    </div>
+                    <div style={{ fontSize: 10, color: 'var(--muted)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                       <span>Saved {new Date(n.savedAt).toLocaleDateString()}</span>
+                       <button className="btn s" style={{ padding: '2px 8px', fontSize: 9 }} onClick={() => navigate('/explorer', { state: { keyword: n.kw } })}>Analyze</button>
+                    </div>
                   </div>
-                  <div style={{ fontSize: 10, color: 'var(--muted)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                     <span>{n.why}</span>
-                     <button className="btn s" style={{ padding: '2px 8px', fontSize: 9 }} onClick={() => navigate('/opportunities', { state: { kw: n.kw } })}>Analyze</button>
-                  </div>
+                ))
+              ) : (
+                <div style={{ padding: 'var(--s10) var(--s4)', textAlign: 'center', color: 'var(--muted)', fontSize: 12 }}>
+                  No bookmarked niches yet.<br/>Save a niche from Explorer to see it here.
                 </div>
-              ))}
+              )}
             </div>
           </div>
 
-          {/* 📈 4. CHANNEL HEALTH */}
+          {/* 📊 4. SYSTEM STATUS (Replaces Growth Pulse) */}
           <div className="card">
-            <div className="ch"><div className="ct">Growth Pulse</div></div>
+            <div className="ch"><div className="ct">System Status</div></div>
             <div style={{ padding: 'var(--s6)' }} className="v-stack">
               <div className="h-stack" style={{ justifyContent: 'space-between', marginBottom: 'var(--s4)' }}>
                 <div className="v-stack" style={{ gap: 0 }}>
-                  <span className="slbl">Subscribers</span>
-                  <span style={{ fontSize: 20, fontWeight: 900 }}>12,400</span>
+                  <span className="slbl">API Engine</span>
+                  <span style={{ fontSize: 16, fontWeight: 900, color: 'var(--accent)' }}>Active</span>
                 </div>
-                <div className="tag" style={{ color: 'var(--green)', fontWeight: 900 }}>+4.2%</div>
+                <div className="tag" style={{ color: 'var(--green)', fontWeight: 900 }}>v6.0</div>
               </div>
               <div className="v-stack" style={{ gap: 'var(--s2)' }}>
                  <div className="h-stack" style={{ justifyContent: 'space-between', fontSize: 11 }}>
-                    <span style={{ color: 'var(--muted)' }}>Views (7d)</span>
-                    <span style={{ fontWeight: 800 }}>320,412</span>
+                    <span style={{ color: 'var(--muted)' }}>Data Sync</span>
+                    <span style={{ fontWeight: 800 }}>Real-time</span>
                  </div>
                  <div style={{ height: 4, background: 'var(--border)', borderRadius: 2 }}>
-                    <div style={{ width: '45%', height: '100%', background: 'var(--accent-grad)', borderRadius: 2 }} />
+                    <div style={{ width: '100%', height: '100%', background: 'var(--accent-grad)', borderRadius: 2 }} />
                  </div>
               </div>
             </div>

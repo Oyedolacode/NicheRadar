@@ -4,6 +4,12 @@ import { useAppStore } from '../store/useAppStore'
 
 const SECTIONS = [
   {
+    title: 'Home',
+    items: [
+      { id: 'dashboard', label: 'Growth Assistant', icon: '🏠', path: '/dashboard' },
+    ]
+  },
+  {
     title: 'Intelligence',
     items: [
       { id: 'explorer', label: 'Niche Explorer', icon: '🔍', path: '/explorer' },

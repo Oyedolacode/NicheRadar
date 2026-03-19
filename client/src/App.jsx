@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar'
 import Topbar from './components/Topbar'
 import Toast from './components/Toast'
 
+const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Explorer = lazy(() => import('./pages/Explorer'))
 const AlgoSimulator = lazy(() => import('./pages/AlgSim'))
 const TopicMap = lazy(() => import('./pages/TopicMap'))
@@ -49,7 +50,10 @@ export default function App() {
         <Topbar />
         <Suspense fallback={<PageLoader />}>
           <Routes>
-            <Route path="/" element={<Navigate to="/explorer" replace />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+ 
+            {/* Home */}
+            <Route path="/dashboard" element={<Dashboard />} />
 
             {/* Intelligence */}
             <Route path="/explorer" element={<Explorer />} />
