@@ -36,7 +36,7 @@ export default function App() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', position: 'relative', zIndex: 1 }}>
       <Sidebar />
-      <div style={{ marginLeft: 'var(--sidebar-w)', flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <div className="main-content" style={{ marginLeft: 'var(--sidebar-w)', flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
         <TopBar />
         <Suspense fallback={<PageLoader />}>
           <Routes>

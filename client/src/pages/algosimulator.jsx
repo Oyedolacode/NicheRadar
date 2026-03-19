@@ -41,8 +41,8 @@ export default function AlgoSimulator() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
-            <div style={{ background: 'linear-gradient(135deg,rgba(77,159,255,.08),rgba(0,229,204,.04))', border: '1px solid rgba(77,159,255,.22)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
+        <div className="fade-in" style={{ padding: 22 }}>
+            <div style={{ background: 'linear-gradient(135deg,rgba(77,159,255,.08),rgba(0,229,204,.05))', border: '1px solid rgba(77,159,255,.25)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(77,159,255,.1)', border: '1px solid rgba(77,159,255,.22)', borderRadius: 20, padding: '4px 12px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--blue)', marginBottom: 12, fontWeight: 700 }}>
                     <span style={{ width: 6, height: 6, background: 'var(--blue)', borderRadius: '50%', animation: 'blink 1.5s infinite', display: 'block' }} />
                     🎮 ALGORITHM SIMULATOR

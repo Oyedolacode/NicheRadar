@@ -49,7 +49,7 @@ export default function BatchPipeline() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
+        <div className="fade-in" style={{ padding: 22 }}>
             <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.25)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(0,229,204,.12)', border: '1px solid rgba(0,229,204,.25)', borderRadius: 20, padding: '4px 12px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--accent)', marginBottom: 12, fontWeight: 700 }}>
                     <span style={{ width: 6, height: 6, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 6px var(--accent)', animation: 'blink 1.5s infinite', display: 'block' }} />

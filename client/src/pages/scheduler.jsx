@@ -23,7 +23,7 @@ export default function Scheduler() {
     const sorted = [...slots].sort((a, b) => new Date(a.publishAt).getTime() - new Date(b.publishAt).getTime())
 
     return (
-        <div style={{ padding: 22 }}>
+        <div className="fade-in" style={{ padding: 22 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                 <div>
                     <h2 style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800 }}>Publishing Scheduler</h2>

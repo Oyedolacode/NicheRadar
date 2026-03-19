@@ -148,7 +148,12 @@
 
 /* ── Helpers ── */
 .dn { display: none; }
-@media (max-width: 768px) { .dn-m { display: none; } }
+@media (max-width: 1024px) { 
+  .dn-m { display: none; } 
+  aside { transform: translateX(-100%); transition: transform .3s; }
+  aside.open { transform: translateX(0); }
+  .main-content { margin-left: 0 !important; }
+}
 
 .spin { animation: spin 1s linear infinite; }
 

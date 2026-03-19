@@ -28,7 +28,7 @@ export default function ProductionQueue() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
+        <div className="fade-in" style={{ padding: 22, height: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                 <div>
                     <h2 style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800 }}>Production Queue</h2>
