@@ -3,59 +3,65 @@
    Import this ONCE in main.jsx — all
    components inherit via CSS variables.
 ───────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Outfit:wght@100..900&display=swap');
+
 :root {
-  /* Backgrounds */
-  --bg:       #04080e;
-  --surface:  #0a121c;
-  --elevated: #101e2e;
-  --hover:    #162638;
-  --border:   #1a2e45;
+    /* ── Luxury Core Colors ─────────────────── */
+    --bg: #050505;          /* Deep Space */
+    --surface: #0a0a09;     /* Carbon Black */
+    --elevated: #121212;    /* Stealth Grey */
+    --border: #1a1a1a;      /* Sharp Border */
+    --glass: rgba(8, 8, 8, 0.72);
+    
+    /* ── High-Contrast Accents ─────────────── */
+    --accent: #00f5ff;      /* Electric Cyan */
+    --accent-rgb: 0, 245, 255;
+    --purple: #7000ff;      /* Hyper Violet */
+    --green: #c1ff00;       /* Neon Lime */
+    --red: #ff3c3c;         /* Pulse Red */
+    --orange: #ff8c00;      /* Safety Orange */
+    --hot: #ff3300;
+    
+    /* ── Layered Gradients ─────────────────── */
+    --bg-grad: radial-gradient(circle at top left, #0e0e0e 0%, #050505 100%);
+    --accent-grad: linear-gradient(135deg, var(--accent), var(--purple));
+    
+    /* ── Text System ────────────────────────── */
+    --text: #ffffff;
+    --muted: #888888;
+    --dim: #555555;
+    --adim: rgba(0, 245, 255, 0.08);
+    --pdim: rgba(112, 0, 255, 0.08);
+    --hdim: rgba(255, 51, 0, 0.08);
 
-  /* Brand */
-  --accent:   #00e5cc;
-  --adim:     rgba(0, 229, 204, 0.1);
-  --aglow:    rgba(0, 229, 204, 0.2);
-  --hot:      #ff5c35;
-  --hdim:     rgba(255, 92, 53, 0.1);
+    /* ── Typography (Luxury Reset) ──────────── */
+    --fd: 'Outfit', sans-serif;
+    --fm: 'DM Mono', monospace;
+    --fs-xs: 11px;
+    --fs-s: 13px;
+    --fs-m: 15px;
+    --fs-l: 18px;
+    --fs-xl: 24px;
+    --fs-xxl: 36px;
+    --lh: 1.6;
+    --ls: -0.02em;
 
-  /* Text */
-  --text:     #c8e4ff;
-  --muted:    #4d7d9e;
-  --dim:      #233a52;
+    /* ── Exponential Spacing (Aura Fixed) ───── */
+    --s1: 4px;   --s2: 8px;   --s3: 14px;
+    --s4: 20px;  --s5: 32px;  --s6: 48px;
+    --s7: 64px;  --s8: 80px;  --s9: 100px;
+    --s10: 128px; --s11: 160px; --s12: 240px;
 
-  /* Semantic */
-  --green:    #00e676;
-  --yellow:   #ffd740;
-  --red:      #ff4444;
-  --purple:   #b57aff;
-  --blue:     #4d9fff;
-  --orange:   #ff9f43;
+    /* ── Refined Strokes & Radii ────────────── */
+    --bw: 1px;
+    --r1: 8px;   --r2: 16px;  --r3: 24px;  --r4: 36px;
+    --rl: 999px;
 
-  /* Typography */
-  --fd: 'Syne', sans-serif;
-  --fm: 'JetBrains Mono', monospace;
-  --fb: 'Epilogue', sans-serif;
-
-  /* Spacing Scale (Exponential) */
-  --s1:  4px;
-  --s2:  8px;
-  --s3:  16px;
-  --s4:  24px;
-  --s5:  32px;
-  --s6:  40px;
-  --s8:  56px;
-  --s10: 72px;
-  --s12: 96px;
-
-  /* Strokes & Radii */
-  --bw: 1px;
-  --r1: 6px;
-  --r2: 10px;
-  --r3: 16px;
-  --rl: 16px; /* Legacy alias */
-
-  /* Sidebar */
-  --sidebar-w: 280px;
+    /* ── UI Constants ───────────────────────── */
+    --sidebar-w: 290px;
+    --topbar-h: 84px;
+    --shadow-l: 0 4px 30px rgba(0,0,0,0.5);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.8);
 }
 
 /* ── Reset ── */

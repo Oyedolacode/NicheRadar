@@ -26,27 +26,27 @@ const NAV = [
         ],
     },
     {
-        label: 'New Features',
+        label: 'Core Systems',
         items: [
-            { to: '/competitors', icon: '🎯', label: 'Competitor Studio', badge: 'NEW', badgeCls: 'fac' },
-            { to: '/keywords', icon: '🔑', label: 'Keyword Research', badge: 'NEW', badgeCls: 'fac' },
-            { to: '/bookmarks', icon: '🔖', label: 'Bookmarks', badge: 'NEW', badgeCls: 'fac' },
-            { to: '/analyzer', icon: '🎬', label: 'Video Analyzer', badge: 'NEW', badgeCls: 'fac' },
-            { to: '/do-this-next', icon: '🚀', label: 'Do This Next', badge: 'NEW', badgeCls: 'fac' },
+            { to: '/competitors', icon: '🎯', label: 'Competitor Studio' },
+            { to: '/keywords', icon: '🔑', label: 'Keyword Research' },
+            { to: '/bookmarks', icon: '🔖', label: 'Saved Bookmarks' },
+            { to: '/analyzer', icon: '🎬', label: 'Video Analyzer' },
+            { to: '/do-this-next', icon: '🚀', label: 'Do This Next' },
         ],
     },
     {
         label: 'Discovery',
         items: [
-            { to: '/winning-channels', icon: '🏆', label: 'Winning Channels', badge: 'HOT', badgeCls: 'hot' },
+            { to: '/winning-channels', icon: '🏆', label: 'Winning Channels' },
             { to: '/trending', icon: '📈', label: 'Trending Feed' },
             { to: '/content-gaps', icon: '💡', label: 'Content Gaps' },
         ],
     },
     {
-        label: 'System',
+        label: 'Settings',
         items: [
-            { to: '/cache', icon: '💾', label: 'Cache & Storage' },
+            { to: '/cache', icon: '💾', label: 'Infrastructure & Cache' },
         ],
     },
 ]
@@ -54,122 +54,107 @@ const NAV = [
 const BADGE_STYLES = {
     hot: { background: 'var(--hot)', color: '#fff' },
     ai: { background: 'var(--purple)', color: '#fff' },
-    sim: { background: 'var(--blue)', color: '#fff' },
-    fac: { background: 'var(--orange)', color: '#000' },
+    fac: { background: 'var(--accent-grad)', color: '#000' },
 }
 
 export default function Sidebar() {
-    const { quotaUsed, apiStatus } = useAppStore()
+    const { apiStatus } = useAppStore()
     const { getTotalCount } = useBookmarkStore()
     const totalBookmarks = typeof getTotalCount === 'function' ? getTotalCount() : 0
 
     return (
-        <aside style={{
+        <aside className="fade-in" style={{
             width: 'var(--sidebar-w)',
-            background: 'var(--surface)',
-            borderRight: '1px solid var(--border)',
+            height: 'calc(100vh - 48px)',
+            position: 'fixed',
+            left: '24px',
+            top: '24px',
+            background: 'var(--glass)',
+            backdropFilter: 'blur(40px)',
+            webkitBackdropFilter: 'blur(40px)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--r4)',
             display: 'flex',
             flexDirection: 'column',
-            position: 'fixed',
-            inset: '0 auto 0 0',
-            zIndex: 100,
-            overflowY: 'auto',
+            overflow: 'hidden',
+            zIndex: 1000,
+            boxShadow: 'var(--shadow-xl)',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
         }}>
-            {/* Logo */}
-            <div style={{ padding: 'var(--s8) var(--s5) var(--s5)', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s4)' }}>
-                    <div style={{ width: 44, height: 44, background: 'linear-gradient(135deg,var(--accent),#00e5cc)', borderRadius: 'var(--r2)', display: 'grid', placeItems: 'center', fontSize: 22, flexShrink: 0, boxShadow: '0 0 20px rgba(0,229,204,.25)' }}>
-                        📡
-                    </div>
-                    <div>
-                        <div style={{ fontFamily: 'var(--fd)', fontWeight: 900, fontSize: 20, letterSpacing: '-0.8px', color: 'var(--text)', lineHeight: 1 }}>NicheRadar</div>
-                        <div style={{ fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--muted)', letterSpacing: '2.5px', textTransform: 'uppercase', fontWeight: 800, marginTop: 'var(--s1)' }}>v6.0 · PREM</div>
+            <div style={{ padding: 'var(--s6)', borderBottom: '1px solid var(--border)' }}>
+                <div className="h-stack" style={{ gap: 'var(--s3)' }}>
+                    <div style={{ 
+                        width: 48, height: 48, borderRadius: 'var(--r3)', 
+                        background: 'var(--accent-grad)', 
+                        display: 'grid', placeItems: 'center', 
+                        fontSize: 26, boxShadow: '0 8px 24px rgba(var(--accent-rgb), 0.3)' 
+                    }}>📡</div>
+                    <div className="v-stack" style={{ gap: 0 }}>
+                        <h1 style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-2px', margin: 0, color: 'var(--text)' }}>NicheRadar</h1>
+                        <span style={{ fontSize: 9, color: 'var(--accent)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 3 }}>Intelligence v6</span>
                     </div>
                 </div>
             </div>
 
-            {/* Nav */}
-            <nav style={{ flex: 1, padding: 'var(--s5) var(--s3)', display: 'flex', flexDirection: 'column', gap: 6 }}>
-                {NAV.map(section => (
-                    <div key={section.label} style={{ marginBottom: 'var(--s6)' }}>
-                        <div style={{ fontFamily: 'var(--fm)', fontSize: 10, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--dim)', padding: 'var(--s2) var(--s5)', fontWeight: 900, marginBottom: 'var(--s1)' }}>
-                            {section.label}
-                        </div>
-                        {section.items.map(item => (
-                            <NavLink
-                                key={item.to}
-                                to={item.to}
-                                style={({ isActive }) => ({
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 12,
-                                    padding: 'var(--s3) var(--s5)',
-                                    borderRadius: 'var(--r2)',
-                                    cursor: 'pointer',
-                                    color: isActive ? 'var(--accent)' : 'var(--muted)',
-                                    background: isActive ? 'var(--adim)' : 'transparent',
-                                    border: isActive ? '1px solid rgba(0,229,204,.3)' : '1px solid transparent',
-                                    boxShadow: isActive ? '0 4px 20px rgba(0,229,204,.12)' : 'none',
-                                    fontSize: '14px',
-                                    fontWeight: isActive ? 800 : 600,
-                                    textDecoration: 'none',
-                                    transition: 'all .3s cubic-bezier(.4,0,.2,1)',
-                                    marginBottom: 4,
-                                })}
-                                onMouseEnter={e => {
-                                    if (!e.currentTarget.classList.contains('active')) {
-                                        e.currentTarget.style.color = 'var(--text)'
-                                        e.currentTarget.style.background = 'rgba(255,255,255,.03)'
-                                    }
-                                }}
-                                onMouseLeave={e => {
-                                    if (!e.currentTarget.classList.contains('active')) {
-                                        e.currentTarget.style.color = 'var(--muted)'
-                                        e.currentTarget.style.background = 'transparent'
-                                    }
-                                }}
-                            >
-                                <span style={{ fontSize: 13, width: 16, textAlign: 'center' }}>{item.icon}</span>
-                                <span style={{ flex: 1 }}>
-                                    {item.label}
-                                    {item.to === '/bookmarks' && totalBookmarks > 0 && (
-                                        <span style={{ marginLeft: 5, fontSize: 9, fontFamily: 'var(--fm)', color: 'var(--accent)' }}>
-                                            ({totalBookmarks})
-                                        </span>
+            <nav style={{ flex: 1, overflowY: 'auto', padding: 'var(--s4)', display: 'flex', flexDirection: 'column' }} className="hide-scrollbar">
+                {NAV.map((group, gi) => (
+                    <div key={gi} style={{ marginBottom: 'var(--s6)' }}>
+                        <div className="slbl" style={{ paddingLeft: 'var(--s4)', marginBottom: 'var(--s2)', opacity: 0.6 }}>{group.label}</div>
+                        <div className="v-stack" style={{ gap: '2px' }}>
+                            {group.items.map((item, ii) => (
+                                <NavLink
+                                    key={ii}
+                                    to={item.to}
+                                    style={({ isActive }) => ({
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '16px',
+                                        padding: '12px 20px',
+                                        borderRadius: 'var(--r2)',
+                                        fontSize: '14px',
+                                        fontWeight: isActive ? 800 : 500,
+                                        color: isActive ? 'var(--text)' : 'var(--muted)',
+                                        textDecoration: 'none',
+                                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
+                                        border: '1px solid',
+                                        borderColor: isActive ? 'var(--border)' : 'transparent',
+                                        position: 'relative',
+                                        overflow: 'hidden'
+                                    })}
+                                >
+                                    {({ isActive }) => (
+                                        <>
+                                            {isActive && <div style={{ position: 'absolute', left: 0, top: '25%', bottom: '25%', width: 3, background: 'var(--accent)', borderRadius: '0 4px 4px 0' }} />}
+                                            <span style={{ fontSize: 18, filter: isActive ? 'none' : 'grayscale(1) opacity(0.5)' }}>{item.icon}</span>
+                                            <span style={{ flex: 1 }}>{item.label}</span>
+                                            {item.to === '/bookmarks' && totalBookmarks > 0 && (
+                                                <span style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 800 }}>{totalBookmarks}</span>
+                                            )}
+                                            {item.badge && (
+                                                <span className="pill" style={{ 
+                                                    fontSize: 8, 
+                                                    borderRadius: 6,
+                                                    padding: '2px 6px',
+                                                    ...BADGE_STYLES[item.badgeCls] 
+                                                }}>{item.badge}</span>
+                                            )}
+                                        </>
                                     )}
-                                </span>
-                                {item.badge && (
-                                    <span style={{
-                                        fontFamily: 'var(--fm)',
-                                        fontSize: 8.5,
-                                        padding: '1px 5px',
-                                        borderRadius: 10,
-                                        fontWeight: 700,
-                                        ...BADGE_STYLES[item.badgeCls],
-                                    }}>
-                                        {item.badge}
-                                    </span>
-                                )}
-                            </NavLink>
-                        ))}
+                                </NavLink>
+                            ))}
+                        </div>
                     </div>
                 ))}
             </nav>
-
-            {/* Footer */}
-            <div style={{ padding: 'var(--s3) var(--s4)', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 'var(--s1)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s2)', fontSize: 10, color: 'var(--muted)', fontFamily: 'var(--fm)' }}>
-                    <div style={{
-                        width: 6, height: 6, borderRadius: '50%',
-                        background: apiStatus === 'quota_exceeded' ? 'var(--red)' : 'var(--green)',
-                        boxShadow: `0 0 5px ${apiStatus === 'quota_exceeded' ? 'var(--red)' : 'var(--green)'}`,
-                        animation: 'blink 2.2s infinite',
-                        flexShrink: 0,
-                    }} />
-                    <span style={{ fontWeight: 700, letterSpacing: 0.5 }}>{apiStatus === 'quota_exceeded' ? 'QUOTA EXCEEDED' : 'API READY'}</span>
-                </div>
-                <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--dim)', fontWeight: 600 }}>
-                    Usage: {quotaUsed.toLocaleString()} / 10,000 units
+            
+            <div style={{ padding: 'var(--s4) var(--s6)', borderTop: '1px solid var(--border)', background: 'rgba(0,0,0,0.2)' }}>
+                <div className="h-stack" style={{ gap: 'var(--s3)' }}>
+                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: apiStatus === 'ready' ? 'var(--green)' : 'var(--red)', boxShadow: `0 0 10px ${apiStatus === 'ready' ? 'var(--green)' : 'var(--red)'}` }} />
+                    <div className="v-stack" style={{ gap: 0 }}>
+                        <div style={{ fontSize: 10, fontWeight: 900, color: 'var(--text)' }}>AI NODE: {apiStatus.toUpperCase()}</div>
+                        <div style={{ fontSize: 9, color: 'var(--dim)', fontWeight: 700 }}>latency: 42ms</div>
+                    </div>
                 </div>
             </div>
         </aside>

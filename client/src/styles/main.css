@@ -4,74 +4,89 @@
    Depends on tokens.css.
 ───────────────────────────────────────── */
 
+body {
+    background: var(--bg);
+    background-image: var(--bg-grad);
+    color: var(--text);
+    font-family: var(--fd);
+    font-size: var(--fs-m);
+    line-height: var(--lh);
+    letter-spacing: var(--ls);
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* ── Global Layout ──────────────────────── */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
 /* ── Typography & Layout ── */
 .slbl {
   display: block;
   font-family: var(--fm);
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   color: var(--muted);
-  margin-bottom: var(--s2);
+  margin-bottom: var(--s3);
   font-weight: 700;
   line-height: 1.2;
 }
 
 .page {
+  flex: 1;
+  margin-left: calc(var(--sidebar-w) + var(--s8));
   padding: var(--s8);
   max-width: 1400px;
-  margin: 0 auto;
 }
 
-.v-stack { display: flex; flex-direction: column; gap: var(--s5); }
-.h-stack { display: flex; align-items: center; gap: var(--s4); }
+.v-stack { display: flex; flex-direction: column; }
+.h-stack { display: flex; align-items: center; }
 
 /* ── Form Elements ── */
 .inp {
-  background: var(--surface);
+  background: var(--elevated);
   border: var(--bw) solid var(--border);
-  border-radius: var(--r2);
   color: var(--text);
-  padding: var(--s3) var(--s5);
-  font-family: var(--fb);
-  font-size: 14px;
-  line-height: 1.6;
-  transition: all .2s cubic-bezier(.4, 0, .2, 1);
+  padding: var(--s3) var(--s4);
+  border-radius: var(--r2);
+  font-family: var(--fm);
+  font-size: var(--fs-s);
+  width: 100%;
+  transition: all 0.2s;
   outline: none;
 }
 .inp:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--adim);
+  box-shadow: 0 0 0 4px var(--adim);
 }
 
 .btn {
+  background: var(--elevated);
+  border: none;
+  color: var(--text);
+  padding: var(--s3) var(--s5);
+  border-radius: var(--r2);
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: var(--fs-s);
+  cursor: pointer;
+  transition: all 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--s2);
-  background: var(--elevated);
-  border: var(--bw) solid var(--border);
-  border-radius: var(--r2);
-  color: var(--text);
-  padding: var(--s3) var(--s6);
-  font-family: var(--fd);
-  font-weight: 800;
-  font-size: 13px;
-  line-height: 1.6;
-  cursor: pointer;
-  transition: all .2s cubic-bezier(.4, 0, .2, 1);
-  user-select: none;
-  letter-spacing: 0.5px;
 }
-.btn:hover:not(:disabled) {
-  background: var(--hover);
-  border-color: var(--accent);
-  transform: translateY(-1px);
+
+.btn:hover {
+  transform: scale(1.02);
+  filter: brightness(1.2);
 }
 .btn:active:not(:disabled) { transform: translateY(0); opacity: 0.8; }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
 
-.btn.fac { background: linear-gradient(135deg, var(--orange), #ff6b1a); color: #000; border: none; box-shadow: 0 4px 12px rgba(255,159,67,.2); }
 .btn.sim { background: linear-gradient(135deg, var(--blue), #2b7fff); color: #fff; border: none; box-shadow: 0 4px 12px rgba(77,159,255,.2); }
 .btn.ai  { background: linear-gradient(135deg, var(--purple), #8e44ad); color: #fff; border: none; box-shadow: 0 4px 12px rgba(181,122,255,.2); }
 .btn.s   { padding: var(--s1) var(--s3); font-size: 11px; }

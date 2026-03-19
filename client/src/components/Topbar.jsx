@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 
 const PAGE_META = {
@@ -11,6 +11,7 @@ const PAGE_META = {
     '/viral-gaps': ['Viral Gap Detector', 'Topics where demand outpaces creator supply'],
     '/small-wins': ['Small Channel Wins', 'Small creators beating the algorithm'],
     '/factory': ['Content Factory', 'Topic → ideas → titles → thumbnails → script → production'],
+    '/clone-factory': ['Clone Factory', 'Scale proven formulas across niches and audiences'],
     '/queue': ['Production Queue', 'Kanban board tracking videos from idea to scheduled'],
     '/scheduler': ['Publishing Scheduler', '2-week content calendar with auto-schedule'],
     '/competitors': ['Competitor Studio', 'Track rivals, detect winning topics, find their gaps'],
@@ -19,71 +20,81 @@ const PAGE_META = {
     '/analyzer': ['Video Analyzer', 'Paste any YouTube URL → instant breakdown of why it worked'],
     '/do-this-next': ['Do This Next', 'AI-powered recommendation engine — your next best video'],
     '/winning-channels': ['Winning Channels', 'Find small channels winning big with high ratio/low subs'],
-    '/clone-factory': ['Clone Factory', 'Scale proven formulas across niches and audiences'],
     '/trending': ['Trending Feed', 'Pre-loaded trending niches — click to analyse'],
     '/content-gaps': ['Content Gap Detector', 'Find popular topics missing entire content formats'],
     '/cache': ['Cache & Storage', 'Persistent cache reduces API quota by 70–90%'],
 }
 
-export default function TopBar() {
+export default function Topbar() {
     const { pathname } = useLocation()
-    const { quotaUsed, loading, clearCache } = useAppStore()
-    const [title, subtitle] = PAGE_META[pathname] || ['NicheRadar', '']
-    const quotaPct = Math.min(100, (quotaUsed / 10000) * 100)
+    const navigate = useNavigate()
+    const { loading, quotaUsed } = useAppStore()
+    const [title, desc] = PAGE_META[pathname] || ['NicheRadar', 'Advanced Intelligence']
 
     return (
-        <>
-            {/* Progress bar */}
-            <div style={{ position: 'fixed', top: 0, left: 'var(--sidebar-w)', right: 0, height: 2, zIndex: 999 }}>
-                <div style={{
-                    height: '100%',
-                    width: loading ? '75%' : '0%',
-                    background: 'var(--accent)',
-                    boxShadow: '0 0 8px var(--accent)',
-                    transition: 'width .4s',
-                }} />
-            </div>
-
-            {/* Top bar */}
-            <div style={{
-                background: 'var(--surface)',
-                borderBottom: '1px solid var(--border)',
-                padding: 'var(--s3) var(--s6)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                position: 'sticky',
-                top: 0,
-                zIndex: 50,
-                gap: 'var(--s4)',
-                backdropFilter: 'blur(10px)',
-            }}>
-                <div>
-                    <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 800, fontSize: 18, color: 'var(--text)', letterSpacing: '-0.3px' }}>{title}</h1>
-                    <p style={{ fontSize: 10, color: 'var(--muted)', fontFamily: 'var(--fm)', marginTop: 'var(--s1)', letterSpacing: '0.2px', textTransform: 'uppercase', fontWeight: 600 }}>{subtitle}</p>
+        <header className="fade-in" style={{
+            position: 'fixed',
+            top: '24px',
+            left: 'calc(var(--sidebar-w) + 64px)',
+            right: '24px',
+            height: 'var(--topbar-h)',
+            background: 'var(--glass)',
+            backdropFilter: 'blur(30px)',
+            webkitBackdropFilter: 'blur(30px)',
+            borderRadius: 'var(--r3)',
+            border: '1px solid var(--border)',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 var(--s6)',
+            zIndex: 900,
+            boxShadow: 'var(--shadow-l)',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}>
+            <div className="h-stack" style={{ flex: 1, justifyContent: 'space-between' }}>
+                <div className="v-stack" style={{ gap: 2 }}>
+                    <div style={{ fontSize: 24, fontWeight: 900, fontFamily: 'var(--fd)', letterSpacing: '-1.5px', color: 'var(--text)' }}>
+                        {title}
+                    </div>
+                    <div style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                        {desc}
+                    </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s3)', flexShrink: 0 }}>
-                    <div style={{
-                        display: 'flex', alignItems: 'center', gap: 'var(--s3)',
-                        fontFamily: 'var(--fm)', fontSize: 11,
-                        background: 'var(--elevated)', padding: 'var(--s2) var(--s4)',
-                        borderRadius: 'var(--r1)', border: '1px solid var(--border)',
-                        fontWeight: 700,
-                    }}>
-                        <span style={{ color: 'var(--accent)' }}>⚡</span> {quotaUsed.toLocaleString()}
-                        <div style={{ width: 60, height: 4, background: 'var(--border)', borderRadius: 2, overflow: 'hidden' }}>
-                            <div style={{ height: '100%', width: `${quotaPct}%`, background: 'var(--accent)', transition: 'width .5s ease-out' }} />
+
+                <div className="h-stack" style={{ gap: 'var(--s4)' }}>
+                    <div className="card" style={{ padding: '10px 20px', borderRadius: 'var(--rl)', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', boxShadow: 'none' }}>
+                        <div className="h-stack" style={{ gap: 10 }}>
+                            <div style={{ 
+                                width: 8, height: 8, borderRadius: '50%', 
+                                background: 'var(--accent)', 
+                                boxShadow: '0 0 12px var(--accent)',
+                                animation: loading ? 'pulse 1.5s infinite' : 'none'
+                             }} />
+                            <span style={{ fontSize: 11, fontFamily: 'var(--fm)', fontWeight: 800, color: 'var(--accent)' }}>
+                                {loading ? 'SYNCHRONIZING...' : 'SYSTEM: NOMINAL'}
+                            </span>
                         </div>
                     </div>
-                    <button
-                        className="btn s"
-                        onClick={clearCache}
-                        style={{ fontSize: 10, fontWeight: 800 }}
-                    >
-                        🗑 CLEAR CACHE
+                    
+                    <div className="v-stack" style={{ gap: 4, minWidth: 100 }}>
+                        <div style={{ fontSize: 9, color: 'var(--dim)', fontWeight: 800, textAlign: 'right' }}>QUOTA: {quotaUsed.toLocaleString()}</div>
+                        <div style={{ height: 4, width: '100%', background: 'var(--border)', borderRadius: 2, overflow: 'hidden' }}>
+                            <div style={{ height: '100%', width: `${Math.min(100, (quotaUsed/10000)*100)}%`, background: 'var(--accent-grad)', transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)' }} />
+                        </div>
+                    </div>
+
+                    <button className="btn s glass" style={{ borderRadius: 'var(--r2)', padding: '8px 16px' }} onClick={() => navigate('/cache')}>
+                        ⚡ STATUS
                     </button>
                 </div>
             </div>
-        </>
+            
+            <style>{`
+                @keyframes pulse {
+                    0% { transform: scale(1); opacity: 1; }
+                    50% { transform: scale(1.4); opacity: 0.5; }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+            `}</style>
+        </header>
     )
 }
