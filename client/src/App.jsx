@@ -5,25 +5,25 @@ import TopBar from './components/Topbar'
 import Toast from './components/Toast'
 
 // ── Lazy load every page (smaller initial bundle) ──
-const Explorer = lazy(() => import('./pages/Explorer'))
-const AlgoSimulator = lazy(() => import('./pages/AlgoSimulator'))
-const TopicMap = lazy(() => import('./pages/TopicMap'))
-const ViralPredictor = lazy(() => import('./pages/ViralPredictor'))
-const BatchPipeline = lazy(() => import('./pages/BatchPipeline'))
-const ViralGaps = lazy(() => import('./pages/ViralGaps'))
-const SmallWins = lazy(() => import('./pages/SmallWins'))
-const ContentFactory = lazy(() => import('./pages/ContentFactory'))
-const ProductionQueue = lazy(() => import('./pages/ProductionQueue'))
-const Scheduler = lazy(() => import('./pages/Scheduler'))
-const Trending = lazy(() => import('./pages/Trending'))
-const ContentGaps = lazy(() => import('./pages/ContentGaps'))
-const Cache = lazy(() => import('./pages/Cache'))
+const Explorer = lazy(() => import('./pages/explorer'))
+const AlgoSimulator = lazy(() => import('./pages/algosimulator'))
+const TopicMap = lazy(() => import('./pages/topicmap'))
+const ViralPredictor = lazy(() => import('./pages/viralpredictor'))
+const BatchPipeline = lazy(() => import('./pages/batchpipeline'))
+const ViralGaps = lazy(() => import('./pages/viralgaps'))
+const SmallWins = lazy(() => import('./pages/smallwins'))
+const ContentFactory = lazy(() => import('./pages/contentfactory'))
+const ProductionQueue = lazy(() => import('./pages/productionqueue'))
+const Scheduler = lazy(() => import('./pages/scheduler'))
+const Trending = lazy(() => import('./pages/trending'))
+const ContentGaps = lazy(() => import('./pages/contentgaps'))
+const Cache = lazy(() => import('./pages/cache'))
 // New features
-const CompetitorStudio = lazy(() => import('./pages/CompetitorStudio'))
-const KeywordResearch = lazy(() => import('./pages/KeywordResearch'))
-const Bookmarks = lazy(() => import('./pages/Bookmarks'))
-const VideoAnalyzer = lazy(() => import('./pages/VideoAnalyzer'))
-const DoThisNext = lazy(() => import('./pages/DoThisNext'))
+const CompetitorStudio = lazy(() => import('./pages/competitorstudio'))
+const KeywordResearch = lazy(() => import('./pages/keywordresearch'))
+const Bookmarks = lazy(() => import('./pages/bookmarks'))
+const VideoAnalyzer = lazy(() => import('./pages/videoanalyzer'))
+const DoThisNext = lazy(() => import('./pages/dothisnext'))
 
 // ── Loading fallback ──
 const PageLoader = () => (
