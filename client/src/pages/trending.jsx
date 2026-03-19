@@ -22,14 +22,13 @@ const TRENDING = [
 export default function Trending() {
     const navigate = useNavigate()
     return (
-        <div style={{ padding: 22 }}>
+        <div className="fade-in" style={{ padding: 22 }}>
             <p style={{ fontSize: 12.5, color: '#7aadc8', marginBottom: 16 }}>Click any niche for a full analysis.</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(210px,1fr))', gap: 11 }}>
                 {TRENDING.map((n, i) => (
                     <div key={n.kw} onClick={() => navigate('/explorer', { state: { keyword: n.kw } })}
-                        style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--rl)', padding: 15, cursor: 'pointer', transition: 'all .2s' }}
-                        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
-                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = '' }}>
+                        className="card hoverable"
+                        style={{ padding: 15, cursor: 'pointer' }}>
                         <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--dim)', marginBottom: 3 }}>— {String(i + 1).padStart(2, '0')}</div>
                         <div style={{ fontFamily: 'var(--fd)', fontSize: 15, fontWeight: 700, marginBottom: 8 }}>{n.kw}</div>
                         <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
