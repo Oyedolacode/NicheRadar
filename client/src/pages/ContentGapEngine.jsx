@@ -38,9 +38,6 @@ export default function ContentGapEngine() {
 
     return (
         <div>
-            <p style={{ fontSize: 13, color: '#7aadc8', marginBottom: 16, maxWidth: 560, lineHeight: 1.6 }}>
-                Find which <strong style={{ color: 'var(--accent)' }}>content formats</strong> are missing — Shorts, Animation, Documentary, Explainers, etc.
-            </p>
             <div style={{ display: 'flex', gap: 7, maxWidth: 560, marginBottom: 24 }}>
                 <input className="inp" value={keyword} onChange={e => setKeyword(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && detect()} placeholder="Topic… roman empire, stoicism, machine learning" />

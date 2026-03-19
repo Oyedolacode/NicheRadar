@@ -30,9 +30,6 @@ export default function ViralGapScanner() {
 
     return (
         <div>
-            <p style={{ fontSize: 13, color: '#7aadc8', marginBottom: 20, maxWidth: 560, lineHeight: 1.6 }}>
-                Topics where <strong style={{ color: 'var(--accent)' }}>demand outpaces supply</strong>.
-            </p>
             <button className="btn hot" onClick={scan} disabled={busy} style={{ marginBottom: 24 }}>
                 {busy ? '⏳ Scanning…' : '⚡ Scan Viral Gaps'}
             </button>

@@ -47,11 +47,6 @@ export default function Explorer() {
 
     return (
         <div className="page fade-in">
-            <header style={{ marginBottom: 'var(--s8)' }}>
-                <h1 style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-1px', margin: 0 }}>Niche Opportunities</h1>
-                <p style={{ color: 'var(--muted)', fontSize: 14 }}>Identify underserved markets and viral signals.</p>
-            </header>
-
             <div style={{ display: 'flex', gap: 'var(--s2)', maxWidth: 800, marginBottom: 'var(--s10)' }}>
                 <input className="inp" style={{ flex: 1, fontSize: 16, height: 54 }}
                     value={keyword} onChange={e => setKeyword(e.target.value)}

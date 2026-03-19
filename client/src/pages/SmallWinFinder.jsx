@@ -37,14 +37,6 @@ export default function SmallWinFinder() {
 
   return (
     <div>
-      <div style={{ marginBottom: 24 }}>
-        <h2 style={{ fontFamily: 'var(--fd)', fontSize: 28, fontWeight: 900, color: 'var(--text)', marginBottom: 8 }}>
-          Winning Channel Finder
-        </h2>
-        <p style={{ fontSize: 14, color: 'var(--muted)', maxWidth: 600, lineHeight: 1.6 }}>
-          Detect small channels getting 10x+ more views than subscribers. Find your next clone opportunity.
-        </p>
-      </div>
 
       <div style={{ display: 'flex', gap: 8, marginBottom: 32, maxWidth: 800 }}>
         <input className="inp" style={{ flex: 1 }} value={topic} onChange={e => setTopic(e.target.value)}

@@ -70,12 +70,6 @@ export default function DoThisNext() {
 
     return (
         <div>
-            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.2)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>🚀 Do This Next</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 580 }}>
-                    AI-powered recommendation engine. Analyzes your niche data and outputs your <strong style={{ color: 'var(--text)' }}>highest-probability next video</strong> — topic, format, title, and confidence score.
-                </div>
-            </div>
 
             <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
                 <button className="btn" onClick={autoScan} disabled={busy}>{busy ? '⏳ Scanning…' : '🔄 Rescan Niches'}</button>

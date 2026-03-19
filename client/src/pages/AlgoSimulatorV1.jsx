@@ -46,14 +46,6 @@ export default function AlgoSimulatorV1() {
 
     return (
         <div>
-            <div style={{ background: 'linear-gradient(135deg,rgba(77,159,255,.08),rgba(0,229,204,.05))', border: '1px solid rgba(77,159,255,.25)', borderRadius: 'var(--r3)', padding: 24, marginBottom: 20 }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(77,159,255,.12)', border: '1px solid rgba(77,159,255,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--blue)', marginBottom: 12, fontWeight: 700 }}>
-                    <span style={{ width: 6, height: 6, background: 'var(--blue)', borderRadius: '50%' }} />
-                    🎮 ALGORITHM SIMULATOR
-                </div>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800, marginBottom: 8 }}>Viral Prediction Engine</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Simulate the YouTube recommendation algorithm. Upload video metadata to predict impressions, CTR, and reach based on viral patterns.</div>
-            </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 380px) 1fr', gap: 20 }}>
                 {/* Inputs */}

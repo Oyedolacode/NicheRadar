@@ -37,12 +37,8 @@ export default function Queue() {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-        <div>
-          <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 17 }}>Production Queue</h1>
-          <p style={{ fontSize: 10, color: 'var(--muted)' }}>Move cards through the workflow.</p>
-        </div>
+    <div className="page fade-in">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 20 }}>
         <button className="btn s" onClick={() => { if(confirm('Clear all?')) save({ ideas: [], script: [], recording: [], editing: [], scheduled: [] }) }}>🗑️ Clear Board</button>
       </div>
 

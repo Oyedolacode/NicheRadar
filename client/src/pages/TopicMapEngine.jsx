@@ -33,11 +33,7 @@ export default function TopicMap() {
 
     return (
         <div className="page fade-in" style={{ height: 'calc(100vh - 136px)', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--s6)' }}>
-                <div>
-                    <h2 style={{ fontFamily: 'var(--fd)', fontSize: 24, fontWeight: 800, color: 'var(--text)' }}>Topic Map Engine</h2>
-                    <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 'var(--s1)' }}>Interactive landscape of related niches and signals</p>
-                </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 'var(--s6)' }}>
                 <div style={{ display: 'flex', gap: 7, maxWidth: 400 }}>
                     <input className="inp" value={topic} onChange={e => setTopic(e.target.value)} placeholder="Topic name…" />
                     <button className="btn s" onClick={() => toast('Map updated', 'ok')}>Generate Map</button>
@@ -45,7 +41,6 @@ export default function TopicMap() {
             </div>
 
             <div style={{ flex: 1, position: 'relative', background: 'var(--surface)', borderRadius: 'var(--rl)', border: '1px solid var(--border)', overflow: 'hidden' }}>
-                {/* SVG Graph Placeholder */}
                 <svg width="100%" height="100%" style={{ background: 'radial-gradient(circle at center, #0a121c 0%, #04080e 100%)' }}>
                     <defs>
                         <filter id="glow">
@@ -54,14 +49,12 @@ export default function TopicMap() {
                         </filter>
                     </defs>
                     
-                    {/* Links */}
                     {LINKS.map((link, i) => {
                         const s = SAMPLE_NODES.find(n => n.id === link.source)
                         const t = SAMPLE_NODES.find(n => n.id === link.target)
                         return <line key={i} x1={s.x} y1={s.y} x2={t.x} y2={t.y} stroke="var(--border)" strokeWidth="1" strokeDasharray="4 4" />
                     })}
 
-                    {/* Nodes */}
                     {SAMPLE_NODES.map(node => (
                         <g key={node.id} cursor="pointer" onClick={() => setSelected(node)} transform={`translate(${node.x},${node.y})`}>
                             <circle r={node.r} fill={node.color} opacity="0.1" stroke={node.color} strokeWidth="1" filter="url(#glow)" />
@@ -71,7 +64,6 @@ export default function TopicMap() {
                     ))}
                 </svg>
 
-                {/* Info Panel */}
                 {selected && (
                     <div className="card" style={{ position: 'absolute', top: 20, right: 20, width: 280, padding: 20, border: '1px solid var(--border)', background: 'var(--surface)', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 15 }}>

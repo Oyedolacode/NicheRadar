@@ -36,8 +36,8 @@ export default function Topbar() {
         <header className="fade-in" style={{
             position: 'fixed',
             top: '24px',
-            left: 'calc(var(--sidebar-w) + 64px)',
-            right: '24px',
+            left: 'calc(var(--sidebar-w) + var(--s8))',
+            right: 'var(--s8)',
             height: 'var(--topbar-h)',
             background: 'var(--glass)',
             backdropFilter: 'blur(30px)',

@@ -16,14 +16,6 @@ export default function Dashboard() {
 
   return (
     <div className="page fade-in">
-      <div style={{ marginBottom: 'var(--s10)' }}>
-        <h1 style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-1.5px', margin: 0, color: 'var(--text)' }}>Growth Assistant</h1>
-        <div className="h-stack" style={{ gap: 'var(--s2)', marginTop: 4 }}>
-           <div style={{ width: 8, height: 8, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 10px var(--accent)' }} />
-           <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 2 }}>Next Action Ready</span>
-        </div>
-      </div>
-
       <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1fr', gap: 'var(--s8)' }}>
         
         {/* CENTER COLUMN (70%): PRIMARY DECISIONS */}

@@ -26,12 +26,6 @@ export default function Scheduler() {
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-        <div>
-          <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 17 }}>Publishing Scheduler</h1>
-          <p style={{ fontSize: 10, color: 'var(--muted)' }}>2-week content calendar.</p>
-        </div>
-      </div>
 
       <div className="sched-grid">
         {days.map((d, i) => {
