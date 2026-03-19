@@ -41,14 +41,14 @@ export default function AlgoSimulator() {
     }
 
     return (
-        <div className="fade-in" style={{ padding: 22 }}>
-            <div style={{ background: 'linear-gradient(135deg,rgba(77,159,255,.08),rgba(0,229,204,.05))', border: '1px solid rgba(77,159,255,.25)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(77,159,255,.1)', border: '1px solid rgba(77,159,255,.22)', borderRadius: 20, padding: '4px 12px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--blue)', marginBottom: 12, fontWeight: 700 }}>
-                    <span style={{ width: 6, height: 6, background: 'var(--blue)', borderRadius: '50%', animation: 'blink 1.5s infinite', display: 'block' }} />
+        <div className="page fade-in">
+            <div style={{ background: 'linear-gradient(135deg,rgba(77,159,255,.08),rgba(0,229,204,.05))', border: '1px solid rgba(77,159,255,.25)', borderRadius: 'var(--r3)', padding: 'var(--s6)', marginBottom: 'var(--s6)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--s2)', background: 'rgba(77,159,255,.12)', border: '1px solid rgba(77,159,255,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--blue)', marginBottom: 'var(--s3)', fontWeight: 700 }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--blue)', borderRadius: '50%', animation: 'blink 1.5s infinite' }} />
                     🎮 ALGORITHM SIMULATOR
                 </div>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>Model Your Next Video's Impact</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Predict views, subscriber gain, and viral probability before you ever press record.</div>
+                <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800, marginBottom: 'var(--s2)' }}>Viral Prediction Engine</div>
+                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Simulate the YouTube recommendation algorithm. Upload video metadata to predict impressions, CTR, and reach based on viral patterns.</div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 380px) 1fr', gap: 20 }}>

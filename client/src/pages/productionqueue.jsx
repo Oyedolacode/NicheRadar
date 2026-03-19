@@ -28,11 +28,11 @@ export default function ProductionQueue() {
     }
 
     return (
-        <div className="fade-in" style={{ padding: 22, height: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div className="page fade-in" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--s6)' }}>
                 <div>
-                    <h2 style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800 }}>Production Queue</h2>
-                    <p style={{ fontSize: 13, color: 'var(--muted)' }}>Track your videos from idea to finish line</p>
+                    <h2 style={{ fontFamily: 'var(--fd)', fontSize: 24, fontWeight: 800, color: 'var(--text)' }}>Production Queue</h2>
+                    <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 'var(--s1)' }}>Manage your video factory outputs and script status</p>
                 </div>
                 <div style={{ display: 'flex', gap: 8 }}>
                     <button className="btn s" onClick={() => navigate('/factory')}>🏭 Open Factory</button>

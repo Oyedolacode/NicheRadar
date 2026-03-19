@@ -32,11 +32,11 @@ export default function TopicMap() {
     const svgRef = useRef(null)
 
     return (
-        <div className="fade-in" style={{ padding: 22, height: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div className="page fade-in" style={{ height: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--s6)' }}>
                 <div>
-                    <h2 style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800 }}>Topic Map Engine</h2>
-                    <p style={{ fontSize: 13, color: 'var(--muted)' }}>Visualize niche ecosystems and hidden connections</p>
+                    <h2 style={{ fontFamily: 'var(--fd)', fontSize: 24, fontWeight: 800, color: 'var(--text)' }}>Topic Map Engine</h2>
+                    <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 'var(--s1)' }}>Interactive landscape of related niches and signals</p>
                 </div>
                 <div style={{ display: 'flex', gap: 7, maxWidth: 400 }}>
                     <input className="inp" value={topic} onChange={e => setTopic(e.target.value)} placeholder="Topic name…" />

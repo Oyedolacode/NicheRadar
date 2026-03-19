@@ -49,17 +49,17 @@ export default function BatchPipeline() {
     }
 
     return (
-        <div className="fade-in" style={{ padding: 22 }}>
-            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.25)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(0,229,204,.12)', border: '1px solid rgba(0,229,204,.25)', borderRadius: 20, padding: '4px 12px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--accent)', marginBottom: 12, fontWeight: 700 }}>
-                    <span style={{ width: 6, height: 6, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 6px var(--accent)', animation: 'blink 1.5s infinite', display: 'block' }} />
+        <div className="page fade-in">
+            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.25)', borderRadius: 'var(--r3)', padding: 'var(--s6)', marginBottom: 'var(--s6)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--s2)', background: 'rgba(0,229,204,.12)', border: '1px solid rgba(0,229,204,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--accent)', marginBottom: 'var(--s3)', fontWeight: 700 }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 6px var(--accent)', animation: 'blink 1.5s infinite' }} />
                     ⚙️ BATCH PIPELINE
                 </div>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>Bulk Niche Analysis & Enrichment</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Process up to 20 keywords at once. Automates the full enrichment pipeline for high-volume research.</div>
+                <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800, marginBottom: 'var(--s2)' }}>Bulk Niche Analysis</div>
+                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 600 }}>Analyze multiple keywords simultaneously. Get comparative scores, viral gaps, and cross-niche intelligence in seconds.</div>
             </div>
 
-            <div style={{ display: 'flex', gap: 8, marginBottom: 18, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 'var(--s4)', flexWrap: 'wrap' }}>
                 <input className="inp" value={input} onChange={e => setInput(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && !busy && run()} style={{ maxWidth: 600 }}
                     placeholder="Enter keywords separated by commas…" />

@@ -87,10 +87,10 @@ export default function Explorer() {
     const si = result ? scoreInfo(result.opp) : null
 
     return (
-        <div style={{ padding: 22 }}>
-            <div style={{ marginBottom: 6 }}>
+        <div className="page fade-in">
+            <div style={{ marginBottom: 'var(--s2)' }}>
                 <div className="slbl">Keyword</div>
-                <div style={{ display: 'flex', gap: 7, maxWidth: 740 }}>
+                <div style={{ display: 'flex', gap: 'var(--s2)', maxWidth: 740 }}>
                     <input className="inp" value={keyword} onChange={e => setKeyword(e.target.value)}
                         onKeyDown={e => e.key === 'Enter' && run()} placeholder="dark history, AI tools, psychology facts…" />
                     <button className="btn" onClick={() => run()} disabled={busy}>
@@ -139,23 +139,22 @@ export default function Explorer() {
 
             {result && (
                 <div className="fade-in">
-                    <div className="mg">
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--s4)', marginBottom: 'var(--s6)' }}>
                         {[
                             { label: 'Opportunity Score', value: result.opp.toFixed(1), sub: 'v2 formula', cls: 'ca' },
-                            { label: 'View Velocity', value: fmt(result.avgVel) + '/hr', sub: 'views / hour', cls: '' },
-                            { label: 'Engagement Rate', value: fmtP(result.avgEng), sub: '(likes+cmts)/views', cls: 'cy' },
-                            { label: 'Content Saturation', value: String(result.sat), sub: 'videos · 30d', cls: 'chot' },
-                            { label: 'Viral Gap Score', value: result.vg.toFixed(2), sub: 'demand ÷ supply', cls: 'cg' },
-                        ].map((m, i) => (
-                            <div key={i} className="mc lit">
-                                <div className="ml">{m.label}</div>
-                                <div className={`mv ${m.cls}`}>{m.value}</div>
-                                <div className="ms">{m.sub}</div>
+                            { label: 'Viral Gap', value: result.vg.toFixed(2), sub: 'demand/supply', cls: 'cb' },
+                            { label: 'Saturation', value: (result.sat || 0).toFixed(0), sub: 'competition', cls: 'cc' },
+                            { label: 'Trend', value: (result.trend || 0).toFixed(1), sub: 'momentum', cls: 'cd' },
+                        ].map(c => (
+                            <div key={c.label} className="card" style={{ padding: 'var(--s4)', display: 'flex', flexDirection: 'column', gap: 'var(--s1)', borderRadius: 'var(--r2)' }}>
+                                <div className="slbl" style={{ marginBottom: 0 }}>{c.label}</div>
+                                <div style={{ fontSize: 24, fontWeight: 800, fontFamily: 'var(--fm)', color: c.label === 'Opportunity Score' ? si.color : 'var(--text)' }}>{c.value}</div>
+                                <div style={{ fontSize: 10, color: 'var(--muted)' }}>{c.sub}</div>
                             </div>
                         ))}
                     </div>
 
-                    <div className="hero">
+                    <div className="hero" style={{ marginBottom: 'var(--s6)' }}>
                         <div className="dial">
                             <svg width="96" height="96" viewBox="0 0 96 96" style={{ transform: 'rotate(-90deg)' }}>
                                 <circle cx="48" cy="48" r="40" fill="none" stroke="var(--border)" strokeWidth="7.5" />
@@ -181,7 +180,7 @@ export default function Explorer() {
                                 ))}
                             </div>
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginLeft: 'auto', flexShrink: 0 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s1)', marginLeft: 'auto', flexShrink: 0 }}>
                             <button className="btn ai" style={{ fontSize: '10.5px', padding: '6px 11px' }}
                                 onClick={() => navigate('/viral-predictor', { state: { results: [result] } })}>🤖 AI Predict</button>
                             <button className="btn sim" style={{ fontSize: '10.5px', padding: '6px 11px' }}
@@ -199,18 +198,20 @@ export default function Explorer() {
                         </div>
                     </div>
 
-                    <div className="card">
+                    <div className="card" style={{ marginBottom: 'var(--s6)', borderRadius: 'var(--r2)' }}>
                         <div className="ch">
-                            <div className="ct">Video Intelligence Feed</div>
-                            <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
-                                <div className="cm">{rows.length} videos</div>
-                                <select className="inp" value={filter} onChange={e => setFilter(e.target.value)}
-                                    style={{ padding: '3px 7px', fontSize: '9.5px', maxWidth: 130 }}>
-                                    <option value="all">All</option>
-                                    <option value="massive">Massive only</option>
-                                    <option value="strong">Strong+</option>
-                                    <option value="small">Small channels</option>
-                                </select>
+                            <div className="h-stack">
+                                <div className="ct">Performance Breakdown</div>
+                                <div className="cm">Top {result.enriched.length} results sorted by opportunity</div>
+                            </div>
+                            <div className="h-stack">
+                                {['all', 'massive', 'strong', 'small'].map(t => (
+                                    <button key={t} className={`chip ${filter === t ? 'active' : ''}`} 
+                                            onClick={() => setFilter(t)} 
+                                            style={{ background: filter === t ? 'var(--adim)' : '', borderColor: filter === t ? 'var(--accent)' : '' }}>
+                                        {t.toUpperCase()}
+                                    </button>
+                                ))}
                             </div>
                         </div>
                         <div style={{ overflowX: 'auto' }}>

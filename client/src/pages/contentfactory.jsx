@@ -124,22 +124,22 @@ export default function ContentFactory() {
     const STEPS = ['📥 Input', '✅ Validate', '💡 Ideas', '✏️ Titles', '🖼️ Thumbs', '📝 Script', '📋 Queue']
 
     return (
-        <div style={{ padding: 22 }}>
-            <div style={{ background: 'linear-gradient(135deg,rgba(255,159,67,.08),rgba(0,229,204,.04))', border: '1px solid rgba(255,159,67,.22)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,159,67,.1)', border: '1px solid rgba(255,159,67,.22)', borderRadius: 20, padding: '4px 12px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--orange)', marginBottom: 12, fontWeight: 700 }}>
-                    <span style={{ width: 6, height: 6, background: 'var(--orange)', borderRadius: '50%', animation: 'blink 1.5s infinite', display: 'block' }} />
+        <div className="page fade-in">
+            <div style={{ background: 'linear-gradient(135deg,rgba(255,159,67,.08),rgba(0,229,204,.05))', border: '1px solid rgba(255,159,67,.25)', borderRadius: 'var(--r3)', padding: 'var(--s6)', marginBottom: 'var(--s6)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--s2)', background: 'rgba(255,159,67,.12)', border: '1px solid rgba(255,159,67,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--orange)', marginBottom: 'var(--s3)', fontWeight: 700 }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--orange)', borderRadius: '50%', boxShadow: '0 0 6px var(--orange)', animation: 'blink 1.5s infinite' }} />
                     🏭 CONTENT FACTORY
                 </div>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>Niche Signal → Publish-Ready Video</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Enter any topic. Get 12 ideas, 10 optimized titles, 4 thumbnail concepts, and a full script — ready to film.</div>
+                <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800, marginBottom: 'var(--s2)' }}>Niche Video Generator</div>
+                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 600 }}>Multi-step AI pipeline converts raw niche data into optimized video concepts, hooks, and production scripts.</div>
             </div>
 
             {/* Flow steps */}
-            <div className="fade-in" style={{ display: 'flex', gap: 0, marginBottom: 20, overflowX: 'auto', paddingBottom: 8 }}>
+            <div className="fade-in" style={{ display: 'flex', gap: 0, marginBottom: 'var(--s5)', overflowX: 'auto', paddingBottom: 'var(--s2)' }}>
                 {STEPS.map((s, i) => (
-                    <div key={i} style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', padding: '0 8px' }}>
+                    <div key={i} style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', padding: '0 var(--s2)' }}>
                         {i > 0 && <div style={{ position: 'absolute', left: -6, top: 14, color: 'var(--dim)', fontSize: 14, fontWeight: 700 }}>→</div>}
-                        <div style={{ width: 44, height: 44, borderRadius: '50%', background: i < step ? 'rgba(255,159,67,.1)' : i === step && busy ? 'var(--adim)' : 'var(--elevated)', border: `2px solid ${i < step ? 'var(--orange)' : i === step && busy ? 'var(--accent)' : 'var(--border)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, marginBottom: 6, transition: 'all .4s', boxShadow: i < step ? '0 0 12px rgba(255,159,67,.25)' : i === step && busy ? '0 0 12px var(--aglow)' : 'none', animation: i === step && busy ? 'pulse .8s infinite' : 'none' }}>
+                        <div style={{ width: 44, height: 44, borderRadius: '50%', background: i < step ? 'rgba(255,159,67,.1)' : i === step && busy ? 'var(--adim)' : 'var(--elevated)', border: `2px solid ${i < step ? 'var(--orange)' : i === step && busy ? 'var(--accent)' : 'var(--border)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, marginBottom: 'var(--s2)', transition: 'all .4s', boxShadow: i < step ? '0 0 12px rgba(255,159,67,.25)' : i === step && busy ? '0 0 12px var(--aglow)' : 'none', animation: i === step && busy ? 'pulse .8s infinite' : 'none' }}>
                             {i < step ? '✅' : s.split(' ')[0]}
                         </div>
                         <div style={{ fontFamily: 'var(--fm)', fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: i <= step ? 'var(--text)' : 'var(--muted)', textAlign: 'center', maxWidth: 60 }}>{s.split(' ').slice(1).join(' ')}</div>
@@ -208,20 +208,20 @@ export default function ContentFactory() {
 
                     {/* Ideas */}
                     {tab === 'ideas' && (
-                        <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(265px,1fr))', gap: 10 }}>
+                        <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 'var(--s4)' }}>
                             {data.ideas.map((idea, i) => {
                                 const clr = TYPE_COLORS[idea.type] || 'var(--accent)'
                                 const isSel = selectedIdea?.title === idea.title
                                 return (
                                     <div key={i} onClick={() => setSelectedIdea(idea)} className="card hoverable"
-                                        style={{ border: `1px solid ${isSel ? 'var(--orange)' : 'var(--border)'}`, padding: 15, cursor: 'pointer', position: 'relative', background: isSel ? 'rgba(255,159,67,.04)' : 'var(--surface)' }}>
-                                        {isSel && <div style={{ position: 'absolute', top: 11, right: 11, fontSize: 14 }}>✅</div>}
-                                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--dim)', marginBottom: 5 }}>IDEA {String(i + 1).padStart(2, '0')} · <span style={{ color: clr }}>{idea.type}</span></div>
-                                        <div style={{ fontWeight: 600, fontSize: 13, lineHeight: 1.45, marginBottom: 9 }}>{idea.title}</div>
-                                        <div style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 8, lineHeight: 1.4 }}>{idea.angle}</div>
-                                        <div style={{ fontSize: 10.5, color: '#7aadc8', fontStyle: 'italic', marginBottom: 8 }}>"{idea.hook}"</div>
-                                        <div style={{ display: 'flex', gap: 5 }}>
-                                            <span style={{ fontFamily: 'var(--fm)', fontSize: 9, background: 'var(--elevated)', border: `1px solid ${clr}`, borderRadius: 4, padding: '2px 7px', color: clr }}>{idea.type}</span>
+                                        style={{ border: `1px solid ${isSel ? 'var(--orange)' : 'var(--border)'}`, borderRadius: 'var(--r2)', padding: 'var(--s4)', cursor: 'pointer', position: 'relative', background: isSel ? 'rgba(255,159,67,.04)' : 'var(--surface)' }}>
+                                        {isSel && <div style={{ position: 'absolute', top: 'var(--s3)', right: 'var(--s3)', fontSize: 14 }}>✅</div>}
+                                        <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--dim)', marginBottom: 'var(--s1)' }}>IDEA {String(i + 1).padStart(2, '0')} · <span style={{ color: clr }}>{idea.type}</span></div>
+                                        <div style={{ fontWeight: 700, fontSize: 14, lineHeight: 1.4, marginBottom: 'var(--s2)', color: 'var(--text)' }}>{idea.title}</div>
+                                        <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 'var(--s3)', lineHeight: 1.5 }}>{idea.angle}</div>
+                                        <div style={{ fontSize: 11, color: '#7aadc8', fontStyle: 'italic', marginBottom: 'var(--s3)', background: 'var(--elevated)', padding: 'var(--s2)', borderRadius: 'var(--r1)' }}>"{idea.hook}"</div>
+                                        <div style={{ display: 'flex', gap: 'var(--s1)' }}>
+                                            <span style={{ fontFamily: 'var(--fm)', fontSize: 9, background: 'var(--adim)', border: `1px solid ${clr}`, borderRadius: 4, padding: '2px 7px', color: clr }}>{idea.type}</span>
                                             <span style={{ fontFamily: 'var(--fm)', fontSize: 9, background: 'var(--elevated)', border: '1px solid var(--border)', borderRadius: 4, padding: '2px 7px', color: 'var(--muted)' }}>Viral: {idea.viralScore}/10</span>
                                         </div>
                                     </div>

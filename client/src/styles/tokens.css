@@ -36,12 +36,26 @@
   --fm: 'JetBrains Mono', monospace;
   --fb: 'Epilogue', sans-serif;
 
-  /* Radii */
-  --r:  7px;
-  --rl: 12px;
+  /* Spacing Scale (8px base) */
+  --s1:  4px;
+  --s2:  8px;
+  --s3:  12px;
+  --s4:  16px;
+  --s5:  20px;
+  --s6:  24px;
+  --s8:  32px;
+  --s10: 40px;
+  --s12: 48px;
+
+  /* Strokes & Radii */
+  --bw: 1px;
+  --r1: 6px;
+  --r2: 10px;
+  --r3: 16px;
+  --rl: 16px; /* Legacy alias */
 
   /* Sidebar */
-  --sidebar-w: 228px;
+  --sidebar-w: 240px;
 }
 
 /* ── Reset ── */

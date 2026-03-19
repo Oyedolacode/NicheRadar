@@ -79,11 +79,11 @@ export default function VideoAnalyzer() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
-            <p style={{ fontSize: 12.5, color: '#7aadc8', marginBottom: 16, maxWidth: 580, lineHeight: 1.6 }}>
+        <div className="page fade-in">
+            <p style={{ fontSize: 13, color: '#7aadc8', marginBottom: 'var(--s4)', maxWidth: 580, lineHeight: 1.6 }}>
                 Paste any YouTube URL for an instant breakdown — topic classification, viral score, and <strong style={{ color: 'var(--text)' }}>why it worked</strong>.
             </p>
-            <div style={{ display: 'flex', gap: 7, maxWidth: 700, marginBottom: 6 }}>
+            <div style={{ display: 'flex', gap: 'var(--s2)', maxWidth: 700, marginBottom: 'var(--s2)' }}>
                 <input className="inp" value={url} onChange={e => setUrl(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && analyze()}
                     placeholder="https://youtube.com/watch?v=... or paste a video ID" />
@@ -106,15 +106,15 @@ export default function VideoAnalyzer() {
             {result && (
                 <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                     {/* Left: video info */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                        <div className="card" style={{ overflow: 'hidden' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s4)' }}>
+                        <div className="card" style={{ overflow: 'hidden', borderRadius: 'var(--r2)' }}>
                             {result.thumb && <img src={result.thumb} alt="" style={{ width: '100%', height: 180, objectFit: 'cover' }} />}
-                            <div style={{ padding: '14px 16px' }}>
-                                <div style={{ fontWeight: 700, fontSize: 14, lineHeight: 1.4, marginBottom: 6 }}>{result.title}</div>
-                                <div style={{ fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--muted)', marginBottom: 12 }}>{result.chan} · {result.ago}d ago</div>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 8 }}>
+                            <div style={{ padding: 'var(--s4)' }}>
+                                <div style={{ fontWeight: 700, fontSize: 15, lineHeight: 1.4, marginBottom: 'var(--s2)', color: 'var(--text)' }}>{result.title}</div>
+                                <div style={{ fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--muted)', marginBottom: 'var(--s3)' }}>{result.chan} · {result.ago}d ago</div>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 'var(--s2)' }}>
                                     {[['Views', fmt(result.views), 'var(--hot)'], ['Subs', fmt(result.subs), 'var(--text)'], ['Likes', fmt(result.likes), 'var(--green)'], ['Comments', fmt(result.comments), 'var(--blue)'], ['Velocity', fmt(result.vel) + '/hr', 'var(--accent)'], ['Eng. Rate', fmtP(result.eng), 'var(--yellow)']].map(([l, v, c]) => (
-                                        <div key={l} style={{ background: 'var(--elevated)', borderRadius: 'var(--r)', padding: '8px 10px', textAlign: 'center' }}>
+                                        <div key={l} style={{ background: 'var(--elevated)', borderRadius: 'var(--r1)', padding: 'var(--s2) var(--s3)', textAlign: 'center' }}>
                                             <div style={{ fontFamily: 'var(--fm)', fontSize: 13, fontWeight: 700, color: c }}>{v}</div>
                                             <div style={{ fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: .5, marginTop: 2 }}>{l}</div>
                                         </div>
