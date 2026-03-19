@@ -23,11 +23,11 @@ export default function Scheduler() {
     const sorted = [...slots].sort((a, b) => new Date(a.publishAt).getTime() - new Date(b.publishAt).getTime())
 
     return (
-        <div className="fade-in" style={{ padding: 22 }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div className="page fade-in">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--s6)' }}>
                 <div>
-                    <h2 style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800 }}>Publishing Scheduler</h2>
-                    <p style={{ fontSize: 13, color: 'var(--muted)' }}>Manage your content calendar and release dates</p>
+                    <h2 style={{ fontFamily: 'var(--fd)', fontSize: 24, fontWeight: 800, color: 'var(--text)' }}>Publishing Scheduler</h2>
+                    <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 'var(--s1)' }}>Optimize your post timing for maximum reach</p>
                 </div>
                 <div style={{ display: 'flex', gap: 8 }}>
                     <button className="btn fac" onClick={() => setModal(true)}>📅 Schedule Video</button>

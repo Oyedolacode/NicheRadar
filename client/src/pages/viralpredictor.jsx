@@ -39,14 +39,14 @@ export default function ViralPredictor() {
     const alerts = results.filter(r => viralProbability(r) >= .8)
 
     return (
-        <div style={{ padding: 22 }}>
-            <div style={{ background: 'linear-gradient(135deg,rgba(181,122,255,.08),rgba(0,229,204,.05))', border: '1px solid rgba(181,122,255,.25)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(181,122,255,.12)', border: '1px solid rgba(181,122,255,.25)', borderRadius: 20, padding: '4px 12px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--purple)', marginBottom: 12, fontWeight: 700 }}>
-                    <span style={{ width: 6, height: 6, background: 'var(--purple)', borderRadius: '50%', boxShadow: '0 0 6px var(--purple)', animation: 'blink 1.5s infinite', display: 'block' }} />
+        <div className="page fade-in">
+            <div style={{ background: 'linear-gradient(135deg,rgba(181,122,255,.08),rgba(0,229,204,.05))', border: '1px solid rgba(181,122,255,.25)', borderRadius: 'var(--r3)', padding: 'var(--s6)', marginBottom: 'var(--s6)' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--s2)', background: 'rgba(181,122,255,.12)', border: '1px solid rgba(181,122,255,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--purple)', marginBottom: 'var(--s3)', fontWeight: 700 }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--purple)', borderRadius: '50%', boxShadow: '0 0 6px var(--purple)', animation: 'blink 1.5s infinite' }} />
                     🤖 AI VIRAL PREDICTOR
                 </div>
-                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>Viral Probability Engine</div>
-                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 600 }}>6-feature weighted model: velocity, engagement, creator success, saturation, trend, viral gap.</div>
+                <div style={{ fontFamily: 'var(--fd)', fontSize: 22, fontWeight: 800, marginBottom: 'var(--s2)' }}>Predict the Next Big Hit</div>
+                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Our neural engine analyzes engagement velocity and saturation levels to predict the viral potential of any niche.</div>
             </div>
 
             <div style={{ display: 'flex', gap: 8, marginBottom: 18, flexWrap: 'wrap' }}>
