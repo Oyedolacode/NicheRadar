@@ -1,114 +1,82 @@
 /* ─────────────────────────────────────────
-   NicheRadar Design Tokens
-   Import this ONCE in main.jsx — all
-   components inherit via CSS variables.
+   NicheRadar v5 Design Tokens
+   Restored from niche-radar (3).html
 ───────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Epilogue:wght@300;400;500;600&display=swap');
 
 :root {
-    /* ── Luxury Core Colors ─────────────────── */
-    --bg: #050505;          /* Deep Space */
-    --surface: #0a0a09;     /* Carbon Black */
-    --elevated: #121212;    /* Stealth Grey */
-    --border: #1a1a1a;      /* Sharp Border */
-    --glass: rgba(8, 8, 8, 0.72);
-    
-    /* ── High-Contrast Accents ─────────────── */
-    --accent: #00f5ff;      /* Electric Cyan */
-    --accent-rgb: 0, 245, 255;
-    --purple: #7000ff;      /* Hyper Violet */
-    --green: #c1ff00;       /* Neon Lime */
-    --red: #ff3c3c;         /* Pulse Red */
-    --orange: #ff8c00;      /* Safety Orange */
-    --hot: #ff3300;
-    
-    /* ── Layered Gradients ─────────────────── */
-    --bg-grad: radial-gradient(circle at top left, #0e0e0e 0%, #050505 100%);
-    --accent-grad: linear-gradient(135deg, var(--accent), var(--purple));
-    
-    /* ── Text System ────────────────────────── */
-    --text: #ffffff;
-    --muted: #a0a0a0;       /* Higher contrast (was #888) */
-    --dim: #707070;         /* Higher contrast (was #555) */
-    --adim: rgba(0, 245, 255, 0.08);
-    --pdim: rgba(112, 0, 255, 0.08);
-    --hdim: rgba(255, 51, 0, 0.08);
-
-    /* ── Typography (Luxury Reset) ──────────── */
-    --fd: 'Outfit', sans-serif;
-    --fm: 'DM Mono', monospace;
-    --fs-xs: 11px;
-    --fs-s: 13px;
-    --fs-m: 15px;
-    --fs-l: 18px;
-    --fs-xl: 24px;
-    --fs-xxl: 36px;
-    --lh: 1.6;
-    --ls: -0.02em;
-
-    /* ── Exponential Spacing (Aura Fixed) ───── */
-    --s1: 4px;   --s2: 8px;   --s3: 14px;
-    --s4: 20px;  --s5: 32px;  --s6: 48px;
-    --s7: 64px;  --s8: 80px;  --s9: 100px;
-    --s10: 128px; --s11: 160px; --s12: 240px;
-
-    /* ── Refined Strokes & Radii ────────────── */
-    --bw: 1px;
-    --r1: 8px;   --r2: 16px;  --r3: 24px;  --r4: 36px;
-    --rl: 999px;
-
-    /* ── UI Constants ───────────────────────── */
-    --sidebar-w: 290px;
-    --topbar-h: 84px;
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.5);
-    --shadow-md: 0 8px 32px rgba(0,0,0,0.7);
-    --shadow-lg: 0 16px 64px rgba(0,0,0,1);
-    --shadow-l: 0 4px 30px rgba(0,0,0,0.5);
-    --shadow-xl: 0 20px 60px rgba(0,0,0,0.8);
-    --glow: 0 0 15px var(--adim);
-    --accent-glow: 0 0 20px rgba(var(--accent-rgb), 0.3);
+  /* ── v5 Core Palette ────────────────────── */
+  --bg: #04080e;
+  --surface: #0a121c;
+  --elevated: #101e2e;
+  --hover: #162638;
+  --border: #1a2e45;
+  
+  /* ── Accents & State ────────────────────── */
+  --accent: #00e5cc;
+  --adim: rgba(0, 229, 204, .1);
+  --aglow: rgba(0, 229, 204, .2);
+  --hot: #ff5c35;
+  --hdim: rgba(255, 92, 53, .1);
+  
+  /* ── Semantic Colors ────────────────────── */
+  --text: #c8e4ff;
+  --muted: #4d7d9e;
+  --dim: #233a52;
+  --green: #00e676;
+  --yellow: #ffd740;
+  --red: #ff4444;
+  --purple: #b57aff;
+  --blue: #4d9fff;
+  --orange: #ff9f43;
+  
+  /* ── Typography (v5 System) ───────────────── */
+  --fd: 'Syne', sans-serif;
+  --fm: 'JetBrains Mono', monospace;
+  --fb: 'Epilogue', sans-serif;
+  
+  /* ── Geometry ─────────────────────────────── */
+  --r: 7px;
+  --rl: 12px;
+  
+  /* ── Layout Constants ─────────────────────── */
+  --sidebar-w: 228px;
+  --topbar-h: 64px;
 }
 
-/* ── Reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── Global Reset & Body Styles ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--fd);
+  font-family: var(--fb);
   min-height: 100vh;
   overflow-x: hidden;
-  line-height: 1.6;
 }
 
-/* ── Grid background ── */
+/* ── Animated Grid Background ── */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -5%, rgba(0,229,204,.04) 0%, transparent 65%),
-    linear-gradient(rgba(0,229,204,.014) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,229,204,.014) 1px, transparent 1px);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -5%, rgba(0, 229, 204, .04) 0%, transparent 65%),
+    linear-gradient(rgba(0, 229, 204, .014) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 204, .014) 1px, transparent 1px);
   background-size: 100% 100%, 72px 72px, 72px 72px;
   pointer-events: none;
   z-index: 0;
 }
 
+/* ── Global Animations ── */
+@keyframes blink { 0%, 100% { opacity: 1 } 50% { opacity: .35 } }
+@keyframes fi { from { opacity: 0; transform: translateY(5px) } to { opacity: 1; transform: none } }
+@keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: .5 } }
+@keyframes spin { to { transform: rotate(360deg) } }
+@keyframes shim { 0% { background-position: -200% 0 } 100% { background-position: 200% 0 } }
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-/* ── Animation keyframes (global) ── */
-@keyframes blink  { 0%,100%{opacity:1} 50%{opacity:.35} }
-@keyframes spin   { to{transform:rotate(360deg)} }
-@keyframes pulse  { 0%,100%{opacity:1} 50%{opacity:.5} }
-@keyframes shimmer{
-  0%  { background-position: -200% 0 }
-  100%{ background-position:  200% 0 }
-}
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(5px) }
-  to   { opacity:1; transform:none }
-}
