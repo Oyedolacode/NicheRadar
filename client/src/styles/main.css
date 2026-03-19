@@ -81,8 +81,8 @@
   align-items: center;
   justify-content: space-between;
 }
-.ct { font-family: var(--fd); font-weight: 700; fontSize: 13px; }
-.cm { font-family: var(--fm); fontSize: 10px; color: var(--muted); }
+.ct { font-family: var(--fd); font-weight: 700; font-size: 13px; }
+.cm { font-family: var(--fm); font-size: 10px; color: var(--muted); }
 
 .chip {
   background: var(--elevated);
