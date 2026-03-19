@@ -32,7 +32,7 @@ export default function TopicMap() {
     const svgRef = useRef(null)
 
     return (
-        <div className="page fade-in" style={{ height: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column' }}>
+        <div className="page fade-in" style={{ height: 'calc(100vh - 136px)', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--s6)' }}>
                 <div>
                     <h2 style={{ fontFamily: 'var(--fd)', fontSize: 24, fontWeight: 800, color: 'var(--text)' }}>Topic Map Engine</h2>

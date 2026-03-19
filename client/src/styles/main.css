@@ -26,6 +26,8 @@
    margin-left: var(--sidebar-w);
    flex: 1;
    min-height: 100vh;
+   padding: 112px 24px 24px;
+   position: relative;
 }
 
 .logo-wrap {
@@ -259,14 +261,13 @@
    border-radius: 2px;
 }
 
-.pg {
-   padding: 22px;
-   display: none;
-   animation: fi .2s ease;
+.page {
+   animation: fi .3s cubic-bezier(0.16, 1, 0.3, 1);
+   display: block;
 }
 
-.pg.on {
-   display: block;
+.fade-in {
+   animation: fi .4s ease-out;
 }
 
 .slbl {

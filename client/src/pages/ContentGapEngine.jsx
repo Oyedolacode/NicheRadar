@@ -37,7 +37,7 @@ export default function ContentGapEngine() {
     const foundGaps = results.filter(r => r.count <= 3)
 
     return (
-        <div style={{ padding: 22 }}>
+        <div>
             <p style={{ fontSize: 13, color: '#7aadc8', marginBottom: 16, maxWidth: 560, lineHeight: 1.6 }}>
                 Find which <strong style={{ color: 'var(--accent)' }}>content formats</strong> are missing — Shorts, Animation, Documentary, Explainers, etc.
             </p>

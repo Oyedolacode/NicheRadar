@@ -36,7 +36,7 @@ export default function SmallWinFinder() {
   }
 
   return (
-    <div style={{ padding: 22 }}>
+    <div>
       <div style={{ marginBottom: 24 }}>
         <h2 style={{ fontFamily: 'var(--fd)', fontSize: 28, fontWeight: 900, color: 'var(--text)', marginBottom: 8 }}>
           Winning Channel Finder

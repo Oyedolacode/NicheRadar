@@ -37,7 +37,7 @@ export default function Queue() {
   }
 
   return (
-    <div style={{ padding: 22 }}>
+    <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
           <h1 style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 17 }}>Production Queue</h1>

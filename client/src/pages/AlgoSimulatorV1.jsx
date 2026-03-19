@@ -45,7 +45,7 @@ export default function AlgoSimulatorV1() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
+        <div>
             <div style={{ background: 'linear-gradient(135deg,rgba(77,159,255,.08),rgba(0,229,204,.05))', border: '1px solid rgba(77,159,255,.25)', borderRadius: 'var(--r3)', padding: 24, marginBottom: 20 }}>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(77,159,255,.12)', border: '1px solid rgba(77,159,255,.25)', borderRadius: 100, padding: '4px 14px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--blue)', marginBottom: 12, fontWeight: 700 }}>
                     <span style={{ width: 6, height: 6, background: 'var(--blue)', borderRadius: '50%' }} />

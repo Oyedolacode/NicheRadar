@@ -69,7 +69,7 @@ export default function DoThisNext() {
     }
 
     return (
-        <div style={{ padding: 22 }}>
+        <div>
             <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.2)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
                 <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>🚀 Do This Next</div>
                 <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 580 }}>
