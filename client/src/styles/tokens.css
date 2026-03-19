@@ -50,7 +50,26 @@
   --s6: 24px;
   --shadow-l: 0 8px 32px rgba(0, 0, 0, .4);
   --accent-grad: linear-gradient(90deg, #00e5cc, #00b8a9);
+  /* Add to tokens.css */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 10px;
+  --s4: 12px;
+  --s5: 16px;
+  --s6: 20px;
+  --s7: 24px;
+  --s8: 32px;
+  --s9: 40px;
+  --s10: 48px;
+  --glass: rgba(10, 18, 28, 0.88);
+  --r2: 10px;
+  --r3: 14px;
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, .3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, .4);
+  --accent-rgb: 0, 229, 204;
+  --accent-grad: linear-gradient(90deg, #00e5cc, #00b8a9);
 }
+
 
 /* ── Global Reset & Body Styles ── */
 * {

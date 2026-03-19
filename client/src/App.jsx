@@ -1,30 +1,44 @@
 import React, { Suspense, lazy } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
+import Topbar from './components/Topbar'
 import Toast from './components/Toast'
 
-// ── v5 Pages ──
-const Explorer = lazy(() => import('./pages/explorer'))
-const Factory = lazy(() => import('./pages/factory'))
-const Queue = lazy(() => import('./pages/queue'))
-const Scheduler = lazy(() => import('./pages/scheduler'))
-const AlgSim = lazy(() => import('./pages/algsim'))
-const TopicMap = lazy(() => import('./pages/topicmap'))
-const ViralAI = lazy(() => import('./pages/viral_ai'))
-const Batch = lazy(() => import('./pages/batch'))
-const Viral = lazy(() => import('./pages/viral'))
-const Wins = lazy(() => import('./pages/wins'))
-const Trending = lazy(() => import('./pages/trending'))
-const Gaps = lazy(() => import('./pages/gaps'))
-const Cache = lazy(() => import('./pages/cache'))
+const Explorer = lazy(() => import('./pages/Explorer'))
+const AlgoSimulator = lazy(() => import('./pages/AlgSim'))
+const TopicMap = lazy(() => import('./pages/TopicMap'))
+const ViralPredictor = lazy(() => import('./pages/ViralAI'))
+const BatchPipeline = lazy(() => import('./pages/Batch'))
+const ViralGaps = lazy(() => import('./pages/Viral'))
+const SmallWins = lazy(() => import('./pages/Wins'))
+
+// ── Production ──
+const ContentFactory = lazy(() => import('./pages/Factory'))
+const ProductionQueue = lazy(() => import('./pages/Queue'))
+const Scheduler = lazy(() => import('./pages/Scheduler'))
+
+// ── New Features ──
+const OutlierEngine = lazy(() => import('./pages/Outliers'))
+const CompetitorStudio = lazy(() => import('./pages/Competitors'))
+const KeywordResearch = lazy(() => import('./pages/Keywords'))
+const Bookmarks = lazy(() => import('./pages/Bookmarks'))
+const VideoAnalyzer = lazy(() => import('./pages/Analyzer'))
+const DoThisNext = lazy(() => import('./pages/DoThisNext'))
+
+// ── Discovery ──
+const Trending = lazy(() => import('./pages/Trending'))
+const ContentGaps = lazy(() => import('./pages/Gaps'))
+
+// ── System ──
+const Cache = lazy(() => import('./pages/Cache'))
 
 const PageLoader = () => (
-    <div style={{ display: 'grid', placeItems: 'center', height: '100vh', color: 'var(--muted)', fontFamily: 'var(--fm)', fontSize: '11px' }}>
-        <div className="v-stack" style={{ alignItems: 'center', gap: '8px' }}>
-          <div className="spin" style={{ fontSize: '24px' }}>📡</div>
-          <div style={{ letterSpacing: '2px' }}>CALIBRATING ENGINE...</div>
-        </div>
+  <div style={{ display: 'grid', placeItems: 'center', height: '100vh', color: 'var(--muted)', fontFamily: 'var(--fm)', fontSize: '11px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+      <div style={{ fontSize: 24, animation: 'spin 1s linear infinite' }}>📡</div>
+      <div style={{ letterSpacing: '2px' }}>CALIBRATING ENGINE...</div>
     </div>
+  </div>
 )
 
 export default function App() {
@@ -32,25 +46,41 @@ export default function App() {
     <div className="shell">
       <Sidebar />
       <main className="main">
-        {/* Progress Bar (Legacy UI style) */}
-        <div className="pbar"><div className="pbf" id="pbf"></div></div>
-        
+        <Topbar />
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Navigate to="/explorer" replace />} />
+
+            {/* Intelligence */}
             <Route path="/explorer" element={<Explorer />} />
-            <Route path="/factory" element={<Factory />} />
-            <Route path="/queue" element={<Queue />} />
+            <Route path="/simulator" element={<AlgoSimulator />} />
+            <Route path="/topic-map" element={<TopicMap />} />
+            <Route path="/viral-predictor" element={<ViralPredictor />} />
+            <Route path="/batch" element={<BatchPipeline />} />
+            <Route path="/viral-gaps" element={<ViralGaps />} />
+            <Route path="/small-wins" element={<SmallWins />} />
+
+            {/* Production */}
+            <Route path="/factory" element={<ContentFactory />} />
+            <Route path="/queue" element={<ProductionQueue />} />
             <Route path="/scheduler" element={<Scheduler />} />
-            <Route path="/algsim" element={<AlgSim />} />
-            <Route path="/topicmap" element={<TopicMap />} />
-            <Route path="/viral_ai" element={<ViralAI />} />
-            <Route path="/batch" element={<Batch />} />
-            <Route path="/viral" element={<Viral />} />
-            <Route path="/wins" element={<Wins />} />
+
+            {/* New Features */}
+            <Route path="/outliers" element={<OutlierEngine />} />
+            <Route path="/competitors" element={<CompetitorStudio />} />
+            <Route path="/keywords" element={<KeywordResearch />} />
+            <Route path="/bookmarks" element={<Bookmarks />} />
+            <Route path="/analyzer" element={<VideoAnalyzer />} />
+            <Route path="/do-this-next" element={<DoThisNext />} />
+
+            {/* Discovery */}
             <Route path="/trending" element={<Trending />} />
-            <Route path="/gaps" element={<Gaps />} />
+            <Route path="/content-gaps" element={<ContentGaps />} />
+
+            {/* System */}
             <Route path="/cache" element={<Cache />} />
+
+            {/* Catch-all */}
             <Route path="*" element={<Navigate to="/explorer" replace />} />
           </Routes>
         </Suspense>

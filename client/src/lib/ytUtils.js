@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────
-   NicheRadar v5 Utility Engine
+   NicheRadar v6 Utility Engine
    Restored from niche-radar (3).html
 ───────────────────────────────────────── */
 
@@ -120,21 +120,21 @@ export async function fetchAndEnrich(kw) {
   const sD = await searchVids(kw, 40);
   const items = sD.items || [];
   if (!items.length) return { kw, enriched: [], sat: 0, trend: 0, avgVel: 0, avgEng: 0, avgCs: 0, opp: 0, vg: 0, vgRaw: 0 };
-  
+
   const vids = items.map(i => i.id?.videoId).filter(Boolean);
   const chans = items.map(i => i.snippet?.channelId).filter(Boolean);
-  
+
   const [vD, cD] = await Promise.all([vidStats(vids), chanStats(chans)]);
   const cMap = {};
   (cD.items || []).forEach(c => cMap[c.id] = +c.statistics?.subscriberCount || 0);
-  
+
   const enriched = (vD.items || []).map(v => {
     const views = +v.statistics?.viewCount || 0, likes = +v.statistics?.likeCount || 0, cmts = +v.statistics?.commentCount || 0;
     const subs = cMap[v.snippet?.channelId] || 0, pub = v.snippet?.publishedAt;
     const vel = velocity(views, pub), eng = engRate(likes, cmts, views);
     return { id: v.id, title: v.snippet?.title, chan: v.snippet?.channelTitle, chanId: v.snippet?.channelId, thumb: v.snippet?.thumbnails?.medium?.url, views, likes, cmts, subs, pub, vel, eng, cs: creatorSuc(views, subs), cp: chanPower(subs, views), url: 'https://youtube.com/watch?v=' + v.id };
   }).filter(v => v.views > 0);
-  
+
   const sat = enriched.length;
   const trend = trendScore(enriched.map(v => ({ vel: v.vel, pub: v.pub })));
   const avgVel = enriched.reduce((a, b) => a + b.vel, 0) / Math.max(enriched.length, 1);
@@ -143,7 +143,7 @@ export async function fetchAndEnrich(kw) {
   const opp = oppScore(avgVel, avgEng, trend, sat);
   const vgRaw = viralGap(avgVel, trend, sat);
   const vg = Math.min(10, Math.log10(vgRaw + 1) * 3);
-  
+
   enriched.sort((a, b) => b.vel - a.vel);
   return { kw, enriched, sat, trend, avgVel, avgEng, avgCs, opp, vg, vgRaw };
 }
@@ -167,7 +167,7 @@ export function trendDir(trend) {
   if (trend >= 4) return { label: 'Stable', dir: 'st' };
   return { label: 'Falling', dir: 'dn' };
 }
- 
+
 export function bdg(s) {
   if (s >= 8) return 's8';
   if (s >= 6) return 's6';

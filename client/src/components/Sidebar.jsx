@@ -6,12 +6,13 @@ const SECTIONS = [
   {
     title: 'Intelligence',
     items: [
+      { id: 'explorer', label: 'Niche Explorer', icon: '🔍', path: '/explorer' },
       { id: 'algsim', label: 'Algorithm Simulator', icon: '🎮', path: '/simulator' },
       { id: 'topicmap', label: 'Topic Map Engine', icon: '🗺️', path: '/topic-map' },
       { id: 'viral_ai', label: 'Viral Predictor', icon: '🤖', path: '/viral-predictor', badge: 'AI', badgeCls: 'ai' },
+      { id: 'batch', label: 'Batch Pipeline', icon: '⚙️', path: '/batch' },
       { id: 'viral', label: 'Viral Gaps', icon: '⚡', path: '/viral-gaps', badge: 'HOT', badgeCls: 'hot' },
       { id: 'wins', label: 'Small Channel Wins', icon: '🏆', path: '/small-wins' },
-      { id: 'gaps', label: 'Content Gaps', icon: '💡', path: '/content-gaps' },
     ]
   },
   {
@@ -37,7 +38,7 @@ const SECTIONS = [
     title: 'Discovery',
     items: [
       { id: 'trending', label: 'Trending Feed', icon: '📈', path: '/trending' },
-      { id: 'gaps', label: 'Content Gaps', icon: '💡', path: '/gaps' },
+      { id: 'content-gaps', label: 'Content Gaps', icon: '💡', path: '/content-gaps' },
     ]
   },
   {
@@ -58,7 +59,7 @@ export default function Sidebar() {
           <div className="lm">📡</div>
           <div>
             <div className="ln">NicheRadar</div>
-            <div className="lv">v5 · Factory</div>
+            <div className="lv">v6 · Factory</div>
           </div>
         </div>
       </div>

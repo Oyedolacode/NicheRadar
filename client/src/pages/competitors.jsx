@@ -32,8 +32,8 @@ export default function Competitors() {
 
       <div className="card shadow-md" style={{ background: 'var(--adim)', border: '1px solid var(--accent)', padding: 'var(--s6)' }}>
         <div className="h-stack" style={{ gap: 'var(--s4)', marginBottom: 'var(--s4)' }}>
-           <div style={{ fontSize: 24 }}>🧠</div>
-           <h3 style={{ margin: 0 }}>Strategic Extraction</h3>
+          <div style={{ fontSize: 24 }}>🧠</div>
+          <h3 style={{ margin: 0 }}>Strategic Extraction</h3>
         </div>
         <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.6 }}>Identify channels with high <strong>Views-to-Subs</strong> ratios (Signal > 5x) to find topics that the algorithm is currently favoring. Use the "Clone Factory" method to replicate these proven models with your own unique execution.</p>
       </div>
