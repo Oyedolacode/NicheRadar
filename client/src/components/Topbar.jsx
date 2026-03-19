@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
 
 const PAGE_META = {
+    '/dashboard': ['Growth Assistant', 'AI recommendations and performance overview'],
     '/explorer': ['Niche Explorer', 'Keyword → live analysis → opportunity score'],
     '/simulator': ['Algorithm Simulator', 'Pre-publishing video simulator — predict views before filming'],
     '/topic-map': ['Topic Map Engine', 'Interactive ecosystem graph — nodes, clusters, hidden niches'],

@@ -16,14 +16,11 @@ export default function Dashboard() {
 
   return (
     <div className="page fade-in">
-      {/* 🚀 Top Action Bar: The "10-Second" Decision */}
-      <div style={{ marginBottom: 'var(--s8)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="v-stack" style={{ gap: 'var(--s1)' }}>
-          <h1 style={{ fontSize: 28, fontWeight: 900, letterSpacing: '-1px', margin: 0 }}>Growth Assistant</h1>
-          <div className="h-stack" style={{ gap: 'var(--s2)' }}>
-             <span style={{ width: 8, height: 8, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 10px var(--accent)' }} />
-             <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 1.5 }}>Next Action Ready</span>
-          </div>
+      <div style={{ marginBottom: 'var(--s10)' }}>
+        <h1 style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-1.5px', margin: 0, color: 'var(--text)' }}>Growth Assistant</h1>
+        <div className="h-stack" style={{ gap: 'var(--s2)', marginTop: 4 }}>
+           <div style={{ width: 8, height: 8, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 10px var(--accent)' }} />
+           <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 2 }}>Next Action Ready</span>
         </div>
       </div>
 
