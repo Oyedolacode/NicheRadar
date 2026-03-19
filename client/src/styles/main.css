@@ -69,9 +69,18 @@
   border: 1px solid var(--border);
   border-radius: var(--rl);
   overflow: hidden;
-  transition: border-color .2s;
+  transition: all .24s cubic-bezier(.4,0,.2,1);
 }
-.card.hoverable:hover { border-color: var(--accent); }
+.card.hoverable:hover {
+  border-color: var(--accent);
+  background: var(--elevated);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
 
 .ch {
   padding: 11px 16px;
@@ -140,3 +149,12 @@
 /* ── Helpers ── */
 .dn { display: none; }
 @media (max-width: 768px) { .dn-m { display: none; } }
+
+.spin { animation: spin 1s linear infinite; }
+
+/* ── Transitions ── */
+.shm { 
+  background: linear-gradient(90deg, var(--surface) 25%, var(--elevated) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}

@@ -101,17 +101,30 @@ export default function Sidebar() {
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: 8,
-                                    padding: '8px 10px',
+                                    padding: '9px 12px',
                                     borderRadius: 'var(--r)',
                                     cursor: 'pointer',
                                     color: isActive ? 'var(--accent)' : 'var(--muted)',
                                     background: isActive ? 'var(--adim)' : 'transparent',
-                                    border: isActive ? '1px solid rgba(0,229,204,.18)' : '1px solid transparent',
-                                    fontSize: 12.5,
-                                    fontWeight: 500,
+                                    border: isActive ? '1px solid rgba(0,229,204,.25)' : '1px solid transparent',
+                                    boxShadow: isActive ? '0 0 15px rgba(0,229,204,.08)' : 'none',
+                                    fontSize: '12.5px',
+                                    fontWeight: isActive ? 700 : 500,
                                     textDecoration: 'none',
-                                    transition: 'all .15s',
+                                    transition: 'all .24s cubic-bezier(.4,0,.2,1)',
                                 })}
+                                onMouseEnter={e => {
+                                    if (!e.currentTarget.classList.contains('active')) {
+                                        e.currentTarget.style.color = 'var(--text)'
+                                        e.currentTarget.style.background = 'rgba(255,255,255,.03)'
+                                    }
+                                }}
+                                onMouseLeave={e => {
+                                    if (!e.currentTarget.classList.contains('active')) {
+                                        e.currentTarget.style.color = 'var(--muted)'
+                                        e.currentTarget.style.background = 'transparent'
+                                    }
+                                }}
                             >
                                 <span style={{ fontSize: 13, width: 16, textAlign: 'center' }}>{item.icon}</span>
                                 <span style={{ flex: 1 }}>

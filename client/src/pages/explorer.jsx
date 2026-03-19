@@ -93,7 +93,9 @@ export default function Explorer() {
                 <div style={{ display: 'flex', gap: 7, maxWidth: 740 }}>
                     <input className="inp" value={keyword} onChange={e => setKeyword(e.target.value)}
                         onKeyDown={e => e.key === 'Enter' && run()} placeholder="dark history, AI tools, psychology facts…" />
-                    <button className="btn" onClick={() => run()} disabled={busy}>{busy ? '⏳' : '⚡'} Analyze</button>
+                    <button className="btn" onClick={() => run()} disabled={busy}>
+                        {busy ? <span className="spin" style={{ display: 'inline-block' }}>⚡</span> : '⚡'} Analyze
+                    </button>
                     <button className="btn s" onClick={showExpand}>🔀 Expand</button>
                 </div>
             </div>
@@ -128,12 +130,15 @@ export default function Explorer() {
             )}
 
             {!result && !busy && (
-                <div className="empty"><div className="ei">📡</div><h3>Ready to Hunt Niches</h3>
-                    <p>Enter a keyword to fetch live YouTube data and score opportunity.</p></div>
+                <div className="empty fade-in" style={{ animationDelay: '0.1s' }}>
+                    <div className="ei">📡</div>
+                    <h3>Ready to Hunt Niches</h3>
+                    <p>Enter a keyword or click a quick topic below to begin.</p>
+                </div>
             )}
 
             {result && (
-                <>
+                <div className="fade-in">
                     <div className="mg">
                         {[
                             { label: 'Opportunity Score', value: result.opp.toFixed(1), sub: 'v2 formula', cls: 'ca' },
@@ -212,7 +217,7 @@ export default function Explorer() {
                             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                 <thead>
                                     <tr>
-                                        {['Video', 'Views', 'Subs', 'Velocity', 'Eng. Rate', 'Creator Success', 'Chan. Power', 'Score', 'Signal'].map((h, i) => (
+                                        {['Video', 'Views', 'Subs', 'Velocity', 'Eng. Rate', 'Creator Success', 'Chan. Power', 'Score'].map((h, i) => (
                                             <th key={h} onClick={() => setSort(s => ({ col: i, desc: s.col === i ? !s.desc : true }))}
                                                 style={{ padding: '8px 12px', textAlign: 'left', fontFamily: 'var(--fm)', fontSize: 8, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--muted)', borderBottom: '1px solid var(--border)', background: 'var(--elevated)', whiteSpace: 'nowrap', cursor: 'pointer' }}>
                                                 {h}{sort.col === i ? (sort.desc ? ' ↓' : ' ↑') : ''}
@@ -222,26 +227,37 @@ export default function Explorer() {
                                 </thead>
                                 <tbody>
                                     {rows.map(v => {
-                                        const vs = oppScore(v.vel, v.eng, result.trend, result.sat)
-                                        const si2 = scoreInfo(vs)
-                                        const ago = Math.floor((Date.now() - new Date(v.pub)) / 86_400_000)
                                         return (
-                                            <tr key={v.id} onClick={() => window.open(v.url, '_blank')}
-                                                style={{ borderBottom: '1px solid var(--border)', cursor: 'pointer' }}
-                                                onMouseEnter={e => e.currentTarget.style.background = 'var(--elevated)'}
-                                                onMouseLeave={e => e.currentTarget.style.background = ''}>
-                                                <td style={{ padding: '9px 12px' }}>
-                                                    <span style={{ maxWidth: 230, fontWeight: 500, fontSize: 12, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}>{v.title}</span>
-                                                    <span style={{ fontSize: 9.5, color: 'var(--muted)', fontFamily: 'var(--fm)' }}>{v.chan} · {ago}d ago</span>
+                                            <tr key={v.id} style={{ borderBottom: '1px solid var(--border)', transition: 'background .2s' }}>
+                                                <td style={{ padding: '14px 18px' }}>
+                                                    <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                                                        <div style={{ width: 85, height: 48, background: 'var(--elevated)', borderRadius: 5, overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
+                                                            <img src={v.thumb} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
+                                                            <div style={{ position: 'absolute', bottom: 2, right: 2, background: 'rgba(0,0,0,.8)', color: '#fff', fontSize: 8, padding: '1px 3px', borderRadius: 2 }}>{v.dur}</div>
+                                                        </div>
+                                                        <div>
+                                                            <div style={{ fontSize: 13, fontWeight: 700, lineHeight: 1.3, marginBottom: 4, cursor: 'pointer' }} onClick={() => window.open(`https://youtube.com/watch?v=${v.id}`)}>{v.title}</div>
+                                                            <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
+                                                                <span className="tag" onClick={() => window.open(`https://youtube.com/channel/${v.chanId}`)} style={{ cursor: 'pointer' }}>{v.chan.slice(0, 20)}</span>
+                                                                <span style={{ color: 'var(--dim)' }}>•</span>
+                                                                <span className="tag">{v.pub}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
-                                                <td className="tm">{fmt(v.views)}</td>
-                                                <td className="tm">{fmt(v.subs)}</td>
-                                                <td className="tm">{fmt(v.vel)}/hr</td>
-                                                <td className="tm">{fmtP(v.eng)}</td>
-                                                <td className="tm">{v.cs.toFixed(2)}×</td>
-                                                <td className="tm">{v.cp < .1 ? '🔥 Low' : v.cp < 1 ? '✅ Med' : '⚪ High'}</td>
-                                                <td><span className={`sbdg ${bdg(vs)}`}>{vs.toFixed(1)}</span></td>
-                                                <td><span className={`pill ${si2.cls}`}>{si2.label}</span></td>
+                                                <td style={{ padding: '14px 18px', fontFamily: 'var(--fm)', fontSize: 12 }}>{fmt(v.views)}</td>
+                                                <td style={{ padding: '14px 18px', fontFamily: 'var(--fm)', fontSize: 12, color: 'var(--muted)' }}>{fmt(v.subs)}</td>
+                                                <td style={{ padding: '14px 18px', fontFamily: 'var(--fm)', fontSize: 12, color: 'var(--accent)', fontWeight: 700 }}>{fmt(v.vel)}</td>
+                                                <td style={{ padding: '14px 18px', fontFamily: 'var(--fm)', fontSize: 12, color: 'var(--yellow)' }}>{fmtP(v.eng)}</td>
+                                                <td style={{ padding: '14px 18px', fontFamily: 'var(--fm)', fontSize: 12, color: v.cs >= 1 ? 'var(--green)' : 'var(--muted)' }}>{v.cs.toFixed(1)}x</td>
+                                                <td style={{ padding: '14px 18px' }}>{bdg(v.cp)}</td>
+                                                <td style={{ padding: '14px 18px', textAlign: 'right' }}>
+                                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10 }}>
+                                                        <div style={{ fontFamily: 'var(--fm)', fontSize: 14, fontWeight: 800, color: scoreInfo(oppScore(v.vel, v.eng, result.trend, result.sat)).color }}>
+                                                            {oppScore(v.vel, v.eng, result.trend, result.sat).toFixed(1)}
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         )
                                     })}
@@ -249,7 +265,7 @@ export default function Explorer() {
                             </table>
                         </div>
                     </div>
-                </>
+                </div>
             )}
         </div>
     )

@@ -135,12 +135,12 @@ export default function ContentFactory() {
             </div>
 
             {/* Flow steps */}
-            <div style={{ display: 'flex', gap: 0, marginBottom: 20, overflowX: 'auto', paddingBottom: 8 }}>
+            <div className="fade-in" style={{ display: 'flex', gap: 0, marginBottom: 20, overflowX: 'auto', paddingBottom: 8 }}>
                 {STEPS.map((s, i) => (
                     <div key={i} style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', padding: '0 8px' }}>
                         {i > 0 && <div style={{ position: 'absolute', left: -6, top: 14, color: 'var(--dim)', fontSize: 14, fontWeight: 700 }}>→</div>}
                         <div style={{ width: 44, height: 44, borderRadius: '50%', background: i < step ? 'rgba(255,159,67,.1)' : i === step && busy ? 'var(--adim)' : 'var(--elevated)', border: `2px solid ${i < step ? 'var(--orange)' : i === step && busy ? 'var(--accent)' : 'var(--border)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, marginBottom: 6, transition: 'all .4s', boxShadow: i < step ? '0 0 12px rgba(255,159,67,.25)' : i === step && busy ? '0 0 12px var(--aglow)' : 'none', animation: i === step && busy ? 'pulse .8s infinite' : 'none' }}>
-                            {s.split(' ')[0]}
+                            {i < step ? '✅' : s.split(' ')[0]}
                         </div>
                         <div style={{ fontFamily: 'var(--fm)', fontSize: 9, textTransform: 'uppercase', letterSpacing: 1, color: i <= step ? 'var(--text)' : 'var(--muted)', textAlign: 'center', maxWidth: 60 }}>{s.split(' ').slice(1).join(' ')}</div>
                     </div>
@@ -208,15 +208,13 @@ export default function ContentFactory() {
 
                     {/* Ideas */}
                     {tab === 'ideas' && (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(265px,1fr))', gap: 10 }}>
+                        <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(265px,1fr))', gap: 10 }}>
                             {data.ideas.map((idea, i) => {
                                 const clr = TYPE_COLORS[idea.type] || 'var(--accent)'
                                 const isSel = selectedIdea?.title === idea.title
                                 return (
-                                    <div key={i} onClick={() => setSelectedIdea(idea)}
-                                        style={{ background: 'var(--surface)', border: `1px solid ${isSel ? 'var(--orange)' : 'var(--border)'}`, borderRadius: 'var(--rl)', padding: 15, cursor: 'pointer', transition: 'all .2s', position: 'relative', background: isSel ? 'rgba(255,159,67,.04)' : 'var(--surface)' }}
-                                        onMouseEnter={e => { if (!isSel) e.currentTarget.style.borderColor = 'var(--orange)' }}
-                                        onMouseLeave={e => { if (!isSel) e.currentTarget.style.borderColor = 'var(--border)' }}>
+                                    <div key={i} onClick={() => setSelectedIdea(idea)} className="card hoverable"
+                                        style={{ border: `1px solid ${isSel ? 'var(--orange)' : 'var(--border)'}`, padding: 15, cursor: 'pointer', position: 'relative', background: isSel ? 'rgba(255,159,67,.04)' : 'var(--surface)' }}>
                                         {isSel && <div style={{ position: 'absolute', top: 11, right: 11, fontSize: 14 }}>✅</div>}
                                         <div style={{ fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--dim)', marginBottom: 5 }}>IDEA {String(i + 1).padStart(2, '0')} · <span style={{ color: clr }}>{idea.type}</span></div>
                                         <div style={{ fontWeight: 600, fontSize: 13, lineHeight: 1.45, marginBottom: 9 }}>{idea.title}</div>

@@ -87,19 +87,24 @@ export default function VideoAnalyzer() {
                 <input className="inp" value={url} onChange={e => setUrl(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && analyze()}
                     placeholder="https://youtube.com/watch?v=... or paste a video ID" />
-                <button className="btn" onClick={analyze} disabled={busy}>{busy ? '⏳' : '🎬'} Analyze</button>
+                <button className="btn" onClick={analyze} disabled={busy}>
+                    {busy ? <span className="spin" style={{ display: 'inline-block' }}>🎬</span> : '🎬'} Analyze
+                </button>
             </div>
             <div style={{ fontSize: 10.5, color: 'var(--muted)', fontFamily: 'var(--fm)', marginBottom: 24 }}>
                 Works with full URLs, short links (youtu.be), Shorts, and 11-character video IDs
             </div>
 
             {!result && !busy && (
-                <div className="empty"><div className="ei">🎬</div><h3>Video Analyzer Ready</h3>
-                    <p>Paste any YouTube URL to get an instant breakdown of why it worked.</p></div>
+                <div className="empty fade-in" style={{ animationDelay: '0.1s' }}>
+                    <div className="ei">🎬</div>
+                    <h3>Video Analyzer Ready</h3>
+                    <p>Paste any YouTube URL to get an instant breakdown of why it worked.</p>
+                </div>
             )}
 
             {result && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                     {/* Left: video info */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                         <div className="card" style={{ overflow: 'hidden' }}>
