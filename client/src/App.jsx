@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
-import Topbar from './components/Topbar'
+// import Topbar from './components/Topbar'
 import Toast from './components/Toast'
 
 const Dashboard = lazy(() => import('./pages/Dashboard'))
@@ -53,7 +53,7 @@ export default function App() {
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
- 
+
             {/* Home */}
             <Route path="/dashboard" element={<Dashboard />} />
 
