@@ -1,151 +1,132 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useYouTube } from '../hooks/useYouTube'
 import { useAppStore } from '../store/useAppStore'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { scoreInfo, compLevel, trendDir, fmt, fmtP, bdg, viralProbability } from '../lib/formulas'
-
-const PRESET = 'dark history facts\nAI tools for students\npsychology facts\nstoicism explained\nroman empire history\nweird science facts\nminecraft documentaries\npersonal finance basics'
-
-const STAGES = [
-    { i: '🌱', n: 'Seeds', s: 'Awaiting' },
-    { i: '🔀', n: 'Expand', s: '50+ kws' },
-    { i: '🎯', n: 'Discover', s: 'IDs & meta' },
-    { i: '📊', n: 'Stats', s: 'Batched API' },
-    { i: '🧠', n: 'Score', s: 'Opp. calc' },
-]
+import { scoreInfo, fmt, fmtP } from '../lib/formulas'
 
 export default function BatchPipeline() {
     const { fetchAndEnrich } = useYouTube()
     const { toast, setLoading } = useAppStore()
-    const navigate = useNavigate()
     const location = useLocation()
+    const navigate = useNavigate()
 
-    const [seeds, setSeeds] = useState(location.state?.seeds?.join('\n') || '')
-    const [stage, setStage] = useState(-1)
+    const [input, setInput] = useState('')
     const [jobs, setJobs] = useState([])
-    const [results, setResults] = useState([])
     const [busy, setBusy] = useState(false)
+    const [stats, setStats] = useState({ done: 0, total: 0 })
+
+    useEffect(() => {
+        if (location.state?.seeds) {
+            setInput(location.state.seeds.join(', '))
+        }
+    }, [location.state])
 
     async function run() {
-        const list = seeds.split(/[\n,]+/).map(s => s.trim()).filter(Boolean)
-        if (!list.length) { toast('Enter seed keywords', 'e'); return }
-        setBusy(true); setLoading(true); setResults([])
-        setJobs(list.map(kw => ({ kw, status: 'queued', info: '' })))
-        const out = []
-        for (let i = 0; i < list.length; i++) {
-            setStage(Math.min(4, Math.floor(i / list.length * 5)))
-            setJobs(j => j.map((job, idx) => idx === i ? { ...job, status: 'running', info: 'Fetching…' } : job))
-            try {
-                const r = await fetchAndEnrich(list[i])
-                out.push(r)
-                setJobs(j => j.map((job, idx) => idx === i ? { ...job, status: 'done', info: r.enriched.length + ' vids · ' + r.opp.toFixed(1) } : job))
-            } catch (e) {
-                setJobs(j => j.map((job, idx) => idx === i ? { ...job, status: 'error', info: 'Error' } : job))
-            }
-        }
-        setStage(4); setResults(out); setBusy(false); setLoading(false)
-        toast('Pipeline complete — ' + out.length + ' niches', 'ok')
-    }
+        const topics = input.split(',').map(s => s.trim()).filter(Boolean)
+        if (!topics.length) { toast('Enter topics', 'e'); return }
+        
+        setBusy(true)
+        setLoading(true)
+        setStats({ done: 0, total: topics.length })
+        
+        const newJobs = topics.map(t => ({ topic: t, status: 'pending', result: null }))
+        setJobs(newJobs)
 
-    const sorted = [...results].sort((a, b) => b.opp - a.opp)
+        for (let i = 0; i < topics.length; i++) {
+            setJobs(prev => prev.map((j, idx) => idx === i ? { ...j, status: 'loading' } : j))
+            try {
+                const res = await fetchAndEnrich(topics[i])
+                setJobs(prev => prev.map((j, idx) => idx === i ? { ...j, status: 'done', result: res } : j))
+            } catch (e) {
+                setJobs(prev => prev.map((j, idx) => idx === i ? { ...j, status: 'error' } : j))
+            }
+            setStats(prev => ({ ...prev, done: i + 1 }))
+        }
+        
+        setBusy(false)
+        setLoading(false)
+        toast('Batch analysis complete!', 'ok')
+    }
 
     return (
         <div style={{ padding: 22 }}>
-            {/* Pipeline stages */}
-            <div style={{ marginBottom: 14 }}>
-                <div className="slbl">Pipeline Stages</div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-                    {STAGES.map((s, i) => (
-                        <div key={i} style={{ flex: 1, position: 'relative' }}>
-                            {i > 0 && <div style={{ position: 'absolute', left: -8, top: 18, color: 'var(--dim)', fontSize: 18, fontWeight: 700 }}>›</div>}
-                            <div style={{ background: 'var(--surface)', border: `1px solid ${i <= stage ? 'var(--green)' : 'var(--border)'}`, borderRadius: 'var(--rl)', padding: '11px 13px', opacity: i <= stage ? 1 : .6 }}>
-                                <div style={{ fontSize: 17, marginBottom: 3 }}>{s.i}</div>
-                                <div style={{ fontFamily: 'var(--fd)', fontWeight: 700, fontSize: 11, marginBottom: 2 }}>{s.n}</div>
-                                <div style={{ fontSize: 9.5, color: 'var(--muted)', fontFamily: 'var(--fm)', marginBottom: 4 }}>{s.s}</div>
-                                <span style={{ display: 'inline-flex', padding: '1px 6px', borderRadius: 10, fontFamily: 'var(--fm)', fontSize: 8.5, fontWeight: 700, background: i < stage ? 'rgba(0,230,118,.1)' : i === stage && busy ? 'var(--adim)' : 'var(--elevated)', color: i < stage ? 'var(--green)' : i === stage && busy ? 'var(--accent)' : 'var(--dim)' }}>
-                                    {i < stage ? 'DONE' : i === stage && busy ? 'RUNNING' : 'WAIT'}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
+            <div style={{ background: 'linear-gradient(135deg,rgba(0,229,204,.08),rgba(181,122,255,.05))', border: '1px solid rgba(0,229,204,.25)', borderRadius: 'var(--rl)', padding: '22px 26px', marginBottom: 20 }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(0,229,204,.12)', border: '1px solid rgba(0,229,204,.25)', borderRadius: 20, padding: '4px 12px', fontFamily: 'var(--fm)', fontSize: 10, color: 'var(--accent)', marginBottom: 12, fontWeight: 700 }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 6px var(--accent)', animation: 'blink 1.5s infinite', display: 'block' }} />
+                    ⚙️ BATCH PIPELINE
                 </div>
+                <div style={{ fontFamily: 'var(--fd)', fontSize: 20, fontWeight: 700, marginBottom: 6 }}>Bulk Niche Analysis & Enrichment</div>
+                <div style={{ fontSize: 13, color: '#7aadc8', lineHeight: 1.6, maxWidth: 640 }}>Process up to 20 keywords at once. Automates the full enrichment pipeline for high-volume research.</div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 16 }}>
-                <div className="card">
-                    <div className="ch"><div className="ct">Seed Keywords</div><div className="cm">One per line or comma-separated</div></div>
-                    <div style={{ padding: 13 }}>
-                        <textarea className="inp" value={seeds} onChange={e => setSeeds(e.target.value)}
-                            rows={7} style={{ width: '100%', resize: 'vertical', fontFamily: 'var(--fm)', fontSize: 11.5 }}
-                            placeholder="dark history&#10;AI tools for students&#10;psychology facts" />
-                        <div style={{ marginTop: 7, display: 'flex', gap: 7 }}>
-                            <button className="btn" onClick={run} disabled={busy}>{busy ? '⏳ Running…' : '⚙️ Run Pipeline'}</button>
-                            <button className="btn s" onClick={() => setSeeds(PRESET)}>📋 Preset</button>
-                        </div>
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="ch"><div className="ct">Job Queue</div><div className="cm">{busy ? 'Running…' : jobs.length ? 'Complete' : 'Idle'}</div></div>
-                    <div style={{ padding: 13, maxHeight: 270, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 4 }}>
-                        {jobs.length === 0 ? (
-                            <div style={{ textAlign: 'center', padding: 20, color: 'var(--muted)', fontSize: 11.5, fontFamily: 'var(--fm)' }}>No jobs queued</div>
-                        ) : jobs.map((job, i) => (
-                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: 'var(--elevated)', borderRadius: 'var(--r)', border: `1px solid ${job.status === 'running' ? 'var(--accent)' : job.status === 'error' ? 'var(--red)' : 'var(--border)'}`, fontSize: 12 }}>
-                                <span style={{ fontSize: 12, flexShrink: 0, width: 16, textAlign: 'center' }}>
-                                    {job.status === 'queued' ? '⏳' : job.status === 'running' ? '⟳' : job.status === 'done' ? '✓' : '✗'}
-                                </span>
-                                <span style={{ flex: 1, fontWeight: 500 }}>{job.kw}</span>
-                                <span style={{ fontFamily: 'var(--fm)', fontSize: 9.5, color: 'var(--muted)' }}>{job.info}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 18, flexWrap: 'wrap' }}>
+                <input className="inp" value={input} onChange={e => setInput(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && !busy && run()} style={{ maxWidth: 600 }}
+                    placeholder="Enter keywords separated by commas…" />
+                <button className="btn" onClick={run} disabled={busy}>{busy ? '⏳ Processing…' : '🏁 Start Batch'}</button>
+                {busy && <div style={{ alignSelf: 'center', fontFamily: 'var(--fm)', fontSize: 11, color: 'var(--accent)' }}>{stats.done} / {stats.total} Complete</div>}
             </div>
 
-            {sorted.length > 0 && (
-                <>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-                        <div className="slbl" style={{ margin: 0 }}>Results</div>
-                        <button className="btn ai" style={{ fontSize: '10.5px', padding: '5px 11px', marginLeft: 'auto' }}
-                            onClick={() => navigate('/viral-predictor', { state: { results } })}>🤖 AI Predict All</button>
+            {jobs.length === 0 && !busy && (
+                <div className="empty">
+                    <div className="ei">⚙️</div>
+                    <h3>Batch Ready</h3>
+                    <p>Enter multiple keywords to analyze them in parallel. Perfect for vetting niche lists.</p>
+                </div>
+            )}
+
+            {jobs.length > 0 && (
+                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                    <div className="ch">
+                        <div className="ct">Queue Monitor</div>
+                        <div className="cm">{stats.done} of {stats.total} processed</div>
                     </div>
-                    <div className="card">
-                        <div className="ch"><div className="ct">Niche Comparison Dashboard</div><div className="cm">{sorted.length} niches</div></div>
-                        <div style={{ overflowX: 'auto' }}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                <thead>
-                                    <tr>
-                                        {['Niche', 'Trend', 'Competition', 'Avg Views', 'Velocity', 'Engagement', 'Saturation', 'Viral Gap', 'Opportunity ↓'].map(h => (
-                                            <th key={h} style={{ padding: '8px 12px', textAlign: 'left', fontFamily: 'var(--fm)', fontSize: 8, textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--muted)', borderBottom: '1px solid var(--border)', background: 'var(--elevated)', whiteSpace: 'nowrap' }}>{h}</th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {sorted.map(r => {
-                                        const si = scoreInfo(r.opp), td = trendDir(r.trend), cl = compLevel(r.sat)
-                                        const avgV = r.enriched.reduce((a, b) => a + b.views, 0) / Math.max(r.enriched.length, 1)
-                                        return (
-                                            <tr key={r.kw} onClick={() => navigate('/explorer', { state: { keyword: r.kw } })}
-                                                style={{ borderBottom: '1px solid var(--border)', cursor: 'pointer' }}
-                                                onMouseEnter={e => e.currentTarget.style.background = 'var(--elevated)'}
-                                                onMouseLeave={e => e.currentTarget.style.background = ''}>
-                                                <td style={{ padding: '9px 12px', fontWeight: 600, fontSize: 12 }}>{r.kw}</td>
-                                                <td style={{ padding: '9px 12px', fontFamily: 'var(--fm)', fontSize: 11, color: td.dir === 'up' ? 'var(--green)' : td.dir === 'dn' ? 'var(--red)' : 'var(--yellow)' }}>{td.label}</td>
-                                                <td style={{ padding: '9px 12px' }}><span className={`pill ${cl.cls}`}>{cl.label}</span></td>
-                                                <td className="tm">{fmt(avgV)}</td>
-                                                <td className="tm">{fmt(r.avgVel)}/hr</td>
-                                                <td className="tm">{fmtP(r.avgEng)}</td>
-                                                <td className="tm">{r.sat}</td>
-                                                <td className="tm">{r.vg.toFixed(2)}</td>
-                                                <td><span className={`sbdg ${bdg(r.opp)}`}>{r.opp.toFixed(1)}</span> <span className={`pill ${si.cls}`}>{si.label}</span></td>
-                                            </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
+                    <div style={{ overflowX: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead>
+                                <tr style={{ background: 'var(--elevated)', borderBottom: '1px solid var(--border)' }}>
+                                    <th style={{ padding: '12px 18px', textAlign: 'left', fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase' }}>Topic</th>
+                                    <th style={{ padding: '12px 18px', textAlign: 'left', fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase' }}>Status</th>
+                                    <th style={{ padding: '12px 18px', textAlign: 'left', fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase' }}>Score</th>
+                                    <th style={{ padding: '12px 18px', textAlign: 'left', fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase' }}>Viral Gap</th>
+                                    <th style={{ padding: '12px 18px', textAlign: 'left', fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase' }}>Potential</th>
+                                    <th style={{ padding: '12px 18px', textAlign: 'right', fontFamily: 'var(--fm)', fontSize: 9, color: 'var(--muted)', textTransform: 'uppercase' }}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {jobs.map((job, idx) => {
+                                    const res = job.result
+                                    const si = res ? scoreInfo(res.opp) : null
+                                    
+                                    return (
+                                        <tr key={idx} style={{ borderBottom: '1px solid var(--border)', background: job.status === 'loading' ? 'rgba(0,229,204,.03)' : 'transparent' }}>
+                                            <td style={{ padding: '14px 18px', fontSize: 13, fontWeight: 700 }}>{job.topic}</td>
+                                            <td style={{ padding: '14px 18px' }}>
+                                                {job.status === 'pending' && <span style={{ color: 'var(--dim)', fontSize: 11 }}>⏳ Pending</span>}
+                                                {job.status === 'loading' && <span style={{ color: 'var(--accent)', fontSize: 11, fontWeight: 700 }}>⚡ Analyzing…</span>}
+                                                {job.status === 'done' && <span style={{ color: 'var(--green)', fontSize: 11 }}>✅ Done</span>}
+                                                {job.status === 'error' && <span style={{ color: 'var(--red)', fontSize: 11 }}>❌ Error</span>}
+                                            </td>
+                                            <td style={{ padding: '14px 18px', fontFamily: 'var(--fm)', fontWeight: 700, color: si?.color }}>{res ? res.opp.toFixed(1) : '—'}</td>
+                                            <td style={{ padding: '14px 18px', fontFamily: 'var(--fm)', color: 'var(--green)' }}>{res ? res.vg.toFixed(2) : '—'}</td>
+                                            <td style={{ padding: '14px 18px' }}>
+                                                {si && <span className={`pill ${si.cls}`} style={{ fontSize: 9 }}>{si.label}</span>}
+                                            </td>
+                                            <td style={{ padding: '14px 18px', textAlign: 'right' }}>
+                                                {res && (
+                                                    <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
+                                                        <button className="btn s" style={{ fontSize: 9, padding: '4px 8px' }} onClick={() => navigate('/explorer', { state: { result: res } })}>View</button>
+                                                        <button className="btn fac" style={{ fontSize: 9, padding: '4px 8px' }} onClick={() => navigate('/factory', { state: { topic: res.kw } })}>Factory</button>
+                                                    </div>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
                     </div>
-                </>
+                </div>
             )}
         </div>
     )
