@@ -1,0 +1,142 @@
+/* ─────────────────────────────────────────
+   NicheRadar Global Utilities (main.css)
+   Contains core classes for all components.
+   Depends on tokens.css.
+───────────────────────────────────────── */
+
+/* ── Typography & Layout ── */
+.slbl {
+  display: block;
+  font-family: var(--fm);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 11px;
+  font-weight: 700;
+}
+
+/* ── Form Elements ── */
+.inp {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  padding: 10px 14px;
+  font-family: var(--fb);
+  font-size: 12.5px;
+  transition: all .2s;
+  outline: none;
+}
+.inp:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--adim);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  padding: 10px 18px;
+  font-family: var(--fd);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .2s;
+  user-select: none;
+}
+.btn:hover:not(:disabled) {
+  background: var(--hover);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.btn:active:not(:disabled) { transform: translateY(0); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn.fac { background: linear-gradient(135deg, var(--orange), #ff6b1a); color: #000; border: none; }
+.btn.sim { background: linear-gradient(135deg, var(--blue), #2b7fff); color: #fff; border: none; }
+.btn.ai  { background: linear-gradient(135deg, var(--purple), #8e44ad); color: #fff; border: none; }
+.btn.s   { padding: 6px 12px; font-size: 11px; }
+
+/* ── Components ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--rl);
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.card.hoverable:hover { border-color: var(--accent); }
+
+.ch {
+  padding: 11px 16px;
+  background: var(--elevated);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ct { font-family: var(--fd); font-weight: 700; fontSize: 13px; }
+.cm { font-family: var(--fm); fontSize: 10px; color: var(--muted); }
+
+.chip {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .2s;
+}
+.chip:hover { border-color: var(--accent); color: var(--text); }
+
+.pill {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-family: var(--fm);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.pill.v-low   { color: var(--muted); background: var(--adim); }
+.pill.v-mod   { color: var(--accent); background: var(--adim); }
+.pill.v-high  { color: var(--orange); background: rgba(255,159,67,.1); }
+.pill.v-viral { color: var(--hot); background: var(--hdim); }
+
+/* ── Empty State ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--rl);
+  margin-top: 20px;
+}
+.ei { font-size: 40px; margin-bottom: 16px; opacity: 0.5; }
+.empty h3 { color: var(--text); margin-bottom: 8px; font-family: var(--fd); font-weight: 700; }
+.empty p { font-size: 13px; max-width: 320px; line-height: 1.6; }
+
+/* ── Tags ── */
+.tag {
+  font-family: var(--fm);
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.opt { color: var(--accent); font-weight: 700; }
+
+/* ── Helpers ── */
+.dn { display: none; }
+@media (max-width: 768px) { .dn-m { display: none; } }
