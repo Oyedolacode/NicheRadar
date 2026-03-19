@@ -6,12 +6,13 @@ import Toast from './components/Toast'
 
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Explorer = lazy(() => import('./pages/NicheExplorer'))
-const AlgoSimulator = lazy(() => import('./pages/AlgSim'))
+const AlgoSimulator = lazy(() => import('./pages/AlgoSimulatorV1'))
 const TopicMap = lazy(() => import('./pages/TopicMapEngine'))
 const ViralPredictor = lazy(() => import('./pages/ViralAI'))
 const BatchPipeline = lazy(() => import('./pages/Batch'))
-const ViralGaps = lazy(() => import('./pages/Viral'))
-const SmallWins = lazy(() => import('./pages/Wins'))
+const ViralGaps = lazy(() => import('./pages/ViralGapScanner'))
+const SmallWins = lazy(() => import('./pages/SmallWinFinder'))
+
 
 // ── Production ──
 const ContentFactory = lazy(() => import('./pages/Factory'))
@@ -29,7 +30,7 @@ const DoThisNext = lazy(() => import('./pages/NextAction'))
 // ── Discovery ──
 const Trending = lazy(() => import('./pages/Trending'))
 
-const ContentGaps = lazy(() => import('./pages/Gaps'))
+const ContentGaps = lazy(() => import('./pages/ContentGapEngine'))
 
 // ── System ──
 const Cache = lazy(() => import('./pages/Cache'))
