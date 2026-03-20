@@ -66,7 +66,8 @@ export const fmtP = n => (n * 100).toFixed(2) + '%';
 export const esc = s => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 // ── API Core ──
-const PROXY_BASE = import.meta.env.VITE_API_BASE; // e.g. https://server.railway.app
+// In production, we default to the Railway backend URL to avoid 404s if proxying is not set up.
+const PROXY_BASE = import.meta.env.VITE_API_BASE || 'https://niche-radar-server.up.railway.app'
 if (import.meta.env.PROD && !PROXY_BASE) {
   console.warn('[ytUtils] VITE_API_BASE is not set in production. Proxy calls will fail with 404.')
 }

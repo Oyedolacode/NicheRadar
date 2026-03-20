@@ -17,7 +17,8 @@ import {
   trendScore, oppScore, viralGap
 } from '../lib/formulas'
 
-const API_BASE = import.meta.env.VITE_API_BASE || ''
+// In production, we default to the Railway backend URL to avoid 404s if proxying is not set up.
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://niche-radar-server.up.railway.app'
 if (import.meta.env.PROD && !API_BASE) {
   console.warn('VITE_API_BASE is not set in production. API calls may fail with 404 if not proxied.')
 }

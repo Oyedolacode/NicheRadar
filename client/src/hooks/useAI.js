@@ -12,7 +12,8 @@
 
 import { useCallback } from 'react'
 
-const API_BASE = import.meta.env.VITE_API_BASE || ''
+// In production, we default to the Railway backend URL to avoid 404s if proxying is not set up.
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://niche-radar-server.up.railway.app'
 if (import.meta.env.PROD && !API_BASE) {
   console.warn('[useAI] VITE_API_BASE is not set in production. AI calls may fail with 404.')
 }
