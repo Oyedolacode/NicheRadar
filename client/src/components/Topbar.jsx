@@ -35,7 +35,7 @@ export default function Topbar() {
     return (
         <header className="fade-in" style={{
             position: 'sticky',
-            top: '24px',
+            top: '0px',
             left: 'calc(var(--sidebar-w) + var(--s8))',
             right: 'var(--s8)',
             height: 'var(--topbar-h)',
