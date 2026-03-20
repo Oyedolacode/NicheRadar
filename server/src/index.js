@@ -34,10 +34,15 @@ app.use(cors({
   origin: (origin, cb) => {
     const allowed = getAllowedOrigins()
     
-    // 1. Allow if in the ALLOWED_ORIGINS list
+    // 1. Allow if in the ALLOWED_ORIGINS list (from environment variable)
     if (!origin || allowed.includes(origin)) return cb(null, true)
     
-    // 2. Fallback: Allow any Vercel deployment of this app
+    // 2. Explicitly allow your current Vercel frontend URL
+    if (origin === 'https://niche-radar-xd5x.vercel.app') {
+      return cb(null, true)
+    }
+    
+    // 3. Fallback: Allow any other niche-radar subdomains on Vercel
     if (origin.startsWith('https://niche-radar') && origin.endsWith('.vercel.app')) {
       return cb(null, true)
     }
