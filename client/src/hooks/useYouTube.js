@@ -18,6 +18,9 @@ import {
 } from '../lib/formulas'
 
 const API_BASE = import.meta.env.VITE_API_BASE || ''
+if (import.meta.env.PROD && !API_BASE) {
+  console.warn('VITE_API_BASE is not set in production. API calls may fail with 404 if not proxied.')
+}
 
 export function useYouTube() {
   const { addQuota, setApiError } = useAppStore()

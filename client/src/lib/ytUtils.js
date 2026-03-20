@@ -67,6 +67,9 @@ export const esc = s => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').r
 
 // ── API Core ──
 const PROXY_BASE = import.meta.env.VITE_API_BASE; // e.g. https://server.railway.app
+if (import.meta.env.PROD && !PROXY_BASE) {
+  console.warn('[ytUtils] VITE_API_BASE is not set in production. Proxy calls will fail with 404.')
+}
 
 export async function ytGet(ep, params, ck) {
   if (ck) {

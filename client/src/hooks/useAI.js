@@ -13,6 +13,9 @@
 import { useCallback } from 'react'
 
 const API_BASE = import.meta.env.VITE_API_BASE || ''
+if (import.meta.env.PROD && !API_BASE) {
+  console.warn('[useAI] VITE_API_BASE is not set in production. AI calls may fail with 404.')
+}
 
 export function useAI() {
   // ── Raw text generation ───────────────────
