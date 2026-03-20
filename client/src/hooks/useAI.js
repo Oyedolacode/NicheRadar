@@ -32,8 +32,19 @@ export function useAI() {
       })
 
       if (!res.ok) {
-        const err = await res.json().catch(() => ({}))
-        throw new Error(err.error || `AI request failed: ${res.status}`)
+        let errMsg = `AI Error: ${res.status} ${res.statusText}`
+        try {
+          const errData = await res.json()
+          if (errData.error) errMsg = errData.error
+        } catch (e) {
+          if (res.status === 404) errMsg = "AI Endpoint not found (404). Check VITE_API_BASE."
+        }
+        throw new Error(errMsg)
+      }
+
+      const contentType = res.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('AI returned non-JSON response. Check your backend URL/proxy.')
       }
 
       const data = await res.json()

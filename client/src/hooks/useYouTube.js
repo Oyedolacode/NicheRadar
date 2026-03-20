@@ -42,8 +42,27 @@ export function useYouTube() {
 
     try {
       const res = await fetch(url)
-      const data = await res.json()
+      
+      // 1. Check if the response is actually OK (2xx)
+      if (!res.ok) {
+        let errMsg = `API Error: ${res.status} ${res.statusText}`
+        try {
+          const errData = await res.json()
+          if (errData.error) errMsg = errData.error
+        } catch (e) {
+          // If NOT JSON, it's likely an HTML 404/500 page
+          if (res.status === 404) errMsg = "API Endpoint not found (404). Check VITE_API_BASE."
+        }
+        throw new Error(errMsg)
+      }
 
+      // 2. Check Content-Type to avoid "Unexpected token T" errors
+      const contentType = res.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('API returned non-JSON response. Check your backend URL/proxy.')
+      }
+
+      const data = await res.json()
       if (data.error) throw new Error(data.error.message)
       
       const isCacheHit = res.headers.get('X-Cache') === 'HIT'

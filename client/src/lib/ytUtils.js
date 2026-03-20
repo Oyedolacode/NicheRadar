@@ -92,6 +92,23 @@ export async function ytGet(ep, params, ck) {
 
   try {
     const r = await fetch(url);
+    
+    if (!r.ok) {
+      let em = `API Error: ${r.status} ${r.statusText}`;
+      try {
+        const d = await r.json();
+        if (d.error) em = d.error;
+      } catch (e) {
+        if (r.status === 404) em = "API Endpoint not found (404). Check VITE_API_BASE.";
+      }
+      throw new Error(em);
+    }
+
+    const ct = r.headers.get('content-type');
+    if (!ct || !ct.includes('application/json')) {
+      throw new Error('API returned non-JSON response. Check your backend URL/proxy.');
+    }
+
     const d = await r.json();
     if (d.error) throw new Error(d.error);
     if (ck) cSet(ck, d);
