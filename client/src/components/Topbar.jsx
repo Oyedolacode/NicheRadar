@@ -42,7 +42,6 @@ export default function Topbar() {
             background: 'var(--glass)',
             backdropFilter: 'blur(30px)',
             WebkitBackdropFilter: 'blur(30px)',
-            borderRadius: 'var(--r3)',
             border: '1px solid var(--border)',
             display: 'flex',
             alignItems: 'center',
