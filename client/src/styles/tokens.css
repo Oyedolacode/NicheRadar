@@ -1,18 +1,17 @@
 /* ─────────────────────────────────────────
-   NicheRadar v5 Design Tokens
-   Restored from niche-radar (3).html
+   NicheRadar v6 Design Tokens
+   Single source of truth — import once in main.jsx
 ───────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Epilogue:wght@300;400;500;600&display=swap');
 
 :root {
-  /* ── v5 Core Palette ────────────────────── */
   --bg: #04080e;
   --surface: #0a121c;
   --elevated: #101e2e;
   --hover: #162638;
   --border: #1a2e45;
+  --glass: rgba(10, 18, 28, 0.88);
 
-  /* ── Accents & State ────────────────────── */
   --accent: #00e5cc;
   --accent-rgb: 0, 229, 204;
   --accent-grad: linear-gradient(90deg, #00e5cc, #00b8a9);
@@ -21,10 +20,10 @@
   --hot: #ff5c35;
   --hdim: rgba(255, 92, 53, .1);
 
-  /* ── Semantic Colors ────────────────────── */
   --text: #c8e4ff;
   --muted: #4d7d9e;
   --dim: #233a52;
+
   --green: #00e676;
   --yellow: #ffd740;
   --red: #ff4444;
@@ -32,7 +31,15 @@
   --blue: #4d9fff;
   --orange: #ff9f43;
 
-  /* ── Spacing Tokens ─────────────────────── */
+  --fd: 'Syne', sans-serif;
+  --fm: 'JetBrains Mono', monospace;
+  --fb: 'Epilogue', sans-serif;
+
+  --r: 7px;
+  --rl: 12px;
+  --r2: 10px;
+  --r3: 14px;
+
   --s1: 4px;
   --s2: 8px;
   --s3: 10px;
@@ -44,31 +51,20 @@
   --s9: 40px;
   --s10: 48px;
 
-  /* ── Typography (v5 System) ───────────────── */
-  --fd: 'Syne', sans-serif;
-  --fm: 'JetBrains Mono', monospace;
-  --fb: 'Epilogue', sans-serif;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, .2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, .3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, .4);
 
-  /* ── Geometry ─────────────────────────────── */
-  --r: 7px;
-  --r2: 10px;
-  --r3: 14px;
-  --rl: 12px;
-
-  /* ── Layout & Effects ─────────────────────── */
   --sidebar-w: 228px;
-  --topbar-h: 64px;
-  --glass: rgba(10, 18, 28, 0.88);
-  --shadow-md: 0 4px 16px rgba(0,0,0,.3);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,.4);
+  --topbar-h: 56px;
 }
 
-
-/* ── Global Reset & Body Styles ── */
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
@@ -83,7 +79,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ── Animated Grid Background ── */
 body::before {
   content: '';
   position: fixed;
@@ -97,7 +92,6 @@ body::before {
   z-index: 0;
 }
 
-/* ── Global Animations ── */
 @keyframes blink {
 
   0%,
@@ -150,7 +144,18 @@ body::before {
   }
 }
 
-/* ── Scrollbar ── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px)
+  }
+
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
 ::-webkit-scrollbar {
   width: 4px;
 }
