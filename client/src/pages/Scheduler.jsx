@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { useQueueStore } from '../store/useQueueStore'
 
 export default function Scheduler() {
-  const [items, setItems] = useState([])
-  const today = new Date()
-
-  useEffect(() => {
-    const saved = localStorage.getItem('nr6_sched')
-    if (saved) setItems(JSON.parse(saved))
-  }, [])
-
-  const save = (newItems) => {
-    setItems(newItems)
-    localStorage.setItem('nr6_sched', JSON.stringify(newItems))
-  }
   const {
     schedule, scheduleVideo, togglePublished, autoSchedule, clearSchedule
   } = useQueueStore()
+
+  const today = new Date()
+
+  // Helper to get items for a specific date from the store
+  const getItemsForDate = (date) => {
+    const key = date.toISOString().slice(0, 10)
+    return schedule[key] || []
+  }
 
   const days = React.useMemo(() => {
     const dts = []
@@ -32,10 +29,11 @@ export default function Scheduler() {
 
       <div className="sched-grid">
         {days.map((d, i) => {
+          const dKey = d.toISOString().slice(0, 10)
           const isToday = d.toDateString() === today.toDateString()
           const dayName = d.toLocaleDateString('en-US', { weekday: 'short' })
           const dayNum = d.getDate()
-          const dayItems = items.filter(it => it.date === d.toDateString())
+          const dayItems = getItemsForDate(d)
 
           return (
             <div key={i} className={`sched-day ${isToday ? 'active-day' : ''}`}>
@@ -43,7 +41,18 @@ export default function Scheduler() {
               <div className={`sched-day-num ${isToday ? 'today' : ''}`}>{dayNum}</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {dayItems.map((it, idx) => (
-                  <div key={idx} style={{ background: 'var(--accent)', color: 'var(--bg)', fontSize: '8px', padding: '2px 4px', borderRadius: '3px', fontWeight: 700 }}>
+                  <div key={idx} 
+                    onClick={() => togglePublished(dKey, it.id)}
+                    style={{ 
+                      background: it.published ? 'var(--green)' : 'var(--orange)', 
+                      color: 'var(--bg)', 
+                      fontSize: '8px', 
+                      padding: '2px 4px', 
+                      borderRadius: '3px', 
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      opacity: it.published ? 0.7 : 1
+                    }}>
                     {it.title.slice(0, 15)}...
                   </div>
                 ))}
@@ -51,8 +60,7 @@ export default function Scheduler() {
                   onClick={() => {
                     const title = prompt('Video title:')
                     if (!title) return
-                    const newItems = [...items, { date: d.toDateString(), title, platform: 'YouTube', status: 'Pending' }]
-                    save(newItems)
+                    scheduleVideo(dKey, { title })
                   }}
                   style={{ fontSize: 9, color: 'var(--dim)', cursor: 'pointer', textAlign: 'center', padding: '4px', border: '1px dashed var(--border)', borderRadius: 3, marginTop: 4 }}
                 >
@@ -72,20 +80,26 @@ export default function Scheduler() {
               <tr>
                 <th>Date</th>
                 <th>Video Title</th>
-                <th>Platform</th>
+                <th>Time</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              {items.length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', color: 'var(--dim)' }}>No videos scheduled.</td></tr>}
-              {items.map((it, i) => (
-                <tr key={i}>
-                  <td className="tm">{it.date}</td>
-                  <td>{it.title}</td>
-                  <td className="tm">YouTube</td>
-                  <td><span className="pill moderate">Pending</span></td>
-                </tr>
-              ))}
+              {Object.keys(schedule).length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', color: 'var(--dim)' }}>No videos scheduled.</td></tr>}
+              {Object.entries(schedule).map(([date, items]) => 
+                items.map((it, i) => (
+                  <tr key={`${date}-${i}`}>
+                    <td className="tm">{date}</td>
+                    <td>{it.title}</td>
+                    <td className="tm">{it.time}</td>
+                    <td>
+                      <span className={`pill ${it.published ? 'ok' : 'moderate'}`}>
+                        {it.published ? 'Published' : 'Pending'}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

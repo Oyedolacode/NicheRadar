@@ -33,8 +33,16 @@ app.use(express.json())
 app.use(cors({
   origin: (origin, cb) => {
     const allowed = getAllowedOrigins()
-    if (!origin || allowed.includes(origin)) cb(null, true)
-    else cb(new Error(`CORS blocked: ${origin}`))
+    
+    // 1. Allow if in the ALLOWED_ORIGINS list
+    if (!origin || allowed.includes(origin)) return cb(null, true)
+    
+    // 2. Fallback: Allow any Vercel deployment of this app
+    if (origin.startsWith('https://niche-radar') && origin.endsWith('.vercel.app')) {
+      return cb(null, true)
+    }
+
+    cb(new Error(`CORS blocked: ${origin}`))
   },
   methods: ['GET', 'POST', 'DELETE'],
   credentials: true,

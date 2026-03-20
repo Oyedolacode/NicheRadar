@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAppStore } from '../store/useAppStore'
+import { useQueueStore } from '../store/useQueueStore'
 
 const SECTIONS = [
   {
@@ -57,6 +58,8 @@ const SECTIONS = [
 
 export default function Sidebar() {
   const { apiStatus } = useAppStore()
+  const { totalCount } = useQueueStore()
+  const count = typeof totalCount === 'function' ? totalCount() : 0
 
   return (
     <aside className="sidebar">
@@ -82,6 +85,7 @@ export default function Sidebar() {
               >
                 <span className="nico">{item.icon}</span>
                 {item.label}
+                {item.id === 'queue' && count > 0 && <span className="nbg fac">{count}</span>}
                 {item.badge && <span className={`nbg ${item.badgeCls}`}>{item.badge}</span>}
               </NavLink>
             ))}

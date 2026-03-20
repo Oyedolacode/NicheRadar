@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useQueueStore } from '../store/useQueueStore'
 
 const COLS = [
@@ -9,40 +9,24 @@ const COLS = [
   { id: 'scheduled', label: 'Scheduled', emoji: '📅' }
 ]
 
-const { kanban, moveCard, removeCard, clearQueue } = useQueueStore()
-
 export default function Queue() {
-  const [data, setData] = useState({ ideas: [], script: [], recording: [], editing: [], scheduled: [] })
+  const { kanban, moveCard, removeCard, clearQueue } = useQueueStore()
 
-  useEffect(() => {
-    const saved = localStorage.getItem('nr6_kanban')
-    if (saved) setData(JSON.parse(saved))
-  }, [])
-
-  const save = (newData) => {
-    setData(newData)
-    localStorage.setItem('nr6_kanban', JSON.stringify(newData))
-  }
+  // Use the store's data directly
+  const data = kanban
 
   const move = (id, from, to) => {
-    const newData = { ...data }
-    const cardIdx = newData[from].findIndex(c => c.id === id)
-    if (cardIdx === -1) return
-    const [card] = newData[from].splice(cardIdx, 1)
-    newData[to].push(card)
-    save(newData)
+    moveCard(id, from, to)
   }
 
   const remove = (id, col) => {
-    const newData = { ...data }
-    newData[col] = newData[col].filter(c => c.id !== id)
-    save(newData)
+    removeCard(id, col)
   }
 
   return (
     <div className="page fade-in">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 20 }}>
-        <button className="btn s" onClick={() => { if (confirm('Clear all?')) save({ ideas: [], script: [], recording: [], editing: [], scheduled: [] }) }}>🗑️ Clear Board</button>
+        <button className="btn s" onClick={() => { if (confirm('Clear all?')) clearQueue() }}>🗑️ Clear Board</button>
       </div>
 
       <div className="kanban">
