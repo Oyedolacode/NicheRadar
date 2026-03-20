@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 export default function Scheduler() {
   const [items, setItems] = useState([])
   const today = new Date()
-  
+
   useEffect(() => {
     const saved = localStorage.getItem('nr6_sched')
     if (saved) setItems(JSON.parse(saved))
@@ -13,6 +13,9 @@ export default function Scheduler() {
     setItems(newItems)
     localStorage.setItem('nr6_sched', JSON.stringify(newItems))
   }
+  const {
+    schedule, scheduleVideo, togglePublished, autoSchedule, clearSchedule
+  } = useQueueStore()
 
   const days = React.useMemo(() => {
     const dts = []

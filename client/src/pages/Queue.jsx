@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useQueueStore } from '../store/useQueueStore'
 
 const COLS = [
   { id: 'ideas', label: 'Ideas / Backlog', emoji: '💡' },
@@ -7,6 +8,8 @@ const COLS = [
   { id: 'editing', label: 'Editing', emoji: '🎬' },
   { id: 'scheduled', label: 'Scheduled', emoji: '📅' }
 ]
+
+const { kanban, moveCard, removeCard, clearQueue } = useQueueStore()
 
 export default function Queue() {
   const [data, setData] = useState({ ideas: [], script: [], recording: [], editing: [], scheduled: [] })
@@ -39,7 +42,7 @@ export default function Queue() {
   return (
     <div className="page fade-in">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 20 }}>
-        <button className="btn s" onClick={() => { if(confirm('Clear all?')) save({ ideas: [], script: [], recording: [], editing: [], scheduled: [] }) }}>🗑️ Clear Board</button>
+        <button className="btn s" onClick={() => { if (confirm('Clear all?')) save({ ideas: [], script: [], recording: [], editing: [], scheduled: [] }) }}>🗑️ Clear Board</button>
       </div>
 
       <div className="kanban">
@@ -58,8 +61,8 @@ export default function Queue() {
                     <span>{card.created}</span>
                   </div>
                   <div style={{ display: 'flex', gap: '4px', marginTop: '10px' }}>
-                    {COLS.indexOf(col) > 0 && <button className="btn s" style={{ padding: '2px 6px', fontSize: '10px' }} onClick={() => move(card.id, col.id, COLS[COLS.indexOf(col)-1].id)}>←</button>}
-                    {COLS.indexOf(col) < COLS.length - 1 && <button className="btn s" style={{ padding: '2px 6px', fontSize: '10px' }} onClick={() => move(card.id, col.id, COLS[COLS.indexOf(col)+1].id)}>→</button>}
+                    {COLS.indexOf(col) > 0 && <button className="btn s" style={{ padding: '2px 6px', fontSize: '10px' }} onClick={() => move(card.id, col.id, COLS[COLS.indexOf(col) - 1].id)}>←</button>}
+                    {COLS.indexOf(col) < COLS.length - 1 && <button className="btn s" style={{ padding: '2px 6px', fontSize: '10px' }} onClick={() => move(card.id, col.id, COLS[COLS.indexOf(col) + 1].id)}>→</button>}
                     <button className="btn s" style={{ padding: '2px 6px', fontSize: '10px', marginLeft: 'auto', borderColor: 'var(--red)', color: 'var(--red)' }} onClick={() => remove(card.id, col.id)}>×</button>
                   </div>
                 </div>
